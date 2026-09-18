@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<!-- balões de conversa -->
+<path d="M44,60 H120 A14,14 0 0 1 134,74 V104 A14,14 0 0 1 120,118 H78 L56,136 V118 H44 A14,14 0 0 1 30,104 V74 A14,14 0 0 1 44,60 Z" fill="#7a4e93"/>
+<circle cx="60" cy="90" r="5" fill="#ece2f1"/><circle cx="82" cy="90" r="5" fill="#ece2f1"/><circle cx="104" cy="90" r="5" fill="#ece2f1"/>
+<path d="M104,108 H160 A12,12 0 0 1 172,120 V144 A12,12 0 0 1 160,156 H150 V172 L132,156 H104 A12,12 0 0 1 92,144 V120 A12,12 0 0 1 104,108 Z" fill="#d4674a"/>
+<rect x="110" y="126" width="46" height="5" rx="2.5" fill="#fbf7f1"/>
+<rect x="110" y="137" width="30" height="5" rx="2.5" fill="#fbf7f1"/>
+<!-- fone -->
+<path d="M150,40 C160,38 170,44 170,54 L166,62 C160,60 156,58 152,54 L150,40 Z" fill="#4b2a5e"/>
+<path d="M136,50 c-8,24 4,44 24,52" stroke="#4b2a5e" stroke-width="8" fill="none" stroke-linecap="round"/></svg>

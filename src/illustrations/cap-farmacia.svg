@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<rect x="52" y="60" width="64" height="104" rx="12" fill="#7a4e93"/>
+<rect x="60" y="44" width="48" height="22" rx="5" fill="#d4674a"/>
+<rect x="62" y="84" width="44" height="52" rx="6" fill="#fbf7f1"/>
+<rect x="80" y="94" width="8" height="32" rx="2" fill="#7a4e93"/>
+<rect x="68" y="106" width="32" height="8" rx="2" fill="#7a4e93"/>
+<!-- comprimidos -->
+<g transform="rotate(-30 146 132)"><rect x="126" y="122" width="40" height="18" rx="9" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/><path d="M146,122 h11 a9,9 0 0 1 0,18 h-11 Z" fill="#d9a441"/></g>
+<circle cx="150" cy="70" r="12" fill="#b592c7"/>
+<line x1="142" y1="70" x2="158" y2="70" stroke="#f5f0f8" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="168" cy="96" r="8" fill="#d4674a"/></svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<circle cx="132" cy="62" r="26" fill="#d9a441"/>
+<g stroke="#d9a441" stroke-width="5" stroke-linecap="round">
+  <line x1="132" y1="20" x2="132" y2="28"/><line x1="162" y1="32" x2="156" y2="38"/>
+  <line x1="174" y1="62" x2="166" y2="62"/><line x1="162" y1="92" x2="156" y2="86"/>
+  <line x1="102" y1="32" x2="108" y2="38"/><line x1="90" y1="62" x2="98" y2="62"/>
+</g>
+<!-- guarda-sol -->
+<path d="M18,110 A58,58 0 0 1 134,110 Z" fill="#7a4e93"/>
+<path d="M18,110 A58,58 0 0 1 76,52 V110 Z" fill="#4b2a5e"/>
+<path d="M18,110 C26,104 34,104 42,110 C50,104 58,104 66,110 C74,104 82,104 90,110 C98,104 106,104 114,110 C122,104 130,104 134,110" fill="#f5f0f8"/>
+<path d="M76,52 V166" stroke="#2b1b33" stroke-width="4" stroke-linecap="round"/>
+<path d="M76,166 C76,176 92,176 92,166" stroke="#2b1b33" stroke-width="4" fill="none" stroke-linecap="round"/>
+<!-- protetor solar -->
+<rect x="140" y="118" width="24" height="48" rx="6" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/>
+<rect x="146" y="110" width="12" height="10" rx="2" fill="#4b2a5e"/>
+<rect x="145" y="134" width="14" height="14" rx="2" fill="#d4674a"/></svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<!-- casa -->
+<path d="M30,116 L54,94 L78,116 V146 H30 Z" fill="#d9c7e3"/>
+<path d="M26,118 L54,90 L82,118" stroke="#d4674a" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="48" y="126" width="12" height="20" rx="2" fill="#4b2a5e"/>
+<!-- caminho -->
+<path d="M80,140 C100,140 104,120 120,120 C136,120 136,100 152,96" stroke="#7a4e93" stroke-width="3" stroke-dasharray="1 7" stroke-linecap="round" fill="none"/>
+<!-- pino de mapa com UBS -->
+<path d="M150,32 C124,32 108,52 108,74 C108,104 150,136 150,136 C150,136 192,104 192,74 C192,52 176,32 150,32 Z" fill="#7a4e93"/>
+<circle cx="150" cy="72" r="24" fill="#fbf7f1"/>
+<rect x="144" y="58" width="12" height="28" rx="2" fill="#d4674a"/>
+<rect x="136" y="66" width="28" height="12" rx="2" fill="#d4674a"/></svg>

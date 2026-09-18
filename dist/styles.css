@@ -1,0 +1,653 @@
+/* =====================================================================
+   Manual para o paciente com lúpus — sistema visual
+   Fonte de display: Fraunces (serif, ótica editorial)
+   Fonte de texto:   Inter (sans, legibilidade em corpo pequeno)
+   ===================================================================== */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("fonts/fraunces-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("fonts/fraunces-latin-wght-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/inter-latin-wght-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* paleta */
+  --plum-950: #1f1426;
+  --plum-900: #2b1b33;
+  --plum-700: #4b2a5e;
+  --plum-500: #7a4e93;
+  --plum-300: #b592c7;
+  --lilac-200: #d9c7e3;
+  --lilac-100: #ece2f1;
+  --lilac-050: #f5f0f8;
+  --cream: #fbf7f1;
+  --sand: #efe6d8;
+  --ink: #241a2a;
+  --ink-soft: #5b4f63;
+  --terracotta: #d4674a;
+  --terracotta-050: #fbeee9;
+  --gold: #d9a441;
+  --gold-050: #fbf3e2;
+  --sage: #4f8f7f;
+  --sage-050: #e9f3ef;
+  --white: #ffffff;
+
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --measure: 132mm;
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 11pt; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--white);
+  font-feature-settings: "kern", "liga", "calt";
+  -webkit-font-smoothing: antialiased;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* ---------- tipografia ---------- */
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  color: var(--plum-900);
+  line-height: 1.15;
+  margin: 0;
+  hyphens: none;
+  font-variation-settings: "opsz" 72, "SOFT" 30;
+}
+
+h2 {
+  font-size: 1.9rem;
+  margin: 1.8rem 0 0.7rem;
+  break-after: avoid;
+  page-break-after: avoid;
+  letter-spacing: -0.005em;
+}
+h2 .num {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--plum-500);
+  margin-bottom: 0.45rem;
+}
+h3 {
+  font-size: 1.25rem;
+  margin: 1.35rem 0 0.4rem;
+  break-after: avoid;
+  page-break-after: avoid;
+  font-weight: 500;
+}
+h4 {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--plum-700);
+  margin: 1rem 0 0.25rem;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+p {
+  margin: 0 0 0.75rem;
+  max-width: var(--measure);
+  orphans: 3;
+  widows: 3;
+}
+p.lead {
+  font-family: var(--serif);
+  font-size: 1.28rem;
+  line-height: 1.4;
+  color: var(--plum-900);
+  font-weight: 400;
+  font-variation-settings: "opsz" 24, "SOFT" 50;
+  max-width: 140mm;
+}
+strong { font-weight: 700; color: var(--plum-900); }
+em { font-style: italic; }
+a { color: var(--plum-500); text-decoration: none; }
+
+ul, ol {
+  margin: 0.2rem 0 0.9rem;
+  padding-left: 1.35rem;
+  max-width: var(--measure);
+}
+li { margin: 0 0 0.3rem; padding-left: 0.15rem; }
+li::marker { color: var(--plum-500); font-weight: 700; }
+ul { list-style: none; padding-left: 1.2rem; }
+ul > li { position: relative; }
+ul > li::before {
+  content: "";
+  position: absolute;
+  left: -1.05rem;
+  top: 0.62em;
+  width: 0.42em;
+  height: 0.42em;
+  border-radius: 50%;
+  background: var(--plum-500);
+}
+ol > li::marker { font-family: var(--serif); font-weight: 700; }
+
+/* lista de "o que levar" com ícones (checklist) */
+ul.check { padding-left: 1.65rem; }
+ul.check > li::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  border-radius: 0.25em;
+  left: -1.65rem;
+  top: 0.32em;
+  background: var(--lilac-100);
+  border: 1.5px solid var(--plum-300);
+}
+
+hr.sep {
+  border: 0;
+  height: 1px;
+  background: var(--lilac-200);
+  margin: 1.5rem 0;
+  max-width: var(--measure);
+}
+
+/* ---------- capítulo: abertura ---------- */
+.chapter {
+  break-before: page;
+  page-break-before: always;
+}
+.chapter-opener {
+  break-after: page;
+  page-break-after: always;
+  position: relative;
+  min-height: 240mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.chapter-opener .kicker {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--plum-500);
+  margin-bottom: 1rem;
+}
+.chapter-opener .big-num {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 9rem;
+  line-height: 0.85;
+  color: var(--lilac-200);
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.5rem;
+}
+.chapter-opener h1 {
+  font-size: 3.2rem;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  max-width: 150mm;
+  color: var(--plum-900);
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+}
+.chapter-opener .intro {
+  font-family: var(--serif);
+  font-size: 1.32rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+  max-width: 135mm;
+  margin-top: 1.2rem;
+  font-variation-settings: "opsz" 24, "SOFT" 50;
+}
+.chapter-opener .art {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 92mm;
+  height: 92mm;
+}
+.chapter-opener .art svg { width: 100%; height: 100%; }
+
+/* ---------- caixas ---------- */
+.box {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  border-radius: 10px;
+  padding: 1rem 1.15rem 0.85rem 1.15rem;
+  margin: 1.1rem 0 1.2rem;
+  max-width: 150mm;
+  background: var(--lilac-050);
+  border-left: 5px solid var(--plum-500);
+}
+.box > :last-child { margin-bottom: 0; }
+.box .label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--plum-700);
+  margin-bottom: 0.45rem;
+}
+.box .label svg { width: 1.05rem; height: 1.05rem; flex: none; }
+.box p, .box ul, .box ol { max-width: none; }
+.box p { margin-bottom: 0.5rem; }
+
+.box.important { background: var(--terracotta-050); border-left-color: var(--terracotta); }
+.box.important .label { color: #a6432a; }
+.box.tip { background: var(--gold-050); border-left-color: var(--gold); }
+.box.tip .label { color: #8a6314; }
+.box.remember { background: var(--lilac-050); border-left-color: var(--plum-500); }
+.box.quote {
+  background: transparent;
+  border: 0;
+  border-left: 5px solid var(--lilac-200);
+  padding: 0.2rem 0 0.2rem 1.15rem;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.4;
+  color: var(--plum-900);
+  font-variation-settings: "opsz" 24, "SOFT" 50;
+}
+
+/* ---------- destaque com ícone (spot) ---------- */
+.spot {
+  display: grid;
+  grid-template-columns: 22mm 1fr;
+  gap: 5mm;
+  align-items: start;
+  margin: 1.2rem 0;
+  max-width: 155mm;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.spot .icon { width: 22mm; height: 22mm; }
+.spot .icon svg { width: 100%; height: 100%; }
+.spot h3, .spot h4 { margin-top: 0.1rem; }
+.spot p:last-child { margin-bottom: 0; }
+
+/* ---------- tabela ---------- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 160mm;
+  margin: 0.8rem 0 1.2rem;
+  font-size: 0.92rem;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--lilac-200);
+}
+th {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--plum-700);
+  background: var(--lilac-050);
+  border-bottom: 2px solid var(--plum-300);
+}
+td:first-child { font-weight: 700; color: var(--plum-900); white-space: nowrap; }
+
+/* ---------- contato / cartão ---------- */
+.card {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  border: 1.5px solid var(--lilac-200);
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  margin: 1rem 0 1.2rem;
+  max-width: 155mm;
+  background: var(--white);
+}
+.card h4 { margin-top: 0; }
+.card dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 0.3rem 0.9rem; }
+.card dt { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--plum-500); font-weight: 700; padding-top: 0.15rem; }
+.card dd { margin: 0; }
+
+/* ---------- cabeçalho de organização (logo + apresentação) ---------- */
+.org-header {
+  display: grid;
+  grid-template-columns: 38mm 1fr;
+  gap: 7mm;
+  align-items: center;
+  margin: 0 0 1rem;
+  max-width: 160mm;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.org-header .org-logo {
+  width: 38mm; height: 38mm;
+  border-radius: 14px;
+  background: var(--lilac-050);
+  display: flex; align-items: center; justify-content: center;
+  padding: 4mm;
+}
+.org-header .org-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.org-header .lead { margin: 0; }
+.logo-placeholder {
+  font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--plum-300);
+  text-align: center; border: 1px dashed var(--plum-300); border-radius: 8px; padding: 0.5rem; width: 100%;
+}
+
+/* ---------- QR ---------- */
+.qr {
+  display: grid;
+  grid-template-columns: 34mm 1fr;
+  gap: 6mm;
+  align-items: center;
+  max-width: 150mm;
+  margin: 1rem 0 1.3rem;
+  padding: 1rem;
+  border-radius: 12px;
+  background: var(--cream);
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.qr .code { width: 34mm; height: 34mm; background: white; border-radius: 6px; padding: 2mm; color: var(--plum-950); }
+.qr .code svg { width: 100%; height: 100%; display: block; }
+.qr h4 { margin: 0 0 0.25rem; }
+.qr p { margin: 0 0 0.3rem; max-width: none; }
+.qr .url { font-size: 0.8rem; color: var(--plum-500); word-break: break-all; }
+
+/* ---------- fluxo (caminho) ---------- */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+  margin: 0.8rem 0 1.2rem;
+  max-width: 160mm;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.flow .step {
+  background: var(--lilac-100);
+  color: var(--plum-900);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.flow .arrow { color: var(--plum-300); font-weight: 700; }
+
+/* ---------- capa e páginas especiais ---------- */
+.cover {
+  page: cover;
+  break-after: page;
+  page-break-after: always;
+  position: relative;
+  height: 297mm;
+  width: 210mm;
+  margin: -20mm -18mm 0 -22mm; /* compensa margens da página */
+  background: var(--plum-900);
+  color: var(--white);
+  overflow: hidden;
+}
+.cover .art { position: absolute; inset: 0; }
+.cover .art svg { width: 100%; height: 100%; display: block; }
+.cover .text { position: absolute; left: 22mm; right: 20mm; top: 34mm; }
+.cover .kicker {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--lilac-200);
+  margin-bottom: 1.4rem;
+}
+.cover h1 {
+  color: var(--white);
+  font-size: 4.6rem;
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  max-width: 150mm;
+}
+.cover h1 em { font-style: italic; font-weight: 300; color: var(--lilac-200); }
+.cover .sub {
+  margin-top: 1.4rem;
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  color: var(--lilac-200);
+  max-width: 120mm;
+  line-height: 1.35;
+  font-variation-settings: "opsz" 24, "SOFT" 50;
+}
+.cover .meta { position: static; }
+.cover .author {
+  position: absolute; left: 22mm; bottom: 28mm; right: 20mm;
+  font-size: 0.9rem; color: var(--lilac-200); line-height: 1.5;
+}
+.cover .author strong { color: var(--white); font-weight: 600; display: block; font-size: 1.05rem; }
+.cover .edition { position: absolute; right: 20mm; bottom: 28mm; text-align: right; font-size: 0.8rem; color: var(--plum-300); letter-spacing: 0.12em; text-transform: uppercase; }
+
+.front-matter { break-after: page; page-break-after: always; }
+.front-matter.title-page { min-height: 240mm; display: flex; flex-direction: column; justify-content: center; }
+.title-page h1 { font-size: 2.6rem; font-weight: 500; line-height: 1.1; max-width: 140mm; }
+.title-page .sub { font-family: var(--serif); font-size: 1.2rem; color: var(--ink-soft); margin-top: 1rem; }
+.title-page .author { margin-top: 3rem; font-size: 0.95rem; }
+.title-page .author strong { display: block; font-size: 1.1rem; }
+
+.imprint { font-size: 0.86rem; color: var(--ink-soft); min-height: 240mm; display: flex; flex-direction: column; justify-content: flex-end; }
+.imprint h4 { margin-top: 1.2rem; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; }
+.imprint p { margin-bottom: 0.3rem; max-width: 130mm; }
+.imprint .catalog {
+  border: 1px solid var(--lilac-200);
+  padding: 0.9rem 1rem;
+  max-width: 125mm;
+  font-family: "Inter", monospace;
+  font-size: 0.8rem;
+  margin: 1rem 0 1.5rem;
+  color: var(--ink);
+}
+.imprint .logos { display: flex; gap: 12mm; align-items: center; margin: 1rem 0; }
+.imprint .logos img { height: 14mm; width: auto; }
+
+/* sumário */
+.toc { break-after: page; page-break-after: always; }
+.toc h1 { font-size: 2.6rem; font-weight: 500; margin-bottom: 1.6rem; }
+.toc ol { list-style: none; padding: 0; margin: 0; max-width: 150mm; }
+.toc li { margin: 0; }
+.toc li.l1 { margin-top: 1.05rem; }
+.toc li.l1 > a {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr 2.2rem;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--plum-900);
+  font-weight: 500;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid var(--lilac-200);
+}
+.toc li.l1 > a .n { font-family: var(--sans); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; color: var(--plum-500); }
+.toc li.l2 > a {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr 2.2rem;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  padding: 0.16rem 0;
+}
+.toc a::after { content: target-counter(attr(href url), page); font-family: var(--sans); font-size: 0.85rem; color: var(--plum-500); font-variant-numeric: tabular-nums; text-align: right; }
+
+/* prefácio */
+.preface .signature { margin-top: 2rem; font-family: var(--serif); font-size: 1.05rem; }
+.preface .signature strong { display: block; font-size: 1.2rem; font-weight: 500; color: var(--plum-900); }
+
+/* contracapa */
+.back-cover {
+  page: cover;
+  break-before: page;
+  page-break-before: always;
+  height: 297mm; width: 210mm;
+  margin: -20mm -18mm 0 -22mm;
+  background: var(--plum-900);
+  color: var(--lilac-200);
+  position: relative;
+}
+.back-cover .inner { position: absolute; left: 22mm; right: 22mm; bottom: 26mm; }
+.back-cover .quote { font-family: var(--serif); font-size: 1.7rem; line-height: 1.3; color: var(--white); max-width: 150mm; font-variation-settings: "opsz" 72, "SOFT" 80; margin-bottom: 2.5rem; }
+.back-cover .support-label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--plum-300); margin-bottom: 0.8rem; }
+.back-cover .logos { display: flex; gap: 14mm; align-items: center; }
+.back-cover .logos .logo { height: 16mm; display: flex; align-items: center; }
+.back-cover .logos img { height: 100%; width: auto; }
+.back-cover .logos .placeholder { border: 1px dashed var(--plum-300); border-radius: 6px; padding: 0 6mm; font-size: 0.75rem; color: var(--plum-300); height: 16mm; display: flex; align-items: center; }
+
+/* =====================================================================
+   IMPRESSÃO — A4, Paged.js
+   ===================================================================== */
+@page {
+  size: A4;
+  margin: 20mm 18mm 22mm 22mm;
+
+  @bottom-left {
+    content: string(chapter-title);
+    font-family: "Inter", sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7a4e93;
+    vertical-align: top;
+    padding-top: 6mm;
+  }
+  @bottom-right {
+    content: counter(page);
+    font-family: "Fraunces", serif;
+    font-size: 10pt;
+    color: #4b2a5e;
+    vertical-align: top;
+    padding-top: 5.5mm;
+  }
+}
+@page cover {
+  margin: 0;
+  @bottom-left { content: none; }
+  @bottom-right { content: none; }
+}
+@page :blank {
+  @bottom-left { content: none; }
+  @bottom-right { content: none; }
+}
+@page front {
+  @bottom-left { content: none; }
+  @bottom-right { content: counter(page, lower-roman); }
+}
+
+.chapter h1 { string-set: chapter-title content(text); }
+.front-matter, .toc { page: front; }
+.cover, .back-cover { page: cover; }
+.cover { margin: 0; }
+.back-cover { margin: 0; }
+
+/* =====================================================================
+   WEB — leitura em tela
+   ===================================================================== */
+@media screen {
+  body.web { background: var(--cream); }
+  body.web .page-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+  body.web .cover, body.web .back-cover {
+    margin: 0 0 40px;
+    height: auto;
+    width: auto;
+    min-height: 760px;
+    border-radius: 0 0 24px 24px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  body.web .cover .art { inset: 0; top: 140px; }
+  body.web .cover .text { position: relative; left: 0; top: 0; padding: 56px 32px 0; max-width: 520px; }
+  body.web .cover .meta {
+    position: relative; margin-top: 260px;
+    padding: 56px 32px 36px;
+    background: linear-gradient(to bottom, rgba(43,27,51,0) 0%, rgba(43,27,51,.85) 45%, rgba(43,27,51,.95) 100%);
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;
+  }
+  body.web .cover .author, body.web .cover .edition { position: static; }
+  body.web .cover .edition { text-align: right; }
+  body.web .back-cover { border-radius: 24px; min-height: 380px; margin-top: 60px; }
+  body.web .back-cover .inner { position: relative; left: 0; right: 0; bottom: 0; padding: 48px 32px; }
+  body.web .chapter-opener { min-height: 0; padding-top: 48px; }
+  body.web .chapter-opener .art { position: relative; width: 220px; height: 220px; margin-bottom: 24px; }
+  body.web .front-matter, body.web .toc { padding-top: 32px; }
+  body.web .front-matter.title-page, body.web .imprint { min-height: 0; }
+  body.web .toc a::after { display: none; }
+  body.web .toc a:hover { color: var(--plum-500); }
+  body.web section.chapter { padding-top: 24px; }
+  body.web nav.webnav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(251,247,241,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--lilac-200);
+    padding: 10px 24px;
+    font-size: 0.85rem;
+    display: flex; gap: 18px; align-items: center; justify-content: space-between;
+  }
+  body.web nav.webnav a { color: var(--plum-700); font-weight: 600; }
+  body.web nav.webnav .dl { background: var(--plum-700); color: white; padding: 6px 14px; border-radius: 999px; }
+  body.web p, body.web ul, body.web ol { max-width: 68ch; }
+  body.web .box, body.web .card, body.web .qr, body.web table, body.web .spot, body.web .flow { max-width: none; }
+}
+@media screen and (max-width: 640px) {
+  html { font-size: 16px; }
+  body.web .cover h1 { font-size: 2.6rem; }
+  body.web .cover { min-height: 640px; }
+  body.web .cover .meta { margin-top: 160px; }
+  body.web .cover .edition { text-align: left; }
+  body.web .chapter-opener h1 { font-size: 2.2rem; }
+  body.web .chapter-opener .big-num { font-size: 5rem; }
+  body.web h2 { font-size: 1.5rem; }
+  body.web .spot { grid-template-columns: 56px 1fr; gap: 12px; }
+  body.web .spot .icon { width: 56px; height: 56px; }
+  body.web .qr { grid-template-columns: 1fr; }
+  body.web table { display: block; overflow-x: auto; }
+  body.web td:first-child { white-space: normal; }
+}
