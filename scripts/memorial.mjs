@@ -133,7 +133,7 @@ const html = `<!DOCTYPE html>
   .gal .it svg { width: 100%; height: auto; display: block; }
   .gal .it h4 { margin: .5rem 0 .15rem; font-size: .92rem; }
   .gal .it p { font-size: .76rem; color: var(--ink-soft); line-height: 1.32; margin: 0; }
-  .gal.icons .im { padding: 5mm; color: var(--plum-700); }
+  .gal.icons .im { padding: 4mm; color: var(--plum-700); max-width: 22mm; }
   .comp { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin: .8rem 0; }
   .comp > div { break-inside: avoid; }
   .comp .box, .comp .card, .comp .qr, .comp .spot { margin: 0 0 .6rem; max-width: none; }
@@ -267,12 +267,10 @@ const html = `<!DOCTYPE html>
     <li><strong>Fluxos em pílulas</strong> (residência → UBS → regulação → consulta) para o caminho do SUS caber numa linha.</li>
     <li><strong>Tabela</strong> só onde a informação é realmente tabular: as três unidades da Farmácia de Alto Custo.</li>
   </ul>
-  <div class="keep">
-    <h2>Ícones de rótulo</h2>
-    <p>Traço fino, em linha, para os rótulos das caixas e do bloco de Instagram. Herdam a cor do rótulo em que estão.</p>
-    <div class="gal five icons">
-      ${icons.map(([n, t]) => `<div class="it"><div class="im">${svg(n)}</div><h4>${t}</h4></div>`).join("")}
-    </div>
+  <h2>Ícones de rótulo</h2>
+  <p>Traço fino, em linha, para os rótulos das caixas e do bloco de Instagram. Herdam a cor do rótulo em que estão.</p>
+  <div class="gal five icons" style="margin-top:.4rem">
+    ${icons.map(([n, t]) => `<div class="it"><div class="im">${svg(n)}</div><h4>${t}</h4></div>`).join("")}
   </div>
 </section>
 
