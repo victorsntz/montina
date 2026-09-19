@@ -19,6 +19,12 @@
   font-display: swap;
 }
 @font-face {
+  font-family: "STIX Two Text";
+  src: url("fonts/stix-two-text-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
   font-family: "Inter";
   src: url("fonts/inter-latin-wght-normal.woff2") format("woff2");
   font-weight: 100 900;
@@ -330,6 +336,7 @@ th {
   border-bottom: 2px solid var(--plum-300);
 }
 td:first-child { font-weight: 700; color: var(--plum-900); white-space: nowrap; }
+td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 
 /* ---------- contato / cartão ---------- */
 .card {
@@ -476,23 +483,31 @@ td:first-child { font-weight: 700; color: var(--plum-900); white-space: nowrap; 
 .imprint h4 { margin-top: 1.2rem; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; }
 .imprint p { margin-bottom: 0.3rem; max-width: 130mm; }
 .imprint .catalog {
-  border: 1px solid var(--lilac-200);
-  padding: 0.9rem 1rem;
-  max-width: 125mm;
-  font-family: "Inter", monospace;
-  font-size: 0.8rem;
+  border: 1px solid var(--plum-300);
+  padding: 0.8rem 1rem 0.7rem;
+  max-width: 128mm;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.45;
   margin: 1rem 0 1.5rem;
   color: var(--ink);
 }
-.imprint .logos { display: flex; gap: 12mm; align-items: center; margin: 1rem 0; }
-.imprint .logos img { height: 14mm; width: auto; }
+.imprint .catalog-title { text-align: center; font-weight: 600; margin-bottom: 0.7rem; }
+.imprint .catalog-body { display: grid; grid-template-columns: 14mm 1fr; gap: 3mm; }
+.imprint .catalog .cutter { font-weight: 600; }
+.imprint .catalog-foot { display: flex; justify-content: space-between; margin-top: 0.7rem; padding-top: 0.5rem; border-top: 1px solid var(--lilac-200); }
+.imprint .logos { display: flex; gap: 12mm; align-items: center; margin: 1rem 0 1.4rem; }
+.imprint .logos .logo { height: 12mm; display: flex; align-items: center; }
+.imprint .logos .logo svg { height: 100%; width: auto; }
+.imprint .logos .logo img { height: 22mm; width: auto; }
 
 /* sumário */
 .toc { break-after: page; page-break-after: always; }
 .toc h1 { font-size: 2.6rem; font-weight: 500; margin-bottom: 1.6rem; }
 .toc ol { list-style: none; padding: 0; margin: 0; max-width: 150mm; }
 .toc li { margin: 0; }
-.toc li.l1 { margin-top: 1.05rem; }
+.toc li.l1 { margin-top: 0.8rem; }
+.toc li.l1.front > a { font-size: 1.05rem; color: var(--ink-soft); }
 .toc li.l1 > a {
   display: grid;
   grid-template-columns: 2.4rem 1fr 2.2rem;
@@ -510,14 +525,24 @@ td:first-child { font-weight: 700; color: var(--plum-900); white-space: nowrap; 
   display: grid;
   grid-template-columns: 2.4rem 1fr 2.2rem;
   gap: 0.6rem;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   color: var(--ink-soft);
-  padding: 0.16rem 0;
+  padding: 0.08rem 0;
 }
 .toc a::after { content: target-counter(attr(href url), page); font-family: var(--sans); font-size: 0.85rem; color: var(--plum-500); font-variant-numeric: tabular-nums; text-align: right; }
 
 /* prefácio */
-.preface .signature { margin-top: 2rem; font-family: var(--serif); font-size: 1.05rem; }
+/* prefácio em uma página só, com retrato pequeno */
+.preface { font-size: 0.93rem; line-height: 1.48; }
+.preface p { max-width: none; margin-bottom: 0.6rem; }
+.preface p.lead { font-size: 1.12rem; line-height: 1.35; margin-bottom: 0.7rem; }
+.preface .box.quote { font-size: 1.02rem; margin: 0.7rem 0 0.8rem; padding-top: 0.1rem; padding-bottom: 0.1rem; }
+.preface-head { display: grid; grid-template-columns: 1fr 34mm; gap: 8mm; align-items: end; margin-bottom: 1.1rem; }
+.preface-head h1 { font-size: 2.15rem; font-weight: 500; line-height: 1.08; }
+.portrait { width: 34mm; height: 34mm; border-radius: 50%; overflow: hidden; background: var(--lilac-100); border: 4px solid var(--lilac-050); box-shadow: 0 0 0 1.5px var(--lilac-200); }
+.portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
+.photo-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--plum-300); }
+.preface .signature { margin-top: 1.1rem; font-family: var(--serif); font-size: 1rem; }
 .preface .signature strong { display: block; font-size: 1.2rem; font-weight: 500; color: var(--plum-900); }
 
 /* contracapa */
@@ -535,8 +560,10 @@ td:first-child { font-weight: 700; color: var(--plum-900); white-space: nowrap; 
 .back-cover .quote { font-family: var(--serif); font-size: 1.7rem; line-height: 1.3; color: var(--white); max-width: 150mm; font-variation-settings: "opsz" 72, "SOFT" 80; margin-bottom: 2.5rem; }
 .back-cover .support-label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--plum-300); margin-bottom: 0.8rem; }
 .back-cover .logos { display: flex; gap: 14mm; align-items: center; }
-.back-cover .logos .logo { height: 16mm; display: flex; align-items: center; }
-.back-cover .logos img { height: 100%; width: auto; }
+.back-cover .logos { align-items: center; gap: 18mm; }
+.back-cover .logos .logo { height: 14mm; display: flex; align-items: center; }
+.back-cover .logos .logo svg { height: 100%; width: auto; }
+.back-cover .logos .logo img { height: 26mm; width: auto; background: var(--white); border-radius: 8px; padding: 3mm 4mm; }
 .back-cover .logos .placeholder { border: 1px dashed var(--plum-300); border-radius: 6px; padding: 0 6mm; font-size: 0.75rem; color: var(--plum-300); height: 16mm; display: flex; align-items: center; }
 
 /* =====================================================================

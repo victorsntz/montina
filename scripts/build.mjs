@@ -17,6 +17,7 @@ const fonts = {
   "inter-latin-wght-italic.woff2": "node_modules/@fontsource-variable/inter/files/inter-latin-wght-italic.woff2",
 };
 for (const [name, src] of Object.entries(fonts)) copyFileSync(join(root, src), join(dist, "fonts", name));
+copyFileSync(join(root, "src/fonts/stix-two-text-600.woff2"), join(dist, "fonts", "stix-two-text-600.woff2"));
 
 // ---- assets (logos, qr) ----
 function copyDir(src, dst) {
@@ -46,11 +47,18 @@ function logoTag(name) {
   }
   return `<div class="logo-placeholder">${name}</div>`;
 }
+function photoTag(name) {
+  for (const ext of ["jpg", "jpeg", "png", "webp"]) {
+    if (existsSync(join(root, "assets/photos", `${name}.${ext}`))) return `<img src="assets/photos/${name}.${ext}" alt="">`;
+  }
+  return `<div class="photo-placeholder">foto</div>`;
+}
 function expand(html) {
   return html
     .replace(/<!--svg:([\w-]+)-->/g, (_, n) => inlineSvg(n))
     .replace(/<!--qr:([\w-]+)-->/g, (_, n) => inlineQr(n))
-    .replace(/<!--logo:([\w-]+)-->/g, (_, n) => logoTag(n));
+    .replace(/<!--logo:([\w-]+)-->/g, (_, n) => logoTag(n))
+    .replace(/<!--photo:([\w-]+)-->/g, (_, n) => photoTag(n));
 }
 
 // ---- conteúdo ----
@@ -78,6 +86,7 @@ function strip(s) { return s.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim()
 const toc = `<section class="toc" id="sumario">
 <h1>Sumário</h1>
 <ol>
+<li class="l1 front"><a href="#prefacio"><span class="n"></span><span>Prefácio</span></a></li>
 ${tocItems.map(c => `<li class="l1"><a href="#${c.id}"><span class="n">${String(c.num).padStart(2, "0")}</span><span>${c.title}</span></a>
 ${c.subs.map(s => `<li class="l2"><a href="#${s.id}"><span></span><span>${s.title}</span></a></li>`).join("\n")}</li>`).join("\n")}
 </ol>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 56" role="img" aria-label="Fortunato Estúdio de marcas">
+  <text x="0" y="34" font-family="'STIX Two Text', 'Fraunces', Georgia, serif" font-weight="600" font-size="30" letter-spacing="6" fill="#15140F">FORTUNATO</text>
+  <text x="226" y="18" font-family="'STIX Two Text', 'Fraunces', Georgia, serif" font-weight="500" font-size="12" fill="#6E6A61">®</text>
+  <line x1="246" y1="14" x2="246" y2="38" stroke="#15140F" stroke-opacity=".2" stroke-width="1"/>
+  <text x="256" y="22" font-family="'Inter', system-ui, sans-serif" font-weight="500" font-size="7.6" letter-spacing="1.1" fill="#5C5B55">ESTÚDIO</text>
+  <text x="256" y="33" font-family="'Inter', system-ui, sans-serif" font-weight="500" font-size="7.6" letter-spacing="1.1" fill="#5C5B55">DE MARCAS</text>
+</svg>
