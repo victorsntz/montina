@@ -74,7 +74,7 @@ def person(x, y, s=1.0, color=P5):
 # ---------------------------------------------------------------------
 capa = f'''
 <defs>
-  <radialGradient id="glow" cx="0.72" cy="0.68" r="0.55">
+  <radialGradient id="glow" cx="0.55" cy="0.62" r="0.55">
     <stop offset="0" stop-color="{P5}" stop-opacity=".55"/>
     <stop offset="1" stop-color="{P9}" stop-opacity="0"/>
   </radialGradient>
@@ -87,19 +87,19 @@ capa = f'''
 <circle cx="182" cy="52" r="16" fill="{GD}" opacity=".9"/>
 <!-- pétalas / asas translúcidas ao fundo -->
 <g opacity=".28">
-  <ellipse cx="57" cy="215" rx="70" ry="44" transform="rotate(-35 57 215)" fill="{P5}"/>
-  <ellipse cx="153" cy="215" rx="70" ry="44" transform="rotate(35 153 215)" fill="{P5}"/>
+  <ellipse cx="57" cy="191" rx="70" ry="44" transform="rotate(-35 57 191)" fill="{P5}"/>
+  <ellipse cx="153" cy="191" rx="70" ry="44" transform="rotate(35 153 191)" fill="{P5}"/>
 </g>
 <g opacity=".16">
-  <ellipse cx="50" cy="248" rx="52" ry="30" transform="rotate(25 50 248)" fill="{L2}"/>
-  <ellipse cx="160" cy="248" rx="52" ry="30" transform="rotate(-25 160 248)" fill="{L2}"/>
+  <ellipse cx="50" cy="222" rx="52" ry="30" transform="rotate(25 50 222)" fill="{L2}"/>
+  <ellipse cx="160" cy="222" rx="52" ry="30" transform="rotate(-25 160 222)" fill="{L2}"/>
 </g>
 <!-- borboleta principal -->
-{butterfly(105, 212, s=1.15, upper=P3, lower=TC, body=L1, spots=L0)}
+{butterfly(105, 188, s=1.15, upper=P3, lower=TC, body=L1, spots=L0)}
 <!-- pontos de luz -->
-<circle cx="34" cy="150" r="2.2" fill="{L2}" opacity=".8"/>
-<circle cx="52" cy="128" r="1.3" fill="{L2}" opacity=".6"/>
-<circle cx="196" cy="150" r="1.6" fill="{GD}" opacity=".7"/>
+<circle cx="34" cy="128" r="2.2" fill="{L2}" opacity=".8"/>
+<circle cx="52" cy="108" r="1.3" fill="{L2}" opacity=".6"/>
+<circle cx="196" cy="130" r="1.6" fill="{GD}" opacity=".7"/>
 
 <!-- linha de horizonte sutil -->
 <path d="M0,268 C60,258 150,258 210,268" stroke="{P5}" stroke-width=".8" fill="none" opacity=".5"/>

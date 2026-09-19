@@ -619,6 +619,20 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .preface .signature { margin-top: 0.6rem; font-family: var(--serif); font-size: 0.98rem; break-inside: avoid; page-break-inside: avoid; }
 .preface .signature strong { display: block; font-size: 1.2rem; font-weight: 500; color: var(--plum-900); }
 
+/* página bônus: por que a borboleta */
+.bonus { break-before: page; page-break-before: always; }
+.bonus-art { width: 62mm; margin: 0 auto 6mm; }
+.bonus-art svg { width: 100%; height: auto; display: block; }
+.bonus h1 { font-size: 2.6rem; font-weight: 500; margin-bottom: 1.4rem; }
+.bonus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9mm; align-items: start; }
+.bonus-col h4 { font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--plum-500); margin: 0 0 0.6rem; padding-bottom: 0.4rem; border-bottom: 1.5px solid var(--lilac-200); }
+.bonus-col p { max-width: none; font-size: 0.95rem; }
+.bonus-col.manifesto { background: var(--lilac-050); border-radius: 14px; padding: 6mm 6mm 5mm; }
+.bonus-col.manifesto p { font-family: var(--serif); font-size: 1.02rem; line-height: 1.45; color: var(--plum-900); font-variation-settings: "opsz" 24, "SOFT" 50; }
+.bonus-col.manifesto .signature { margin-top: 1rem; font-family: var(--serif); font-size: 0.95rem; color: var(--ink-soft); }
+.bonus-col.manifesto .signature strong { display: block; font-size: 1.05rem; color: var(--plum-900); font-weight: 500; }
+@media screen and (max-width: 640px) { .bonus-grid { grid-template-columns: 1fr; } }
+
 /* contracapa */
 .back-cover {
   page: cover;
@@ -682,7 +696,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   @bottom-right { content: counter(page, lower-roman); }
 }
 
-.chapter h1 { string-set: chapter-title content(text); }
+.chapter h1, .bonus h1 { string-set: chapter-title content(text); }
 .front-matter, .toc { page: front; }
 .cover, .back-cover { page: cover; }
 .cover { margin: 0; }

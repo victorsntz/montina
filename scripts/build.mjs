@@ -89,6 +89,7 @@ const toc = `<section class="toc" id="sumario">
 <li class="l1 front"><a href="#prefacio"><span class="n"></span><span>Prefácio</span></a></li>
 ${tocItems.map(c => `<li class="l1"><a href="#${c.id}"><span class="n">${String(c.num).padStart(2, "0")}</span><span>${c.title}</span></a>
 ${c.subs.map(s => `<li class="l2"><a href="#${s.id}"><span></span><span>${s.title}</span></a></li>`).join("\n")}</li>`).join("\n")}
+<li class="l1 front"><a href="#borboleta"><span class="n"></span><span>Por que a borboleta?</span></a></li>
 </ol>
 </section>`;
 body = body.replace("<!--TOC-->", toc);
