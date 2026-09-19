@@ -69,13 +69,13 @@
 
 * { box-sizing: border-box; }
 
-html { font-size: 11pt; }
+html { font-size: 10.5pt; }
 
 body {
   margin: 0;
   font-family: var(--sans);
   font-size: 1rem;
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--ink);
   background: var(--white);
   font-feature-settings: "kern", "liga", "calt";
@@ -97,8 +97,8 @@ h1, h2, h3, h4 {
 
 h2, h3 { max-width: var(--measure); }
 h2 {
-  font-size: 1.9rem;
-  margin: 1.8rem 0 0.7rem;
+  font-size: 1.85rem;
+  margin: 1.5rem 0 0.6rem;
   break-after: avoid;
   page-break-after: avoid;
   letter-spacing: -0.005em;
@@ -222,7 +222,7 @@ hr.sep {
   color: var(--lilac-200);
   font-variation-settings: "opsz" 144, "SOFT" 100;
   letter-spacing: -0.04em;
-  margin-bottom: 0.5rem;
+  margin-bottom: 2.2rem;
 }
 .chapter-opener h1 {
   font-size: 3.2rem;
@@ -253,14 +253,14 @@ hr.sep {
 
 /* título colado ao primeiro bloco; seções curtas inteiras */
 .keep { break-inside: avoid; page-break-inside: avoid; }
-.keep > h2:first-child { margin-top: 1.8rem; }
+.keep > h2:first-child { margin-top: 1.5rem; }
 .keep > h3:first-child { margin-top: 1.35rem; }
 
 /* fim de capítulo */
 .chapter-end {
   display: flex; align-items: center; gap: 4mm;
   max-width: var(--measure);
-  margin: 2.2rem 0 0;
+  margin: 1.4rem 0 0;
   break-inside: avoid; page-break-inside: avoid;
 }
 .chapter-end span { flex: 1; height: 2px; background: var(--plum-500); border-radius: 2px; }

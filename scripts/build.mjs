@@ -98,7 +98,7 @@ body = body.replace("<!--TOC-->", toc);
 // 2) cada h2/h3 fica colado ao primeiro bloco seguinte; seções curtas não se partem
 // 3) ornamento de fim de capítulo
 const chapterEnd = `<div class="chapter-end"><span></span>${inlineSvg("mark-borboleta")}<span></span></div>`;
-const KEEP_WHOLE = 1500; // caracteres de texto ≈ meia página
+const KEEP_WHOLE = 700; // caracteres de texto ≈ meia página
 function keepTogether(html) {
   // divide em segmentos a partir de h2 "de topo" (os h2 dentro de .spot têm margin-top:0 e ficam de fora)
   const parts = html.split(/(?=<h2 (?![^>]*margin-top:0))/);
