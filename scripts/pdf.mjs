@@ -6,7 +6,8 @@ import { existsSync, statSync } from "node:fs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
-const out = join(dist, "cartilha-lupus-df-a4.pdf");
+const [, , inputName = "print.html", outputName = "cartilha-lupus-df-a4.pdf"] = process.argv;
+const out = join(dist, outputName);
 
 const candidates = [
   process.env.CHROMIUM_PATH,
@@ -20,7 +21,7 @@ const executablePath = candidates.find(p => existsSync(p));
 const browser = await chromium.launch({ executablePath, args: ["--no-sandbox", "--allow-file-access-from-files", "--font-render-hinting=none"] });
 const page = await browser.newPage();
 page.on("console", msg => { if (msg.type() === "error") console.error("[page]", msg.text()); });
-await page.goto(pathToFileURL(join(dist, "print.html")).href, { waitUntil: "load" });
+await page.goto(pathToFileURL(join(dist, inputName)).href, { waitUntil: "load" });
 // aguarda o Paged.js terminar de paginar
 await page.waitForFunction(() => window.__pagedDone === true, null, { timeout: 180000 });
 await page.waitForTimeout(500);

@@ -12,7 +12,17 @@ Um único conteúdo gera duas saídas:
 npm install
 npm run build   # monta dist/index.html (web) e dist/print.html (impressão)
 npm run pdf     # renderiza o PDF A4 com Chromium (Playwright)
+npm run pdf:grafica  # versão para gráfica: sangria 3 mm + marcas de corte, e conversão para CMYK (precisa do Ghostscript)
 ```
+
+Saídas em `dist/`:
+
+| Arquivo | Uso |
+| --- | --- |
+| `cartilha-lupus-df-a4.pdf` | leitura em tela e impressão caseira (A4, RGB) |
+| `cartilha-lupus-df-a4-grafica-sangria3mm.pdf` | gráfica, RGB, 216 × 303 mm com marcas |
+| `cartilha-lupus-df-a4-grafica-sangria3mm-cmyk.pdf` | gráfica, CMYK, mesmo formato (arquivo final de impressão) |
+| `prova.html` | prova paginada estática, para revisão no navegador |
 
 O script `scripts/pdf.mjs` procura o Chromium em `CHROMIUM_PATH`, `/opt/pw-browsers/...` ou nos caminhos comuns do sistema.
 

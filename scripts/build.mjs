@@ -192,4 +192,19 @@ const print = template
 </script>`);
 writeFileSync(join(dist, "print.html"), print);
 
+// ---- versão para gráfica: sangria de 3 mm + marcas de corte ----
+const cssGrafica = readFileSync(join(root, "src/styles.css"), "utf8")
+  .replace("size: A4;\n  margin: 20mm 18mm 22mm 22mm;", "size: A4;\n  bleed: 3mm;\n  marks: crop cross;\n  margin: 20mm 18mm 22mm 22mm;");
+if (!cssGrafica.includes("bleed: 3mm")) throw new Error("não achei o bloco @page para inserir a sangria");
+writeFileSync(join(dist, "styles-grafica.css"), cssGrafica);
+const grafica = print.replace('href="styles.css"', 'href="styles-grafica.css"').replace("</head>", `<style>
+  /* fundo das páginas de capa e da faixa de fim de capítulo avança na sangria */
+  .pagedjs_page.pagedjs_cover_page { background: #2b1b33; }
+  .pagedjs_page.chapter-last { background: linear-gradient(to top, #f5f0f8 0, #f5f0f8 20mm, #ffffff 20mm); }
+  .pagedjs_page.chapter-last .chapter-last-band { border-top: 0; }
+  .pagedjs_page.chapter-last .chapter-last-band::before { content: ""; position: absolute; left: -3mm; right: -3mm; top: 0; height: 2.5px; background: #7a4e93; }
+  @media screen { .pagedjs_page { background: white; } }
+</style></head>`);
+writeFileSync(join(dist, "print-grafica.html"), grafica);
+
 console.log(`build ok: ${files.length} arquivos de conteúdo, ${tocItems.length} capítulos`);
