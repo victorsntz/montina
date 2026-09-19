@@ -80,16 +80,18 @@ const html = `<!DOCTYPE html>
 <link rel="stylesheet" href="styles.css">
 <style>
   body.print { font-size: 1rem; }
-  .m-cover { page: cover; break-after: page; height: 297mm; width: 210mm; margin: -20mm -18mm 0 -22mm; background: var(--plum-900); color: var(--white); position: relative; }
-  .m-cover .art { position: absolute; left: 0; right: 0; top: 46mm; display: flex; justify-content: center; }
-  .m-cover .art svg { width: 84mm; height: auto; }
-  .m-cover .text { position: absolute; left: 22mm; right: 20mm; bottom: 34mm; }
-  .m-cover .kicker { font-size: .8rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--lilac-200); margin-bottom: 1rem; }
-  .m-cover h1 { color: var(--white); font-size: 3.4rem; font-weight: 400; line-height: 1.02; letter-spacing: -.02em; max-width: 150mm; font-variation-settings: "opsz" 144, "SOFT" 100; }
-  .m-cover .sub { margin-top: 1.2rem; font-family: var(--serif); font-size: 1.25rem; color: var(--lilac-200); max-width: 140mm; }
-  .m-cover .studio { margin-top: 2.2rem; display: flex; align-items: center; gap: 10mm; }
-  .m-cover .studio svg { height: 11mm; width: auto; }
-  .m-cover .studio span { font-size: .8rem; color: var(--plum-300); letter-spacing: .12em; text-transform: uppercase; }
+  .m-cover { page: cover; break-after: page; box-sizing: border-box; height: 297mm; width: 210mm; margin: -20mm -18mm 0 -22mm; padding: 22mm 22mm 26mm; background: var(--plum-900); color: var(--white); display: flex; flex-direction: column; justify-content: space-between; }
+  .m-cover .top { display: flex; justify-content: space-between; align-items: center; }
+  .m-cover .top svg { height: 10mm; width: auto; }
+  .m-cover .top span { font-size: .74rem; color: var(--plum-300); letter-spacing: .16em; text-transform: uppercase; }
+  .m-cover .art { display: flex; justify-content: center; align-items: center; flex: 1; }
+  .m-cover .art svg { width: 78mm; height: auto; }
+  .m-cover .kicker { font-size: .78rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--lilac-200); margin-bottom: .9rem; }
+  .m-cover h1 { color: var(--white); font-size: 3.6rem; font-weight: 400; line-height: 1.02; letter-spacing: -.02em; max-width: 160mm; font-variation-settings: "opsz" 144, "SOFT" 100; margin: 0; }
+  .m-cover .sub { margin-top: 1.3rem; font-family: var(--serif); font-size: 1.25rem; line-height: 1.35; color: var(--lilac-200); max-width: 150mm; }
+  .m-cover .sub strong { color: var(--white); font-weight: 500; }
+  .m-cover .rule { height: 2px; background: var(--plum-500); width: 34mm; margin: 1.6rem 0 1.1rem; }
+  .m-cover .meta { font-size: .8rem; color: var(--plum-300); letter-spacing: .06em; }
   section.m { break-before: page; }
   section.m h1 { font-size: 2.3rem; font-weight: 500; margin: 0 0 .5rem; max-width: 150mm; }
   section.m .num { font-family: var(--sans); font-size: .74rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--plum-500); margin-bottom: .8rem; }
@@ -129,8 +131,8 @@ const html = `<!DOCTYPE html>
   .newpage { break-before: page; }
   .gal .it { break-inside: avoid; }
   .gal.four .it .im, .gal.five .it .im { padding: 2mm; }
-  .gal .it .im { background: var(--white); border: 1px solid var(--lilac-200); border-radius: 12px; padding: 3mm; }
-  .gal .it svg { width: 100%; height: auto; display: block; }
+  .gal .it .im { background: var(--white); border: 1px solid var(--lilac-200); border-radius: 12px; padding: 3mm; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; }
+  .gal .it svg { width: 100%; height: auto; max-height: 100%; display: block; }
   .gal .it h4 { margin: .5rem 0 .15rem; font-size: .92rem; }
   .gal .it p { font-size: .76rem; color: var(--ink-soft); line-height: 1.32; margin: 0; }
   .gal.icons .im { padding: 3mm; color: var(--plum-700); max-width: 16mm; }
@@ -158,12 +160,14 @@ const html = `<!DOCTYPE html>
 <body class="print">
 
 <section class="m-cover">
+  <div class="top">${svg("logo-fortunato-dark")}<span>Brasília · setembro de 2026</span></div>
   <div class="art">${svg("capa-verso")}</div>
-  <div class="text">
-    <div class="kicker">Memorial descritivo do projeto gráfico</div>
-    <h1>Manual para o paciente com lúpus do Distrito Federal</h1>
-    <p class="sub">Conceito, sistema visual, ilustrações autorais e decisões editoriais da cartilha da Dra. Paula Cristina Montina.</p>
-    <div class="studio">${svg("logo-fortunato-dark")}<span>Brasília · setembro de 2026</span></div>
+  <div class="bottom">
+    <div class="kicker">Documento de projeto</div>
+    <h1>Memorial descritivo do projeto gráfico</h1>
+    <p class="sub"><strong>Manual para o paciente com lúpus do Distrito Federal</strong><br>Cartilha da Dra. Paula Cristina Montina, médica reumatologista</p>
+    <div class="rule"></div>
+    <div class="meta">Conceito · sistema visual · ilustrações autorais · decisões editoriais · produção</div>
   </div>
 </section>
 
@@ -201,9 +205,9 @@ const html = `<!DOCTYPE html>
   </div>
   <p>A mesma borboleta aparece em quatro escalas: grande na capa, média na abertura do capítulo 1 e na página "Por que a borboleta?", pequena na contracapa e minúscula na faixa que encerra cada capítulo. Um símbolo, um sistema.</p>
   <div class="gal four" style="margin-top:1.2rem">
-    <div class="it"><div class="im" style="background:#2b1b33">${svg("capa-verso")}</div><h4>Contracapa</h4><p>Versão sobre fundo escuro.</p></div>
-    <div class="it"><div class="im">${svg("cap-entendendo")}</div><h4>Abertura do capítulo 1</h4><p>Dentro do fundo orgânico das aberturas.</p></div>
-    <div class="it"><div class="im" style="padding:8mm">${svg("mark-borboleta")}</div><h4>Fim de capítulo</h4><p>Marca de 11 mm na faixa do rodapé.</p></div>
+    <div class="it"><div class="im" style="background:#2b1b33;padding:6mm">${svg("capa-verso")}</div><h4>Contracapa</h4><p>Versão sobre fundo escuro.</p></div>
+    <div class="it"><div class="im" style="padding:4mm">${svg("cap-entendendo")}</div><h4>Abertura do capítulo 1</h4><p>Dentro do fundo orgânico das aberturas.</p></div>
+    <div class="it"><div class="im" style="padding:9mm">${svg("mark-borboleta")}</div><h4>Fim de capítulo</h4><p>Marca de 11 mm na faixa do rodapé.</p></div>
     <div class="it"><div class="im" style="padding:6mm">${svg("spot-pele")}</div><h4>No rosto</h4><p>O sinal clínico, no ícone de pele.</p></div>
   </div>
 </section>
@@ -221,17 +225,8 @@ const html = `<!DOCTYPE html>
   </div>
 </section>
 
-<section class="m" id="m4">
-  <div class="num">04</div>
-  <h1>Tipografia</h1>
-  <p class="lead">Duas famílias com papéis claros: uma serifa com personalidade para os títulos e uma sem serifa de alta legibilidade para o corpo.</p>
-  <div class="type"><div class="name">Fraunces · títulos, aberturas, destaques</div><div class="sample serif">Entendendo o lúpus</div><p>Serifa variável com eixo óptico: nos títulos grandes fica mais contrastada e elegante; nos parágrafos de abertura, mais suave. Dá a voz de livro que a autora pediu.</p></div>
-  <div class="type"><div class="name">Inter · texto corrido, listas, tabelas, rótulos</div><div class="sample sans">O lúpus pode acontecer com qualquer pessoa, mas é muito mais comum em mulheres, principalmente entre a adolescência e os 40 anos.</div><p>Corpo em 10,5 pt com entrelinha de 1,5 e coluna de 140 mm (cerca de 70 caracteres por linha), dentro das recomendações de legibilidade para materiais de educação em saúde. Números tabulares na tabela de telefones.</p></div>
-  <div class="type"><div class="name">STIX Two Text · marca Fortunato Estúdio</div><div class="sample stix">FORTUNATO</div><p>A mesma fonte do site do estúdio, usada só na assinatura, para a marca aparecer como no restante da comunicação da Fortunato.</p></div>
-</section>
-
 <section class="m" id="m5">
-  <div class="num">05</div>
+  <div class="num">04</div>
   <h1>Estrutura editorial</h1>
   <p class="lead">A cartilha foi organizada como um livro: partes pré-textuais, onze capítulos com abertura própria, uma página de fechamento e a contracapa.</p>
   <div class="why">
@@ -251,7 +246,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m6">
-  <div class="num">06</div>
+  <div class="num">05</div>
   <h1>Componentes</h1>
   <p class="lead">Um conjunto pequeno de peças que se repete do começo ao fim. O leitor aprende o vocabulário nas primeiras páginas e nunca mais precisa pensar nele.</p>
   <div class="comp">
@@ -279,7 +274,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m7">
-  <div class="num">07</div>
+  <div class="num">06</div>
   <h1>Ilustrações autorais</h1>
   <p class="lead">Todas as ilustrações desta cartilha são autorais, criadas pela Fortunato Estúdio para este projeto. Nenhuma vem de banco de imagens.</p>
   <p>São ${nSvgs} peças vetoriais: a capa, onze aberturas de capítulo, vinte e quatro ícones de destaque, cinco ícones de rótulo, a marca de fim de capítulo e as versões da borboleta. Por serem vetor, imprimem nítidas em qualquer tamanho, do A5 ao cartaz, e funcionam na web sem perda.</p>
@@ -299,7 +294,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m8">
-  <div class="num">08</div>
+  <div class="num">07</div>
   <h1>Ícones de destaque</h1>
   <p class="lead">Vinte e quatro ícones para os sintomas, os medicamentos, os hábitos e os canais de ajuda. Cada um sobre um quadrado lilás de cantos arredondados, sempre no mesmo tamanho.</p>
   <div class="gal six">
@@ -308,7 +303,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m9">
-  <div class="num">09</div>
+  <div class="num">08</div>
   <h1>Regras de paginação</h1>
   <p class="lead">O que o leitor não vê, mas sente: as regras que fazem cada página parecer "arrumada".</p>
   <ul class="rules">
@@ -327,7 +322,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m10">
-  <div class="num">10</div>
+  <div class="num">09</div>
   <h1>Legibilidade e letramento em saúde</h1>
   <p class="lead">Decisões tomadas com base nas recomendações para materiais educativos impressos em saúde.</p>
   <ul class="rules">
@@ -341,7 +336,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m11">
-  <div class="num">11</div>
+  <div class="num">10</div>
   <h1>Produção e entregas</h1>
   <p class="lead">Um único conteúdo-fonte gera todas as versões. Alterações de texto entram uma vez e se propagam.</p>
   <ul class="rules">
@@ -359,7 +354,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m cred" id="m12">
-  <div class="num">12</div>
+  <div class="num">11</div>
   <h1>Créditos e autoria</h1>
   <dl>
     <dt>Conteúdo</dt><dd>Dra. Paula Cristina Montina, médica reumatologista, CRM-DF 26.523 · RQE 21.843</dd>
