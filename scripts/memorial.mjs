@@ -97,11 +97,12 @@ const html = `<!DOCTYPE html>
   .why { border-left: 5px solid var(--terracotta); padding: .2rem 0 .2rem 1rem; margin: .9rem 0 1.1rem; max-width: var(--measure); }
   .why .lab { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: #a6432a; margin-bottom: .25rem; }
   .why p { margin-bottom: .35rem; }
-  .pages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; margin: 1rem 0 1.2rem; }
+  .pages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5mm; margin: 1rem 0 1.2rem; }
+  .pages.three { grid-template-columns: repeat(3, 1fr); }
   .pages.two { grid-template-columns: repeat(2, 1fr); max-width: 150mm; }
   figure.pg { margin: 0; break-inside: avoid; }
   figure.pg img { width: 100%; display: block; border: 1px solid var(--lilac-200); border-radius: 4px; box-shadow: 0 2px 8px rgba(43,27,51,.10); }
-  figure.pg figcaption { font-size: .78rem; color: var(--ink-soft); margin-top: .4rem; line-height: 1.35; }
+  figure.pg figcaption { font-size: .72rem; color: var(--ink-soft); margin-top: .35rem; line-height: 1.3; }
   .swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 1rem 0; }
   .sw { break-inside: avoid; border-radius: 10px; overflow: hidden; border: 1px solid var(--lilac-200); }
   .sw i { display: block; height: 16mm; }
@@ -117,11 +118,21 @@ const html = `<!DOCTYPE html>
   .type p { font-size: .88rem; color: var(--ink-soft); margin: 0; }
   .gal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm 6mm; margin: 1rem 0; }
   .gal.four { grid-template-columns: repeat(4, 1fr); gap: 5mm; }
+  .gal.five { grid-template-columns: repeat(5, 1fr); gap: 4mm; }
+  .gal.six { grid-template-columns: repeat(6, 1fr); gap: 3.5mm; }
+  .gal.six .it h4 { font-size: .74rem; margin-top: .35rem; }
+  .gal.six .it p { font-size: .66rem; line-height: 1.28; }
+  .gal.six .it .im { padding: 1.5mm; border-radius: 9px; }
+  .gal.five .it h4 { font-size: .82rem; }
+  .gal.five .it p { font-size: .72rem; }
+  .keep { break-inside: avoid; }
+  .newpage { break-before: page; }
   .gal .it { break-inside: avoid; }
+  .gal.four .it .im, .gal.five .it .im { padding: 2mm; }
   .gal .it .im { background: var(--white); border: 1px solid var(--lilac-200); border-radius: 12px; padding: 3mm; }
   .gal .it svg { width: 100%; height: auto; display: block; }
   .gal .it h4 { margin: .5rem 0 .15rem; font-size: .92rem; }
-  .gal .it p { font-size: .8rem; color: var(--ink-soft); line-height: 1.35; margin: 0; }
+  .gal .it p { font-size: .76rem; color: var(--ink-soft); line-height: 1.32; margin: 0; }
   .gal.icons .im { padding: 5mm; color: var(--plum-700); }
   .comp { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin: .8rem 0; }
   .comp > div { break-inside: avoid; }
@@ -168,7 +179,7 @@ const html = `<!DOCTYPE html>
     <li><strong>Ilustração autoral.</strong> Nenhuma imagem de banco. Todas as ${nSvgs} peças vetoriais foram desenhadas para este projeto, no mesmo sistema de formas e cores.</li>
     <li><strong>Duas saídas, uma fonte.</strong> O mesmo conteúdo gera a versão impressa (PDF com sangria e CMYK) e a versão web responsiva.</li>
   </ul>
-  <div class="pages">
+  <div class="pages three">
     ${fig("capa", "Capa")}
     ${fig("folha", "Folha de rosto com o índice visual")}
     ${fig("abertura", "Abertura do capítulo 1")}
@@ -219,20 +230,19 @@ const html = `<!DOCTYPE html>
   <div class="num">05</div>
   <h1>Estrutura editorial</h1>
   <p class="lead">A cartilha foi organizada como um livro: partes pré-textuais, onze capítulos com abertura própria, uma página de fechamento e a contracapa.</p>
-  <div class="pages">
-    ${fig("folha", "Folha de rosto: índice visual com as onze ilustrações, para quem folheia achar o assunto de olho.")}
-    ${fig("ficha", "Ficha técnica com créditos, apoio e ficha catalográfica (CIP) já montada, à espera do ISBN.")}
-    ${fig("sumario", "Sumário automático em duas páginas, com número de página de cada seção.")}
-    ${fig("prefacio", "Prefácio em duas colunas: retrato da autora, citação em destaque e o texto em uma página só.")}
-    ${fig("abertura", "Abertura de capítulo: ilustração, numeral grande e a primeira frase da própria autora como entrada.")}
-    ${fig("fim", "Faixa de fim de capítulo no rodapé: linha, borboleta e número da página. Marca visual de que o assunto fechou.")}
-    ${fig("bonus", "Página bônus antes da contracapa: a história da borboleta e uma palavra da autora.")}
-    ${fig("contracapa", "Contracapa: borboleta pequena, a frase-síntese e as marcas de apoio.")}
-    ${fig("tabela", "Página de conteúdo: tabela das farmácias, cartão de horário e caixa de alerta na mesma largura de coluna.")}
-  </div>
   <div class="why">
     <div class="lab">Por que aberturas de página inteira</div>
     <p>Cada capítulo é uma pergunta diferente do paciente ("posso engravidar?", "meu remédio foi negado, e agora?"). A abertura em página inteira dá uma pausa, avisa a mudança de assunto e deixa o livro fácil de folhear até o ponto certo.</p>
+  </div>
+  <div class="pages">
+    ${fig("folha", "Folha de rosto: índice visual com as onze ilustrações.")}
+    ${fig("ficha", "Ficha técnica com créditos, apoio e ficha catalográfica (CIP).")}
+    ${fig("sumario", "Sumário automático em duas páginas, com número de página.")}
+    ${fig("prefacio", "Prefácio em duas colunas, com retrato e citação, em uma página.")}
+    ${fig("abertura", "Abertura de capítulo: ilustração, numeral e a frase da autora.")}
+    ${fig("fim", "Faixa de fim de capítulo no rodapé, com a borboleta.")}
+    ${fig("bonus", "Página bônus: a história da borboleta e uma palavra da autora.")}
+    ${fig("contracapa", "Contracapa: borboleta pequena, frase-síntese e marcas de apoio.")}
   </div>
 </section>
 
@@ -257,6 +267,13 @@ const html = `<!DOCTYPE html>
     <li><strong>Fluxos em pílulas</strong> (residência → UBS → regulação → consulta) para o caminho do SUS caber numa linha.</li>
     <li><strong>Tabela</strong> só onde a informação é realmente tabular: as três unidades da Farmácia de Alto Custo.</li>
   </ul>
+  <div class="keep">
+    <h2>Ícones de rótulo</h2>
+    <p>Traço fino, em linha, para os rótulos das caixas e do bloco de Instagram. Herdam a cor do rótulo em que estão.</p>
+    <div class="gal five icons">
+      ${icons.map(([n, t]) => `<div class="it"><div class="im">${svg(n)}</div><h4>${t}</h4></div>`).join("")}
+    </div>
+  </div>
 </section>
 
 <section class="m" id="m7">
@@ -273,8 +290,8 @@ const html = `<!DOCTYPE html>
     ${fig("capa", "Ameixa escura, sol dourado no alto, a borboleta centralizada sobre asas translúcidas de fundo e o título em Fraunces com \"lúpus\" em itálico.")}
     <div><p>A capa precisava funcionar em três lugares: na mão do paciente, na mesa do consultório e na foto do lançamento. Por isso ela é escura, com um único ponto de luz (o sol) e um único protagonista (a borboleta). O título ocupa o terço superior e os créditos da autora ficam na base, com espaço livre entre eles e o desenho.</p></div>
   </div>
-  <h2>Aberturas de capítulo</h2>
-  <div class="gal">
+  <h2 class="newpage" style="margin-top:0">Aberturas de capítulo</h2>
+  <div class="gal four">
     ${chapters.map(([n, t, why]) => `<div class="it"><div class="im">${svg(n)}</div><h4>${t}</h4><p>${why}</p></div>`).join("")}
   </div>
 </section>
@@ -283,13 +300,8 @@ const html = `<!DOCTYPE html>
   <div class="num">08</div>
   <h1>Ícones de destaque</h1>
   <p class="lead">Vinte e quatro ícones para os sintomas, os medicamentos, os hábitos e os canais de ajuda. Cada um sobre um quadrado lilás de cantos arredondados, sempre no mesmo tamanho.</p>
-  <div class="gal four">
+  <div class="gal six">
     ${spots.map(([n, t, why]) => `<div class="it"><div class="im" style="padding:2mm">${svg(n)}</div><h4>${t}</h4><p>${why}</p></div>`).join("")}
-  </div>
-  <h2>Ícones de rótulo</h2>
-  <p>Traço fino, em linha, para os rótulos das caixas e do bloco de Instagram. Herdam a cor do rótulo em que estão.</p>
-  <div class="gal four icons" style="grid-template-columns: repeat(5, 1fr)">
-    ${icons.map(([n, t]) => `<div class="it"><div class="im">${svg(n)}</div><h4>${t}</h4></div>`).join("")}
   </div>
 </section>
 
