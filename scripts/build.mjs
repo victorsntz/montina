@@ -97,7 +97,7 @@ body = body.replace("<!--TOC-->", toc);
 // 1) um único parágrafo de destaque (lead) por capítulo, o de abertura
 // 2) cada h2/h3 fica colado ao primeiro bloco seguinte; seções curtas não se partem
 // 3) ornamento de fim de capítulo
-const chapterEnd = `<div class="chapter-end"><span></span>${inlineSvg("mark-borboleta")}<span></span></div>`;
+const chapterEndFor = (n) => `<div class="chapter-end" data-num="${n}"><span></span>${inlineSvg("mark-borboleta")}<span></span></div>`;
 const KEEP_WHOLE = 700; // caracteres de texto ≈ meia página
 function keepTogether(html) {
   // divide em segmentos a partir de h2 "de topo" (os h2 dentro de .spot têm margin-top:0 e ficam de fora)
@@ -118,7 +118,9 @@ function shortList(list) {
 function keepH3(html) {
   return html.replace(/(<h3[^>]*>[\s\S]*?<\/h3>\s*)(<p[^>]*>[\s\S]*?<\/p>|<ul[^>]*>[\s\S]*?<\/ul>)(\s*<ul[^>]*>[\s\S]*?<\/ul>)?/g, (m, h, first, list) => `<div class="keep">${h}${first}${shortList(list)}</div>`);
 }
+let chapterIndex = 0;
 body = body.replace(/<section class="chapter"[\s\S]*?<\/section>/g, chapter => {
+  const chapterEnd = chapterEndFor(++chapterIndex);
   const cut = chapter.indexOf("</div>", chapter.indexOf('class="chapter-opener"')); // fim do opener é o último </div> do bloco; usamos o marcador seguro abaixo
   const openerEnd = chapter.indexOf('</div>\n\n', chapter.indexOf('class="chapter-opener"')) + '</div>'.length;
   let head = chapter.slice(0, openerEnd);
@@ -158,7 +160,24 @@ const print = template
   .replace("<!--WEBNAV-->", "")
   .replace("<!--CONTENT-->", body)
   .replace("<!--HEAD-->", `<style>@media screen { body.print { background:#ddd } .pagedjs_page { background:white; margin: 8mm auto; box-shadow: 0 2px 12px rgba(0,0,0,.2);} }</style>`)
-  .replace("<!--SCRIPTS-->", `<script>window.PagedConfig = { auto: true, after: () => { window.__pagedDone = true; } };</script><script src="paged.polyfill.js"></script>`);
+  .replace("<!--SCRIPTS-->", `<script>window.PagedConfig = { auto: false };</script><script src="paged.polyfill.js"></script>
+<script>
+  // Última página de cada capítulo: faixa de encerramento no rodapé (substitui número e título de rodapé).
+  class FimDeCapitulo extends Paged.Handler {
+    afterPageLayout(pageEl, page) {
+      const end = pageEl.querySelector(".chapter-end");
+      if (!end) return;
+      pageEl.classList.add("chapter-last");
+      const band = document.createElement("div");
+      band.className = "chapter-last-band";
+      band.innerHTML = '<span class="rule"></span>' + end.querySelector("svg").outerHTML +
+        '<span class="txt">Fim do capítulo ' + end.dataset.num + '</span><span class="rule"></span><span class="pg">' + (page.position + 1) + '</span>';
+      pageEl.querySelector(".pagedjs_pagebox").appendChild(band);
+    }
+  }
+  Paged.registerHandlers(FimDeCapitulo);
+  window.PagedPolyfill.preview().then(() => { window.__pagedDone = true; });
+</script>`);
 writeFileSync(join(dist, "print.html"), print);
 
 console.log(`build ok: ${files.length} arquivos de conteúdo, ${tocItems.length} capítulos`);

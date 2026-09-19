@@ -256,7 +256,24 @@ hr.sep {
 .keep > h2:first-child { margin-top: 1.5rem; }
 .keep > h3:first-child { margin-top: 1.35rem; }
 
-/* fim de capítulo */
+/* fim de capítulo: na impressão o ornamento em linha some e entra a faixa no pé da página */
+body.print .chapter-end { display: none; }
+.pagedjs_page.chapter-last .pagedjs_margin-bottom-left,
+.pagedjs_page.chapter-last .pagedjs_margin-bottom-right { visibility: hidden; }
+.chapter-last-band {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 17mm;
+  background: var(--lilac-050);
+  border-top: 2.5px solid var(--plum-500);
+  display: flex; align-items: center; gap: 4mm;
+  padding: 0 18mm 0 22mm;
+  box-sizing: border-box;
+}
+.chapter-last-band .rule { flex: 1; height: 1px; background: var(--plum-300); }
+.chapter-last-band svg { width: 11mm; height: auto; flex: none; }
+.chapter-last-band .txt { font-family: var(--sans); font-size: 7.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--plum-700); font-weight: 700; white-space: nowrap; }
+.chapter-last-band .pg { font-family: var(--serif); font-size: 10pt; color: var(--plum-700); margin-left: 2mm; }
+
+/* fim de capítulo (versão web, em linha) */
 .chapter-end {
   display: flex; align-items: center; gap: 4mm;
   max-width: var(--measure);
