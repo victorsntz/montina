@@ -6,13 +6,14 @@ import { writeFileSync, existsSync } from "node:fs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
+const [, , inputName = "print.html", outputName = "prova.html", title = "Prova de diagramação · A4 · aponte página + trecho para pedir correções"] = process.argv;
 const executablePath = [process.env.CHROMIUM_PATH, "/opt/pw-browsers/chromium-1194/chrome-linux/chrome", "/usr/bin/chromium", "/usr/bin/google-chrome"].filter(Boolean).find(p => existsSync(p));
 const browser = await chromium.launch({ executablePath, args: ["--no-sandbox", "--allow-file-access-from-files"] });
 const page = await browser.newPage();
-await page.goto(pathToFileURL(join(dist, "print.html")).href, { waitUntil: "load" });
+await page.goto(pathToFileURL(join(dist, inputName)).href, { waitUntil: "load" });
 await page.waitForFunction(() => window.__pagedDone === true, null, { timeout: 180000 });
 await page.waitForTimeout(300);
-const html = await page.evaluate(() => {
+const html = await page.evaluate((title) => {
   document.querySelectorAll("script").forEach(s => s.remove());
   // Regras inseridas via CSSOM pelo Paged.js (target-counter, string-set, contadores) não aparecem no HTML:
   // serializa todas as folhas de estilo em um único <style>.
@@ -36,10 +37,10 @@ const html = await page.evaluate(() => {
   document.head.appendChild(extra);
   const bar = document.createElement("div");
   bar.className = "prova-bar";
-  bar.textContent = "Prova de diagramação · A4 · aponte página + trecho para pedir correções";
+  bar.textContent = title;
   document.body.prepend(bar);
   return "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-});
+}, title);
 await browser.close();
-writeFileSync(join(dist, "prova.html"), html);
-console.log(`prova ok: ${(html.length / 1024).toFixed(0)} KB → dist/prova.html`);
+writeFileSync(join(dist, outputName), html);
+console.log(`prova ok: ${(html.length / 1024).toFixed(0)} KB → dist/${outputName}`);
