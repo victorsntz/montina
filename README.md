@@ -23,6 +23,7 @@ Saídas em `dist/`:
 | `cartilha-lupus-df-a4-grafica-sangria3mm.pdf` | gráfica, RGB, 216 × 303 mm com marcas |
 | `cartilha-lupus-df-a4-grafica-sangria3mm-cmyk.pdf` | gráfica, CMYK, mesmo formato (arquivo final de impressão) |
 | `prova.html` | prova paginada estática, para revisão no navegador |
+| `memorial-projeto-grafico.pdf` | memorial descritivo do projeto gráfico (`npm run memorial`) |
 
 O script `scripts/pdf.mjs` procura o Chromium em `CHROMIUM_PATH`, `/opt/pw-browsers/...` ou nos caminhos comuns do sistema.
 

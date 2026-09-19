@@ -8,6 +8,7 @@
     "build": "node scripts/build.mjs",
     "pdf": "node scripts/pdf.mjs",
     "pdf:grafica": "node scripts/pdf.mjs print-grafica.html cartilha-lupus-df-a4-grafica-sangria3mm.pdf && npm run cmyk",
+    "memorial": "node scripts/memorial.mjs && node scripts/pdf.mjs memorial.html memorial-projeto-grafico.pdf",
     "cmyk": "gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sColorConversionStrategy=CMYK -dProcessColorModel=/DeviceCMYK -dEmbedAllFonts=true -dSubsetFonts=true -dCompatibilityLevel=1.4 -sOutputFile=dist/cartilha-lupus-df-a4-grafica-sangria3mm-cmyk.pdf dist/cartilha-lupus-df-a4-grafica-sangria3mm.pdf",
     "preview": "node scripts/preview.mjs"
   },

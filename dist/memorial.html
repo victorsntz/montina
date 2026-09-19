@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Memorial descritivo do projeto gráfico</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  body.print { font-size: 1rem; }
+  .m-cover { page: cover; break-after: page; height: 297mm; width: 210mm; margin: -20mm -18mm 0 -22mm; background: var(--plum-900); color: var(--white); position: relative; }
+  .m-cover .art { position: absolute; left: 0; right: 0; top: 46mm; display: flex; justify-content: center; }
+  .m-cover .art svg { width: 84mm; height: auto; }
+  .m-cover .text { position: absolute; left: 22mm; right: 20mm; bottom: 34mm; }
+  .m-cover .kicker { font-size: .8rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--lilac-200); margin-bottom: 1rem; }
+  .m-cover h1 { color: var(--white); font-size: 3.4rem; font-weight: 400; line-height: 1.02; letter-spacing: -.02em; max-width: 150mm; font-variation-settings: "opsz" 144, "SOFT" 100; }
+  .m-cover .sub { margin-top: 1.2rem; font-family: var(--serif); font-size: 1.25rem; color: var(--lilac-200); max-width: 140mm; }
+  .m-cover .studio { margin-top: 2.2rem; display: flex; align-items: center; gap: 10mm; }
+  .m-cover .studio svg { height: 11mm; width: auto; }
+  .m-cover .studio span { font-size: .8rem; color: var(--plum-300); letter-spacing: .12em; text-transform: uppercase; }
+  section.m { break-before: page; }
+  section.m h1 { font-size: 2.3rem; font-weight: 500; margin: 0 0 .5rem; max-width: 150mm; }
+  section.m .num { font-family: var(--sans); font-size: .74rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--plum-500); margin-bottom: .8rem; }
+  section.m h2 { font-size: 1.35rem; margin: 1.4rem 0 .5rem; }
+  .why { border-left: 5px solid var(--terracotta); padding: .2rem 0 .2rem 1rem; margin: .9rem 0 1.1rem; max-width: var(--measure); }
+  .why .lab { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: #a6432a; margin-bottom: .25rem; }
+  .why p { margin-bottom: .35rem; }
+  .pages { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; margin: 1rem 0 1.2rem; }
+  .pages.two { grid-template-columns: repeat(2, 1fr); max-width: 150mm; }
+  figure.pg { margin: 0; break-inside: avoid; }
+  figure.pg img { width: 100%; display: block; border: 1px solid var(--lilac-200); border-radius: 4px; box-shadow: 0 2px 8px rgba(43,27,51,.10); }
+  figure.pg figcaption { font-size: .78rem; color: var(--ink-soft); margin-top: .4rem; line-height: 1.35; }
+  .swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin: 1rem 0; }
+  .sw { break-inside: avoid; border-radius: 10px; overflow: hidden; border: 1px solid var(--lilac-200); }
+  .sw i { display: block; height: 16mm; }
+  .sw div { padding: .5rem .7rem .6rem; font-size: .8rem; line-height: 1.35; }
+  .sw b { display: block; font-size: .86rem; }
+  .sw code { font-family: var(--sans); color: var(--plum-500); font-size: .74rem; }
+  .type { border: 1px solid var(--lilac-200); border-radius: 12px; padding: 1rem 1.2rem; margin: .8rem 0; break-inside: avoid; }
+  .type .name { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--plum-500); font-weight: 700; }
+  .type .sample { margin: .3rem 0 .4rem; }
+  .type .sample.serif { font-family: var(--serif); font-size: 2rem; line-height: 1.1; font-variation-settings: "opsz" 72, "SOFT" 40; }
+  .type .sample.sans { font-family: var(--sans); font-size: 1.05rem; }
+  .type .sample.stix { font-family: "STIX Two Text", serif; font-weight: 600; font-size: 1.6rem; letter-spacing: .2em; }
+  .type p { font-size: .88rem; color: var(--ink-soft); margin: 0; }
+  .gal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm 6mm; margin: 1rem 0; }
+  .gal.four { grid-template-columns: repeat(4, 1fr); gap: 5mm; }
+  .gal .it { break-inside: avoid; }
+  .gal .it .im { background: var(--white); border: 1px solid var(--lilac-200); border-radius: 12px; padding: 3mm; }
+  .gal .it svg { width: 100%; height: auto; display: block; }
+  .gal .it h4 { margin: .5rem 0 .15rem; font-size: .92rem; }
+  .gal .it p { font-size: .8rem; color: var(--ink-soft); line-height: 1.35; margin: 0; }
+  .gal.icons .im { padding: 5mm; color: var(--plum-700); }
+  .comp { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin: .8rem 0; }
+  .comp > div { break-inside: avoid; }
+  .comp .box, .comp .card, .comp .qr, .comp .spot { margin: 0 0 .6rem; max-width: none; }
+  .rules li { margin-bottom: .45rem; }
+  .cred dl { display: grid; grid-template-columns: max-content 1fr; gap: .4rem 1rem; max-width: var(--measure); }
+  .cred dt { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--plum-500); font-weight: 700; padding-top: .15rem; }
+  .cred dd { margin: 0; }
+  .decl { background: var(--lilac-050); border-radius: 14px; padding: 1.1rem 1.3rem; margin: 1.2rem 0; max-width: var(--measure); font-family: var(--serif); font-size: 1.05rem; line-height: 1.45; color: var(--plum-900); font-variation-settings: "opsz" 24, "SOFT" 50; }
+  .m-back { page: cover; break-before: page; height: 297mm; width: 210mm; margin: -20mm -18mm 0 -22mm; background: var(--plum-900); position: relative; }
+  .m-back .inner { position: absolute; left: 22mm; right: 22mm; bottom: 28mm; color: var(--lilac-200); }
+  .m-back svg { height: 12mm; width: auto; }
+  .m-back p { color: var(--plum-300); font-size: .8rem; margin-top: 1rem; max-width: 120mm; }
+  .chapter h1 { string-set: none; }
+  section.m h1 { string-set: chapter-title content(text); }
+  @media screen { body.print { background:#ddd } .pagedjs_page { background:white; margin: 8mm auto; box-shadow: 0 2px 12px rgba(0,0,0,.2);} }
+</style>
+</head>
+<body class="print">
+
+<section class="m-cover">
+  <div class="art"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 130" ><g transform="translate(80 66) rotate(0) scale(0.9)">
+  <ellipse cx="-30" cy="-16" rx="30" ry="22" transform="rotate(-25 -30 -16)" fill="#b592c7"/>
+  <ellipse cx="30" cy="-16" rx="30" ry="22" transform="rotate(25 30 -16)" fill="#b592c7"/>
+  <ellipse cx="-22" cy="20" rx="20" ry="16" transform="rotate(20 -22 20)" fill="#d4674a"/>
+  <ellipse cx="22" cy="20" rx="20" ry="16" transform="rotate(-20 22 20)" fill="#d4674a"/>
+  <circle cx="-34" cy="-18" r="7" fill="#f5f0f8" opacity=".9"/>
+  <circle cx="34" cy="-18" r="7" fill="#f5f0f8" opacity=".9"/>
+  <circle cx="-24" cy="22" r="4" fill="#f5f0f8" opacity=".8"/>
+  <circle cx="24" cy="22" r="4" fill="#f5f0f8" opacity=".8"/>
+  <rect x="-4" y="-30" width="8" height="60" rx="4" fill="#ece2f1"/>
+  <circle cx="0" cy="-32" r="6" fill="#ece2f1"/>
+  <path d="M-3,-36 C-8,-46 -16,-48 -20,-50" stroke="#ece2f1" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M3,-36 C8,-46 16,-48 20,-50" stroke="#ece2f1" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+</g></svg>
+</div>
+  <div class="text">
+    <div class="kicker">Memorial descritivo do projeto gráfico</div>
+    <h1>Manual para o paciente com lúpus do Distrito Federal</h1>
+    <p class="sub">Conceito, sistema visual, ilustrações autorais e decisões editoriais da cartilha da Dra. Paula Cristina Montina.</p>
+    <div class="studio"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 56" role="img" aria-label="Fortunato Estúdio de marcas">
+  <text x="0" y="34" font-family="'STIX Two Text', 'Fraunces', Georgia, serif" font-weight="600" font-size="30" letter-spacing="6" fill="#F6F5F1">FORTUNATO</text>
+  <text x="226" y="18" font-family="'STIX Two Text', 'Fraunces', Georgia, serif" font-weight="500" font-size="12" fill="#BFBDB5">®</text>
+  <line x1="246" y1="14" x2="246" y2="38" stroke="#F6F5F1" stroke-opacity=".3" stroke-width="1"/>
+  <text x="256" y="22" font-family="'Inter', system-ui, sans-serif" font-weight="500" font-size="7.6" letter-spacing="1.1" fill="#BFBDB5">ESTÚDIO</text>
+  <text x="256" y="33" font-family="'Inter', system-ui, sans-serif" font-weight="500" font-size="7.6" letter-spacing="1.1" fill="#BFBDB5">DE MARCAS</text>
+</svg>
+<span>Brasília · setembro de 2026</span></div>
+  </div>
+</section>
+
+<section class="m" id="m1">
+  <div class="num">01</div>
+  <h1>O ponto de partida</h1>
+  <p class="lead">A Dra. Paula Cristina Montina, reumatologista dos ambulatórios de lúpus do IHBDF, escreveu um manual completo para o paciente do Distrito Federal: doença, tratamento, vacinação, gestação, acesso ao SUS, farmácia de alto custo, direitos e redes de apoio.</p>
+  <p>O material que existia até então, a cartilha nacional da Sociedade Brasileira de Reumatologia, foi considerado pela autora informal e resumido demais: 19 páginas em A5, tópicos curtos, roxo chapado. O pedido foi claro: uma cartilha nacional de referência, com o texto integral, que respeitasse a inteligência do paciente e tivesse a seriedade de um livro.</p>
+  <div class="why">
+    <div class="lab">Por que isso importa</div>
+    <p>Quem recebe o diagnóstico de lúpus precisa de informação organizada, não de slogans. A diagramação foi tratada como parte do cuidado: hierarquia clara, ritmo de leitura, e nenhum parágrafo cortado ou resumido.</p>
+  </div>
+  <h2>Compromissos do projeto</h2>
+  <ul>
+    <li><strong>Texto integral.</strong> As 517 sentenças do original foram conferidas uma a uma no arquivo final. Só foram corrigidos erros de digitação.</li>
+    <li><strong>Formato escalável.</strong> A4 como base: reduz para A5 de bolso ou amplia para A3 sem rediagramar, porque a proporção é a mesma.</li>
+    <li><strong>Ilustração autoral.</strong> Nenhuma imagem de banco. Todas as 43 peças vetoriais foram desenhadas para este projeto, no mesmo sistema de formas e cores.</li>
+    <li><strong>Duas saídas, uma fonte.</strong> O mesmo conteúdo gera a versão impressa (PDF com sangria e CMYK) e a versão web responsiva.</li>
+  </ul>
+  <div class="pages">
+    <figure class="pg"><img src="memorial/capa.png" alt=""><figcaption>Capa</figcaption></figure>
+    <figure class="pg"><img src="memorial/folha.png" alt=""><figcaption>Folha de rosto com o índice visual</figcaption></figure>
+    <figure class="pg"><img src="memorial/abertura.png" alt=""><figcaption>Abertura do capítulo 1</figcaption></figure>
+  </div>
+</section>
+
+<section class="m" id="m2">
+  <div class="num">02</div>
+  <h1>A borboleta</h1>
+  <p class="lead">O símbolo da cartilha nasce do sinal mais conhecido da doença e vira uma imagem de transformação.</p>
+  <p>A vermelhidão que atravessa as bochechas e o nariz é chamada pela medicina de "asa de borboleta". Com o tempo, a borboleta se tornou o símbolo mundial da luta contra o lúpus, ao lado da cor roxa do Maio Roxo. A cartilha assume o símbolo e o redesenha: asas superiores em lilás, inferiores em terracota, corpo em ameixa, construídas só com elipses e círculos.</p>
+  <div class="why">
+    <div class="lab">Por que esta borboleta</div>
+    <p>Ela é reconhecível para o reumatologista e acolhedora para o paciente. As formas geométricas evitam o desenho infantil e sustentam a frase que fecha o prefácio da autora: "o lúpus faz parte da sua história, mas não define quem você é".</p>
+  </div>
+  <p>A mesma borboleta aparece em quatro escalas: grande na capa, média na abertura do capítulo 1 e na página "Por que a borboleta?", pequena na contracapa e minúscula na faixa que encerra cada capítulo. Um símbolo, um sistema.</p>
+  <div class="gal four" style="margin-top:1.2rem">
+    <div class="it"><div class="im" style="background:#2b1b33"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 130" ><g transform="translate(80 66) rotate(0) scale(0.9)">
+  <ellipse cx="-30" cy="-16" rx="30" ry="22" transform="rotate(-25 -30 -16)" fill="#b592c7"/>
+  <ellipse cx="30" cy="-16" rx="30" ry="22" transform="rotate(25 30 -16)" fill="#b592c7"/>
+  <ellipse cx="-22" cy="20" rx="20" ry="16" transform="rotate(20 -22 20)" fill="#d4674a"/>
+  <ellipse cx="22" cy="20" rx="20" ry="16" transform="rotate(-20 22 20)" fill="#d4674a"/>
+  <circle cx="-34" cy="-18" r="7" fill="#f5f0f8" opacity=".9"/>
+  <circle cx="34" cy="-18" r="7" fill="#f5f0f8" opacity=".9"/>
+  <circle cx="-24" cy="22" r="4" fill="#f5f0f8" opacity=".8"/>
+  <circle cx="24" cy="22" r="4" fill="#f5f0f8" opacity=".8"/>
+  <rect x="-4" y="-30" width="8" height="60" rx="4" fill="#ece2f1"/>
+  <circle cx="0" cy="-32" r="6" fill="#ece2f1"/>
+  <path d="M-3,-36 C-8,-46 -16,-48 -20,-50" stroke="#ece2f1" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M3,-36 C8,-46 16,-48 20,-50" stroke="#ece2f1" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+</g></svg>
+</div><h4>Contracapa</h4><p>Versão sobre fundo escuro.</p></div>
+    <div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/><g transform="translate(100 104) rotate(0) scale(1.05)">
+  <ellipse cx="-30" cy="-16" rx="30" ry="22" transform="rotate(-25 -30 -16)" fill="#7a4e93"/>
+  <ellipse cx="30" cy="-16" rx="30" ry="22" transform="rotate(25 30 -16)" fill="#7a4e93"/>
+  <ellipse cx="-22" cy="20" rx="20" ry="16" transform="rotate(20 -22 20)" fill="#d4674a"/>
+  <ellipse cx="22" cy="20" rx="20" ry="16" transform="rotate(-20 22 20)" fill="#d4674a"/>
+  <circle cx="-34" cy="-18" r="7" fill="#ece2f1" opacity=".9"/>
+  <circle cx="34" cy="-18" r="7" fill="#ece2f1" opacity=".9"/>
+  <circle cx="-24" cy="22" r="4" fill="#ece2f1" opacity=".8"/>
+  <circle cx="24" cy="22" r="4" fill="#ece2f1" opacity=".8"/>
+  <rect x="-4" y="-30" width="8" height="60" rx="4" fill="#4b2a5e"/>
+  <circle cx="0" cy="-32" r="6" fill="#4b2a5e"/>
+  <path d="M-3,-36 C-8,-46 -16,-48 -20,-50" stroke="#4b2a5e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M3,-36 C8,-46 16,-48 20,-50" stroke="#4b2a5e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+</g>
+<circle cx="150" cy="48" r="3" fill="#d9a441"/>
+<circle cx="42" cy="150" r="2.4" fill="#d9a441"/>
+<circle cx="156" cy="152" r="2" fill="#b592c7"/></svg>
+</div><h4>Abertura do capítulo 1</h4><p>Dentro do fundo orgânico das aberturas.</p></div>
+    <div class="it"><div class="im" style="padding:8mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 32"><g fill="#7a4e93"><ellipse cx="12" cy="12" rx="9" ry="7" transform="rotate(-25 12 12)"/><ellipse cx="28" cy="12" rx="9" ry="7" transform="rotate(25 28 12)"/></g><g fill="#d4674a"><ellipse cx="14" cy="22" rx="6" ry="5" transform="rotate(20 14 22)"/><ellipse cx="26" cy="22" rx="6" ry="5" transform="rotate(-20 26 22)"/></g><rect x="18.6" y="6" width="2.8" height="20" rx="1.4" fill="#4b2a5e"/><circle cx="20" cy="5.5" r="2" fill="#4b2a5e"/></svg>
+</div><h4>Fim de capítulo</h4><p>Marca de 11 mm na faixa do rodapé.</p></div>
+    <div class="it"><div class="im" style="padding:6mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<circle cx="50" cy="52" r="30" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/>
+<ellipse cx="37" cy="55" rx="9" ry="6.5" transform="rotate(-18 37 55)" fill="#f0b39f"/>
+<ellipse cx="63" cy="55" rx="9" ry="6.5" transform="rotate(18 63 55)" fill="#f0b39f"/>
+<path d="M44,52 C47,50 53,50 56,52 C53,54 47,54 44,52 Z" fill="#f0b39f"/>
+<circle cx="40" cy="44" r="3" fill="#4b2a5e"/><circle cx="60" cy="44" r="3" fill="#4b2a5e"/>
+<path d="M44,68 C47,71 53,71 56,68" stroke="#4b2a5e" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+</div><h4>No rosto</h4><p>O sinal clínico, no ícone de pele.</p></div>
+  </div>
+</section>
+
+<section class="m" id="m3">
+  <div class="num">03</div>
+  <h1>Cores</h1>
+  <p class="lead">Uma família de ameixa e lilás para a identidade, terracota para alerta, dourado para dica. Nada além disso.</p>
+  <div class="swatches">
+    <div class="sw"><i style="background:#2b1b33"></i><div><b>Ameixa escura</b><code>#2b1b33</code><br>capa, contracapa, texto de títulos</div></div><div class="sw"><i style="background:#4b2a5e"></i><div><b>Ameixa</b><code>#4b2a5e</code><br>títulos, corpo das ilustrações</div></div><div class="sw"><i style="background:#7a4e93"></i><div><b>Ameixa média</b><code>#7a4e93</code><br>destaques, marcadores, linhas</div></div><div class="sw"><i style="background:#b592c7"></i><div><b>Lilás forte</b><code>#b592c7</code><br>detalhes e sombras das ilustrações</div></div><div class="sw"><i style="background:#d9c7e3"></i><div><b>Lilás</b><code>#d9c7e3</code><br>fios, bordas, asas da capa</div></div><div class="sw"><i style="background:#f5f0f8"></i><div><b>Lilás claro</b><code>#f5f0f8</code><br>fundos de caixa e de abertura</div></div><div class="sw"><i style="background:#d4674a"></i><div><b>Terracota</b><code>#d4674a</code><br>alerta, Importante, asas inferiores</div></div><div class="sw"><i style="background:#d9a441"></i><div><b>Dourado</b><code>#d9a441</code><br>dica, sol, luz</div></div><div class="sw"><i style="background:#fbf7f1"></i><div><b>Creme</b><code>#fbf7f1</code><br>blocos de QR, comprimidos</div></div>
+  </div>
+  <div class="why">
+    <div class="lab">Por que essas cores</div>
+    <p>O roxo é a cor do lúpus no mundo inteiro, então a cartilha não foge dele: ela o aprofunda. A ameixa escura dá peso de livro à capa; o lilás claro faz os fundos respirarem. O terracota foi escolhido para alertas porque contrasta com o roxo sem gritar como um vermelho puro, e o dourado marca as dicas como algo positivo. O paciente aprende o código em duas páginas: terracota é "cuidado", dourado é "vale a pena", lilás é "lembre-se".</p>
+  </div>
+</section>
+
+<section class="m" id="m4">
+  <div class="num">04</div>
+  <h1>Tipografia</h1>
+  <p class="lead">Duas famílias com papéis claros: uma serifa com personalidade para os títulos e uma sem serifa de alta legibilidade para o corpo.</p>
+  <div class="type"><div class="name">Fraunces · títulos, aberturas, destaques</div><div class="sample serif">Entendendo o lúpus</div><p>Serifa variável com eixo óptico: nos títulos grandes fica mais contrastada e elegante; nos parágrafos de abertura, mais suave. Dá a voz de livro que a autora pediu.</p></div>
+  <div class="type"><div class="name">Inter · texto corrido, listas, tabelas, rótulos</div><div class="sample sans">O lúpus pode acontecer com qualquer pessoa, mas é muito mais comum em mulheres, principalmente entre a adolescência e os 40 anos.</div><p>Corpo em 10,5 pt com entrelinha de 1,5 e coluna de 140 mm (cerca de 70 caracteres por linha), dentro das recomendações de legibilidade para materiais de educação em saúde. Números tabulares na tabela de telefones.</p></div>
+  <div class="type"><div class="name">STIX Two Text · marca Fortunato Estúdio</div><div class="sample stix">FORTUNATO</div><p>A mesma fonte do site do estúdio, usada só na assinatura, para a marca aparecer como no restante da comunicação da Fortunato.</p></div>
+</section>
+
+<section class="m" id="m5">
+  <div class="num">05</div>
+  <h1>Estrutura editorial</h1>
+  <p class="lead">A cartilha foi organizada como um livro: partes pré-textuais, onze capítulos com abertura própria, uma página de fechamento e a contracapa.</p>
+  <div class="pages">
+    <figure class="pg"><img src="memorial/folha.png" alt=""><figcaption>Folha de rosto: índice visual com as onze ilustrações, para quem folheia achar o assunto de olho.</figcaption></figure>
+    <figure class="pg"><img src="memorial/ficha.png" alt=""><figcaption>Ficha técnica com créditos, apoio e ficha catalográfica (CIP) já montada, à espera do ISBN.</figcaption></figure>
+    <figure class="pg"><img src="memorial/sumario.png" alt=""><figcaption>Sumário automático em duas páginas, com número de página de cada seção.</figcaption></figure>
+    <figure class="pg"><img src="memorial/prefacio.png" alt=""><figcaption>Prefácio em duas colunas: retrato da autora, citação em destaque e o texto em uma página só.</figcaption></figure>
+    <figure class="pg"><img src="memorial/abertura.png" alt=""><figcaption>Abertura de capítulo: ilustração, numeral grande e a primeira frase da própria autora como entrada.</figcaption></figure>
+    <figure class="pg"><img src="memorial/fim.png" alt=""><figcaption>Faixa de fim de capítulo no rodapé: linha, borboleta e número da página. Marca visual de que o assunto fechou.</figcaption></figure>
+    <figure class="pg"><img src="memorial/bonus.png" alt=""><figcaption>Página bônus antes da contracapa: a história da borboleta e uma palavra da autora.</figcaption></figure>
+    <figure class="pg"><img src="memorial/contracapa.png" alt=""><figcaption>Contracapa: borboleta pequena, a frase-síntese e as marcas de apoio.</figcaption></figure>
+    <figure class="pg"><img src="memorial/tabela.png" alt=""><figcaption>Página de conteúdo: tabela das farmácias, cartão de horário e caixa de alerta na mesma largura de coluna.</figcaption></figure>
+  </div>
+  <div class="why">
+    <div class="lab">Por que aberturas de página inteira</div>
+    <p>Cada capítulo é uma pergunta diferente do paciente ("posso engravidar?", "meu remédio foi negado, e agora?"). A abertura em página inteira dá uma pausa, avisa a mudança de assunto e deixa o livro fácil de folhear até o ponto certo.</p>
+  </div>
+</section>
+
+<section class="m" id="m6">
+  <div class="num">06</div>
+  <h1>Componentes</h1>
+  <p class="lead">Um conjunto pequeno de peças que se repete do começo ao fim. O leitor aprende o vocabulário nas primeiras páginas e nunca mais precisa pensar nele.</p>
+  <div class="comp">
+    <div>
+      <div class="box important"><div class="label"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19L12 3Z"/><line x1="12" y1="10" x2="12" y2="14"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
+Importante</div><p>Terracota: informação que evita erro ou risco. Ex.: não suspender medicamentos por conta própria.</p></div>
+      <div class="box tip"><div class="label"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.7.6 1 1.3 1 2.1h5c0-.8.3-1.5 1-2.1A6 6 0 0 0 12 3Z"/></svg>
+Uma dica importante</div><p>Dourado: orientação prática que facilita a vida. Ex.: o que levar para a consulta.</p></div>
+      <div class="box remember"><div class="label"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>
+Lembre-se</div><p>Lilás: a síntese que fecha uma seção, no tom da autora.</p></div>
+    </div>
+    <div>
+      <div class="spot"><div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M34,26 C20,26 14,40 14,52 C14,66 22,78 34,78 C42,78 44,70 40,66 C36,62 34,58 36,52 C38,46 42,44 42,38 C42,30 40,26 34,26 Z" fill="#7a4e93"/>
+<path d="M66,26 C80,26 86,40 86,52 C86,66 78,78 66,78 C58,78 56,70 60,66 C64,62 66,58 64,52 C62,46 58,44 58,38 C58,30 60,26 66,26 Z" fill="#7a4e93"/>
+<path d="M42,40 C46,44 46,60 42,64" stroke="#d4674a" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M58,40 C54,44 54,60 58,64" stroke="#d4674a" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+</div><div><h3 style="margin-top:0">Destaque com ícone</h3><p>Sintomas, remédios e hábitos: ícone à esquerda, título e texto ao lado. Sequências longas ficam escaneáveis.</p></div></div>
+      <div class="card"><h4>Cartão de contato</h4><dl><dt>Uso</dt><dd>Endereços, telefones e e-mails com rótulos, separados do texto corrido.</dd></dl></div>
+      <div class="qr"><div class="code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 32"><g fill="#7a4e93"><ellipse cx="12" cy="12" rx="9" ry="7" transform="rotate(-25 12 12)"/><ellipse cx="28" cy="12" rx="9" ry="7" transform="rotate(25 28 12)"/></g><g fill="#d4674a"><ellipse cx="14" cy="22" rx="6" ry="5" transform="rotate(20 14 22)"/><ellipse cx="26" cy="22" rx="6" ry="5" transform="rotate(-20 26 22)"/></g><rect x="18.6" y="6" width="2.8" height="20" rx="1.4" fill="#4b2a5e"/><circle cx="20" cy="5.5" r="2" fill="#4b2a5e"/></svg>
+</div><div><h4>Bloco de QR Code</h4><p>Código, título, instrução e endereço legível. Os quatro códigos foram gerados em vetor e testados no PDF final.</p></div></div>
+    </div>
+  </div>
+  <ul class="rules">
+    <li><strong>Checklists</strong> com caixinhas para "o que levar" e documentos, porque o paciente usa a cartilha na fila do serviço.</li>
+    <li><strong>Fluxos em pílulas</strong> (residência → UBS → regulação → consulta) para o caminho do SUS caber numa linha.</li>
+    <li><strong>Tabela</strong> só onde a informação é realmente tabular: as três unidades da Farmácia de Alto Custo.</li>
+  </ul>
+</section>
+
+<section class="m" id="m7">
+  <div class="num">07</div>
+  <h1>Ilustrações autorais</h1>
+  <p class="lead">Todas as ilustrações desta cartilha são autorais, criadas pela Fortunato Estúdio para este projeto. Nenhuma vem de banco de imagens.</p>
+  <p>São 43 peças vetoriais: a capa, onze aberturas de capítulo, vinte e quatro ícones de destaque, cinco ícones de rótulo, a marca de fim de capítulo e as versões da borboleta. Por serem vetor, imprimem nítidas em qualquer tamanho, do A5 ao cartaz, e funcionam na web sem perda.</p>
+  <div class="why">
+    <div class="lab">O estilo</div>
+    <p>Formas geométricas suaves, sem contorno, construídas só com elipses, círculos e retângulos arredondados. Paleta reduzida à da cartilha. Nenhum rosto realista, nenhuma cena de hospital: o paciente se vê nas imagens sem se ver doente.</p>
+  </div>
+  <h2>Capa</h2>
+  <div class="pages two">
+    <figure class="pg"><img src="memorial/capa.png" alt=""><figcaption>Ameixa escura, sol dourado no alto, a borboleta centralizada sobre asas translúcidas de fundo e o título em Fraunces com "lúpus" em itálico.</figcaption></figure>
+    <div><p>A capa precisava funcionar em três lugares: na mão do paciente, na mesa do consultório e na foto do lançamento. Por isso ela é escura, com um único ponto de luz (o sol) e um único protagonista (a borboleta). O título ocupa o terço superior e os créditos da autora ficam na base, com espaço livre entre eles e o desenho.</p></div>
+  </div>
+  <h2>Aberturas de capítulo</h2>
+  <div class="gal">
+    <div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/><g transform="translate(100 104) rotate(0) scale(1.05)">
+  <ellipse cx="-30" cy="-16" rx="30" ry="22" transform="rotate(-25 -30 -16)" fill="#7a4e93"/>
+  <ellipse cx="30" cy="-16" rx="30" ry="22" transform="rotate(25 30 -16)" fill="#7a4e93"/>
+  <ellipse cx="-22" cy="20" rx="20" ry="16" transform="rotate(20 -22 20)" fill="#d4674a"/>
+  <ellipse cx="22" cy="20" rx="20" ry="16" transform="rotate(-20 22 20)" fill="#d4674a"/>
+  <circle cx="-34" cy="-18" r="7" fill="#ece2f1" opacity=".9"/>
+  <circle cx="34" cy="-18" r="7" fill="#ece2f1" opacity=".9"/>
+  <circle cx="-24" cy="22" r="4" fill="#ece2f1" opacity=".8"/>
+  <circle cx="24" cy="22" r="4" fill="#ece2f1" opacity=".8"/>
+  <rect x="-4" y="-30" width="8" height="60" rx="4" fill="#4b2a5e"/>
+  <circle cx="0" cy="-32" r="6" fill="#4b2a5e"/>
+  <path d="M-3,-36 C-8,-46 -16,-48 -20,-50" stroke="#4b2a5e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M3,-36 C8,-46 16,-48 20,-50" stroke="#4b2a5e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+</g>
+<circle cx="150" cy="48" r="3" fill="#d9a441"/>
+<circle cx="42" cy="150" r="2.4" fill="#d9a441"/>
+<circle cx="156" cy="152" r="2" fill="#b592c7"/></svg>
+</div><h4>1 · Entendendo o lúpus</h4><p>A borboleta geométrica, símbolo da doença e da cartilha. Abre o livro com o sinal mais conhecido do lúpus transformado em imagem de leveza.</p></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<g transform="rotate(-35 100 100)">
+  <rect x="52" y="82" width="96" height="36" rx="18" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/>
+  <path d="M100,82 h30 a18,18 0 0 1 0,36 h-30 Z" fill="#7a4e93"/>
+  <line x1="100" y1="82" x2="100" y2="118" stroke="#4b2a5e" stroke-width="3"/>
+</g>
+<circle cx="150" cy="140" r="15" fill="#d4674a"/>
+<line x1="139" y1="140" x2="161" y2="140" stroke="#fbf7f1" stroke-width="3" stroke-linecap="round"/>
+<circle cx="54" cy="60" r="11" fill="#d9a441"/>
+<line x1="54" y1="52" x2="54" y2="68" stroke="#fbf7f1" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M40,150 C42,132 56,124 72,126 C70,144 58,154 40,150 Z" fill="#b592c7"/>
+<path d="M44,148 C52,140 60,134 68,128" stroke="#f5f0f8" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+</div><h4>2 · Como é feito o tratamento</h4><p>Cápsula aberta, comprimidos e uma folha: o tratamento é medicamento, mas também é cuidado. As cores separam os tipos de remédio sem parecer bula.</p></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<circle cx="132" cy="62" r="26" fill="#d9a441"/>
+<g stroke="#d9a441" stroke-width="5" stroke-linecap="round">
+  <line x1="132" y1="20" x2="132" y2="28"/><line x1="162" y1="32" x2="156" y2="38"/>
+  <line x1="174" y1="62" x2="166" y2="62"/><line x1="162" y1="92" x2="156" y2="86"/>
+  <line x1="102" y1="32" x2="108" y2="38"/><line x1="90" y1="62" x2="98" y2="62"/>
+</g>
+<!-- guarda-sol -->
+<path d="M18,110 A58,58 0 0 1 134,110 Z" fill="#7a4e93"/>
+<path d="M18,110 A58,58 0 0 1 76,52 V110 Z" fill="#4b2a5e"/>
+<path d="M18,110 C26,104 34,104 42,110 C50,104 58,104 66,110 C74,104 82,104 90,110 C98,104 106,104 114,110 C122,104 130,104 134,110" fill="#f5f0f8"/>
+<path d="M76,52 V166" stroke="#2b1b33" stroke-width="4" stroke-linecap="round"/>
+<path d="M76,166 C76,176 92,176 92,166" stroke="#2b1b33" stroke-width="4" fill="none" stroke-linecap="round"/>
+<!-- protetor solar -->
+<rect x="140" y="118" width="24" height="48" rx="6" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/>
+<rect x="146" y="110" width="12" height="10" rx="2" fill="#4b2a5e"/>
+<rect x="145" y="134" width="14" height="14" rx="2" fill="#d4674a"/></svg>
+</div><h4>3 · O tratamento vai além dos medicamentos</h4><p>Guarda-sol e protetor solar diante do sol. A mensagem do capítulo é proteção sem privação: quem tem lúpus não precisa viver longe do sol.</p></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<path d="M100,36 L152,54 V104 C152,138 124,158 100,166 C76,158 48,138 48,104 V54 Z" fill="#7a4e93"/>
+<path d="M100,50 L140,64 V104 C140,128 120,146 100,153 C80,146 60,128 60,104 V64 Z" fill="#ece2f1"/>
+<path d="M80,104 L94,118 L122,86" stroke="#4b2a5e" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<g transform="rotate(45 150 60)">
+  <rect x="134" y="52" width="46" height="16" rx="3" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/>
+  <rect x="180" y="55" width="12" height="10" rx="2" fill="#4b2a5e"/>
+  <rect x="192" y="58" width="12" height="4" rx="2" fill="#4b2a5e"/>
+  <rect x="120" y="58" width="14" height="4" rx="2" fill="#4b2a5e"/>
+  <rect x="138" y="56" width="20" height="8" rx="1" fill="#d4674a"/>
+</g></svg>
+</div><h4>4 · Vacinação e lúpus</h4><p>Escudo com marca de confirmação e seringa. Vacina como proteção, não como ameaça: o escudo é o protagonista, a seringa é coadjuvante.</p></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<circle cx="86" cy="46" r="20" fill="#7a4e93"/>
+<path d="M70,40 C72,24 96,20 106,32 C100,36 84,40 70,40 Z" fill="#4b2a5e"/>
+<path d="M74,66 H98 C100,74 108,82 118,84 C140,88 148,108 140,130 C136,142 134,154 134,168 H70 V150 C70,132 64,112 66,92 C67,80 70,70 74,66 Z" fill="#7a4e93"/>
+<path d="M126,104 C122,98 114,96 112,104 C110,110 118,116 126,122 C134,116 142,110 140,104 C138,96 130,98 126,104 Z" fill="#d4674a"/>
+<path d="M150,44 A16,16 0 1 1 156,76 A12,12 0 1 0 150,44 Z" fill="#d9a441"/>
+<circle cx="44" cy="138" r="3" fill="#d9a441"/>
+<circle cx="150" cy="150" r="2.4" fill="#b592c7"/></svg>
+</div><h4>5 · Gravidez, amamentação e anticoncepção</h4><p>Silhueta serena de gestante, coração sobre a barriga e uma lua. Planejamento e acompanhamento, com afeto e sem alarme.</p></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<!-- casa -->
+<path d="M30,116 L54,94 L78,116 V146 H30 Z" fill="#d9c7e3"/>
+<path d="M26,118 L54,90 L82,118" stroke="#d4674a" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="48" y="126" width="12" height="20" rx="2" fill="#4b2a5e"/>
+<!-- caminho -->
+<path d="M80,140 C100,140 104,120 120,120 C136,120 136,100 152,96" stroke="#7a4e93" stroke-width="3" stroke-dasharray="1 7" stroke-linecap="round" fill="none"/>
+<!-- pino de mapa com UBS -->
+<path d="M150,32 C124,32 108,52 108,74 C108,104 150,136 150,136 C150,136 192,104 192,74 C192,52 176,32 150,32 Z" fill="#7a4e93"/>
+<circle cx="150" cy="72" r="24" fill="#fbf7f1"/>
+<rect x="144" y="58" width="12" height="28" rx="2" fill="#d4674a"/>
+<rect x="136" y="66" width="28" height="12" rx="2" fill="#d4674a"/></svg>
+</div><h4>6 · Consulta com o reumatologista no DF</h4><p>Da casa até o pino no mapa com a cruz: o caminho UBS → regulação → especialista, resumido numa cena que o paciente entende de longe.</p></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<rect x="52" y="60" width="64" height="104" rx="12" fill="#7a4e93"/>
+<rect x="60" y="44" width="48" height="22" rx="5" fill="#d4674a"/>
+<rect x="62" y="84" width="44" height="52" rx="6" fill="#fbf7f1"/>
+<rect x="80" y="94" width="8" height="32" rx="2" fill="#7a4e93"/>
+<rect x="68" y="106" width="32" height="8" rx="2" fill="#7a4e93"/>
+<!-- comprimidos -->
+<g transform="rotate(-30 146 132)"><rect x="126" y="122" width="40" height="18" rx="9" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/><path d="M146,122 h11 a9,9 0 0 1 0,18 h-11 Z" fill="#d9a441"/></g>
+<circle cx="150" cy="70" r="12" fill="#b592c7"/>
+<line x1="142" y1="70" x2="158" y2="70" stroke="#f5f0f8" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="168" cy="96" r="8" fill="#d4674a"/></svg>
+</div><h4>7 · Farmácia de Alto Custo</h4><p>Frasco com a cruz da farmácia e comprimidos. Objeto reconhecível na hora, sem a frieza de um balcão institucional.</p></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<rect x="97" y="42" width="6" height="112" rx="3" fill="#4b2a5e"/>
+<rect x="72" y="150" width="56" height="8" rx="4" fill="#4b2a5e"/>
+<rect x="40" y="58" width="120" height="6" rx="3" fill="#4b2a5e"/>
+<line x1="56" y1="62" x2="40" y2="102" stroke="#7a4e93" stroke-width="2.5"/>
+<line x1="56" y1="62" x2="72" y2="102" stroke="#7a4e93" stroke-width="2.5"/>
+<path d="M32,102 H80 A24,24 0 0 1 32,102 Z" fill="#d4674a"/>
+<line x1="144" y1="62" x2="128" y2="96" stroke="#7a4e93" stroke-width="2.5"/>
+<line x1="144" y1="62" x2="160" y2="96" stroke="#7a4e93" stroke-width="2.5"/>
+<path d="M120,96 H168 A24,24 0 0 1 120,96 Z" fill="#b592c7"/>
+<circle cx="100" cy="42" r="8" fill="#d9a441"/></svg>
+</div><h4>8 · Direitos e deveres</h4><p>A balança, com um prato terracota e outro lilás: direitos e deveres em equilíbrio, nas duas cores de destaque da cartilha.</p></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<!-- balões de conversa -->
+<path d="M44,60 H120 A14,14 0 0 1 134,74 V104 A14,14 0 0 1 120,118 H78 L56,136 V118 H44 A14,14 0 0 1 30,104 V74 A14,14 0 0 1 44,60 Z" fill="#7a4e93"/>
+<circle cx="60" cy="90" r="5" fill="#ece2f1"/><circle cx="82" cy="90" r="5" fill="#ece2f1"/><circle cx="104" cy="90" r="5" fill="#ece2f1"/>
+<path d="M104,108 H160 A12,12 0 0 1 172,120 V144 A12,12 0 0 1 160,156 H150 V172 L132,156 H104 A12,12 0 0 1 92,144 V120 A12,12 0 0 1 104,108 Z" fill="#d4674a"/>
+<rect x="110" y="126" width="46" height="5" rx="2.5" fill="#fbf7f1"/>
+<rect x="110" y="137" width="30" height="5" rx="2.5" fill="#fbf7f1"/>
+<!-- fone -->
+<path d="M150,40 C160,38 170,44 170,54 L166,62 C160,60 156,58 152,54 L150,40 Z" fill="#4b2a5e"/>
+<path d="M136,50 c-8,24 4,44 24,52" stroke="#4b2a5e" stroke-width="8" fill="none" stroke-linecap="round"/></svg>
+</div><h4>9 · Onde buscar ajuda no DF</h4><p>Balões de conversa e o fone: os canais 160, 162 e Defensoria representados como diálogo, porque pedir ajuda é conversar.</p></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<circle cx="100" cy="100" r="38" fill="#ece2f1"/>
+<path d="M100,118 C90,108 78,100 80,88 C82,80 94,78 100,86 C106,78 118,80 120,88 C122,100 110,108 100,118 Z" fill="#d4674a"/>
+<g transform="translate(100 40) scale(1.4)"><circle cx="0" cy="-7" r="5.5" fill="#7a4e93"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#7a4e93"/></g>
+<g transform="translate(154 74) scale(1.4)"><circle cx="0" cy="-7" r="5.5" fill="#4b2a5e"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#4b2a5e"/></g>
+<g transform="translate(154 130) scale(1.4)"><circle cx="0" cy="-7" r="5.5" fill="#7a4e93"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#7a4e93"/></g>
+<g transform="translate(100 164) scale(1.4)"><circle cx="0" cy="-7" r="5.5" fill="#4b2a5e"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#4b2a5e"/></g>
+<g transform="translate(46 130) scale(1.4)"><circle cx="0" cy="-7" r="5.5" fill="#7a4e93"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#7a4e93"/></g>
+<g transform="translate(46 74) scale(1.4)"><circle cx="0" cy="-7" r="5.5" fill="#4b2a5e"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#4b2a5e"/></g>
+<circle cx="100" cy="100" r="54" fill="none" stroke="#b592c7" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/></svg>
+</div><h4>10 · ANPLúpus</h4><p>Círculo de pessoas ao redor de um coração: a rede de apoio. As figuras alternam dois tons de ameixa, nenhuma é igual à outra.</p></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" ><path d="M12,94 C8,42 54,8 108,12 C162,16 190,56 186,108 C182,160 140,192 88,188 C36,184 16,146 12,94 Z" fill="#f5f0f8"/><circle cx="152" cy="48" r="22" fill="#ece2f1"/><circle cx="34" cy="158" r="9" fill="#ece2f1"/>
+<path d="M40,104 L100,52 L160,104 V160 A8,8 0 0 1 152,168 H48 A8,8 0 0 1 40,160 Z" fill="#7a4e93"/>
+<path d="M30,108 L100,46 L170,108" stroke="#4b2a5e" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="128" y="60" width="14" height="28" rx="2" fill="#4b2a5e"/>
+<path d="M100,146 C88,134 70,124 74,108 C78,96 94,96 100,108 C106,96 122,96 126,108 C130,124 112,134 100,146 Z" fill="#d4674a"/>
+<circle cx="100" cy="128" r="0" fill="#fbf7f1"/>
+<rect x="88" y="148" width="24" height="20" rx="3" fill="#ece2f1"/></svg>
+</div><h4>11 · AMAVI Raras</h4><p>Casa com o coração dentro: o Espaço Mundo Raro como lugar de acolhimento. Mesmo coração terracota da ANPLúpus, para ligar as duas redes.</p></div>
+  </div>
+</section>
+
+<section class="m" id="m8">
+  <div class="num">08</div>
+  <h1>Ícones de destaque</h1>
+  <p class="lead">Vinte e quatro ícones para os sintomas, os medicamentos, os hábitos e os canais de ajuda. Cada um sobre um quadrado lilás de cantos arredondados, sempre no mesmo tamanho.</p>
+  <div class="gal four">
+    <div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/><g transform="translate(18 34) scale(1.1)"><circle cx="0" cy="-7" r="5.5" fill="#7a4e93"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#7a4e93"/></g><g transform="translate(34 34) scale(1.1)"><circle cx="0" cy="-7" r="5.5" fill="#7a4e93"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#7a4e93"/></g><g transform="translate(50 34) scale(1.1)"><circle cx="0" cy="-7" r="5.5" fill="#7a4e93"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#7a4e93"/></g><g transform="translate(66 34) scale(1.1)"><circle cx="0" cy="-7" r="5.5" fill="#7a4e93"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#7a4e93"/></g><g transform="translate(82 34) scale(1.1)"><circle cx="0" cy="-7" r="5.5" fill="#7a4e93"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#7a4e93"/></g><g transform="translate(18 64) scale(1.1)"><circle cx="0" cy="-7" r="5.5" fill="#7a4e93"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#7a4e93"/></g><g transform="translate(34 64) scale(1.1)"><circle cx="0" cy="-7" r="5.5" fill="#7a4e93"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#7a4e93"/></g><g transform="translate(50 64) scale(1.1)"><circle cx="0" cy="-7" r="5.5" fill="#7a4e93"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#7a4e93"/></g><g transform="translate(66 64) scale(1.1)"><circle cx="0" cy="-7" r="5.5" fill="#7a4e93"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#7a4e93"/></g><g transform="translate(82 64) scale(1.1)"><circle cx="0" cy="-7" r="5.5" fill="#d4674a"/><path d="M-9,12 V8 A9,9 0 0 1 9,8 V12 Z" fill="#d4674a"/></g></svg>
+</div><h4>9 em cada 10</h4><p>Dez figuras, uma terracota: a estatística vira imagem sem precisar de gráfico.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<circle cx="50" cy="52" r="30" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/>
+<ellipse cx="37" cy="55" rx="9" ry="6.5" transform="rotate(-18 37 55)" fill="#f0b39f"/>
+<ellipse cx="63" cy="55" rx="9" ry="6.5" transform="rotate(18 63 55)" fill="#f0b39f"/>
+<path d="M44,52 C47,50 53,50 56,52 C53,54 47,54 44,52 Z" fill="#f0b39f"/>
+<circle cx="40" cy="44" r="3" fill="#4b2a5e"/><circle cx="60" cy="44" r="3" fill="#4b2a5e"/>
+<path d="M44,68 C47,71 53,71 56,68" stroke="#4b2a5e" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+</div><h4>Pele, cabelos e boca</h4><p>Rosto com o eritema em asa de borboleta, desenhado com leveza para não assustar.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<circle cx="70" cy="30" r="11" fill="#d9a441"/>
+<g stroke="#d9a441" stroke-width="2.5" stroke-linecap="round"><line x1="70" y1="12" x2="70" y2="16"/><line x1="83" y1="17" x2="80" y2="20"/><line x1="88" y1="30" x2="84" y2="30"/><line x1="57" y1="17" x2="60" y2="20"/><line x1="52" y1="30" x2="56" y2="30"/></g>
+<path d="M44,28 L78,86 H10 Z" fill="#d4674a" stroke="#d4674a" stroke-width="6" stroke-linejoin="round"/>
+<rect x="41" y="46" width="6" height="20" rx="3" fill="#fbf7f1"/>
+<circle cx="44" cy="75" r="3.5" fill="#fbf7f1"/></svg>
+</div><h4>Atenção ao sol</h4><p>Triângulo de atenção com o sol: alerta que entra na sequência dos sintomas.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<g transform="rotate(-40 50 50)">
+  <rect x="14" y="43" width="72" height="14" rx="7" fill="#d9c7e3"/>
+  <circle cx="18" cy="42" r="8" fill="#d9c7e3"/><circle cx="18" cy="58" r="8" fill="#d9c7e3"/>
+  <circle cx="82" cy="42" r="8" fill="#d9c7e3"/><circle cx="82" cy="58" r="8" fill="#d9c7e3"/>
+</g>
+<circle cx="50" cy="50" r="13" fill="#d4674a"/>
+<circle cx="50" cy="50" r="6" fill="#fbf7f1"/></svg>
+</div><h4>Articulações</h4><p>Osso estilizado com a articulação em terracota, o ponto da dor.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M34,26 C20,26 14,40 14,52 C14,66 22,78 34,78 C42,78 44,70 40,66 C36,62 34,58 36,52 C38,46 42,44 42,38 C42,30 40,26 34,26 Z" fill="#7a4e93"/>
+<path d="M66,26 C80,26 86,40 86,52 C86,66 78,78 66,78 C58,78 56,70 60,66 C64,62 66,58 64,52 C62,46 58,44 58,38 C58,30 60,26 66,26 Z" fill="#7a4e93"/>
+<path d="M42,40 C46,44 46,60 42,64" stroke="#d4674a" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M58,40 C54,44 54,60 58,64" stroke="#d4674a" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+</div><h4>Rins</h4><p>Os dois rins com a inflamação sugerida em terracota.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M50,18 C50,18 26,46 26,62 A24,24 0 0 0 74,62 C74,46 50,18 50,18 Z" fill="#d4674a"/>
+<circle cx="44" cy="62" r="6" fill="#f0b39f"/><circle cx="58" cy="56" r="4" fill="#f0b39f"/><circle cx="56" cy="70" r="3" fill="#f0b39f"/></svg>
+</div><h4>Sangue</h4><p>Gota com células: anemia e plaquetas sem imagem de laboratório.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M40,30 C30,30 24,40 24,54 C24,68 30,78 40,78 C46,78 46,70 46,62 V36 C46,32 44,30 40,30 Z" fill="#b592c7"/>
+<path d="M60,30 C70,30 76,40 76,54 C76,68 70,78 60,78 C54,78 54,70 54,62 V36 C54,32 56,30 60,30 Z" fill="#b592c7"/>
+<rect x="47" y="22" width="6" height="30" rx="3" fill="#4b2a5e"/>
+<path d="M50,84 C42,76 30,68 32,58 C34,50 44,50 50,58 C56,50 66,50 68,58 C70,68 58,76 50,84 Z" fill="#d4674a"/></svg>
+</div><h4>Coração e pulmões</h4><p>Pulmões em lilás e coração terracota: pleurite e pericardite.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M50,22 C34,22 26,34 26,46 C22,50 22,58 26,62 C26,72 34,80 46,78 L46,84 H54 L54,78 C66,80 74,72 74,62 C78,58 78,50 74,46 C74,34 66,22 50,22 Z" fill="#7a4e93"/>
+<path d="M50,26 V78" stroke="#ece2f1" stroke-width="2.5"/>
+<path d="M36,40 C44,40 44,50 38,52 M62,40 C56,42 58,52 64,52 M34,62 C42,60 44,68 40,72 M66,62 C58,60 56,68 60,72" stroke="#ece2f1" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+</div><h4>Sistema nervoso</h4><p>Cérebro em duas metades, traço leve.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<rect x="32" y="52" width="40" height="34" rx="12" fill="#7a4e93"/>
+<rect x="34" y="30" width="9" height="30" rx="4.5" fill="#7a4e93"/>
+<rect x="45" y="22" width="9" height="38" rx="4.5" fill="#7a4e93"/>
+<rect x="56" y="26" width="9" height="34" rx="4.5" fill="#7a4e93"/>
+<rect x="67" y="34" width="8" height="28" rx="4" fill="#7a4e93"/>
+<rect x="20" y="58" width="9" height="22" rx="4.5" transform="rotate(-35 24 69)" fill="#7a4e93"/>
+<circle cx="38.5" cy="31" r="4" fill="#d4674a"/><circle cx="49.5" cy="23" r="4" fill="#d4674a"/><circle cx="60.5" cy="27" r="4" fill="#f0b39f"/><circle cx="71" cy="35" r="3.5" fill="#f0b39f"/></svg>
+</div><h4>Circulação</h4><p>Mão com as pontas dos dedos em dois tons: o fenômeno de Raynaud.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<circle cx="50" cy="52" r="26" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/>
+<line x1="30" y1="52" x2="70" y2="52" stroke="#4b2a5e" stroke-width="3" stroke-linecap="round"/>
+<circle cx="76" cy="26" r="10" fill="#d9a441"/></svg>
+</div><h4>Hidroxicloroquina</h4><p>Comprimido com o sol pequeno: o remédio de base e sua relação com a fotossensibilidade.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<rect x="30" y="34" width="40" height="46" rx="8" fill="#7a4e93"/>
+<rect x="36" y="22" width="28" height="14" rx="3" fill="#4b2a5e"/>
+<rect x="36" y="48" width="28" height="22" rx="3" fill="#fbf7f1"/>
+<circle cx="74" cy="72" r="14" fill="#d9a441"/>
+<path d="M74,64 V72 L79,76" stroke="#2b1b33" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+</div><h4>Corticoides</h4><p>Frasco e relógio: menor dose, menor tempo.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M50,18 L78,28 V50 C78,68 64,80 50,86 C36,80 22,68 22,50 V28 Z" fill="#7a4e93"/>
+<g transform="rotate(-40 50 52)"><rect x="30" y="44" width="40" height="16" rx="8" fill="#fbf7f1"/><path d="M50,44 h12 a8,8 0 0 1 0,16 h-12 Z" fill="#d4674a"/></g></svg>
+</div><h4>Imunossupressores</h4><p>Cápsula dentro do escudo: agem sobre a defesa do corpo.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M36,18 H64 V50 A14,14 0 0 1 36,50 Z" fill="#d9c7e3" stroke="#4b2a5e" stroke-width="3" stroke-linejoin="round"/>
+<rect x="40" y="36" width="20" height="14" rx="2" fill="#7a4e93"/>
+<rect x="44" y="12" width="12" height="8" rx="2" fill="#4b2a5e"/>
+<line x1="50" y1="64" x2="50" y2="76" stroke="#4b2a5e" stroke-width="3"/>
+<path d="M50,88 C50,88 43,80 43,76 A7,7 0 0 1 57,76 C57,80 50,88 50,88 Z" fill="#d4674a"/></svg>
+</div><h4>Biológicos</h4><p>Bolsa de infusão com a gota: administrados na veia ou sob a pele.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M36,24 L26,30 L18,46 L30,52 L30,80 H70 V52 L82,46 L74,30 L64,24 C60,30 40,30 36,24 Z" fill="#7a4e93"/>
+<circle cx="50" cy="56" r="9" fill="#d9a441"/>
+<g stroke="#d9a441" stroke-width="2.5" stroke-linecap="round"><line x1="50" y1="40" x2="50" y2="43"/><line x1="50" y1="69" x2="50" y2="72"/><line x1="34" y1="56" x2="37" y2="56"/><line x1="63" y1="56" x2="66" y2="56"/></g></svg>
+</div><h4>Roupas com proteção UV</h4><p>Camiseta com o sol no peito: a roupa como filtro.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M50,36 C38,26 20,32 20,52 C20,68 32,84 42,84 C46,84 48,82 50,82 C52,82 54,84 58,84 C68,84 80,68 80,52 C80,32 62,26 50,36 Z" fill="#d4674a"/>
+<rect x="48" y="22" width="4" height="14" rx="2" fill="#4b2a5e"/>
+<path d="M52,30 C56,20 66,18 72,20 C70,28 62,34 52,30 Z" fill="#b592c7"/></svg>
+</div><h4>Alimentação</h4><p>Maçã com folha: variedade e comida de verdade.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<rect x="26" y="46" width="48" height="10" rx="2" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="2.5"/>
+<rect x="64" y="46" width="10" height="10" fill="#d4674a"/>
+<circle cx="50" cy="50" r="30" fill="none" stroke="#d4674a" stroke-width="5"/>
+<line x1="29" y1="29" x2="71" y2="71" stroke="#d4674a" stroke-width="5" stroke-linecap="round"/></svg>
+</div><h4>Não fume</h4><p>Cigarro com o sinal de proibido em terracota, a cor de alerta.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M40,22 A28,28 0 1 0 74,64 A22,22 0 0 1 40,22 Z" fill="#d9a441"/>
+<circle cx="70" cy="30" r="3" fill="#b592c7"/><circle cx="80" cy="44" r="2" fill="#b592c7"/><circle cx="62" cy="20" r="1.8" fill="#b592c7"/></svg>
+</div><h4>Sono e saúde emocional</h4><p>Lua dourada com estrelas: descanso como parte do tratamento.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M50,84 C40,74 20,62 22,44 C24,32 40,30 50,42 C60,30 76,32 78,44 C80,62 60,74 50,84 Z" fill="#d4674a"/>
+<path d="M28,56 H40 L45,48 L52,64 L58,52 L62,56 H72" stroke="#fbf7f1" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</div><h4>Coração</h4><p>Coração com a linha de batimento: risco cardiovascular.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<g transform="rotate(-45 50 50)">
+  <rect x="22" y="44" width="56" height="12" rx="6" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/>
+  <circle cx="24" cy="42" r="8" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/><circle cx="24" cy="58" r="8" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/>
+  <circle cx="76" cy="42" r="8" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/><circle cx="76" cy="58" r="8" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/>
+</g></svg>
+</div><h4>Ossos</h4><p>Osso em contorno: massa óssea e corticoides.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<rect x="22" y="28" width="56" height="52" rx="6" fill="#fbf7f1" stroke="#4b2a5e" stroke-width="3"/>
+<rect x="22" y="28" width="56" height="14" rx="6" fill="#7a4e93"/>
+<rect x="32" y="20" width="5" height="14" rx="2.5" fill="#4b2a5e"/><rect x="63" y="20" width="5" height="14" rx="2.5" fill="#4b2a5e"/>
+<path d="M38,60 L47,69 L64,50" stroke="#d4674a" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</div><h4>Acompanhamento</h4><p>Calendário com a marca de feito: consulta mesmo quando está tudo bem.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M18,34 A6,6 0 0 1 24,28 H40 L48,36 H76 A6,6 0 0 1 82,42 V74 A6,6 0 0 1 76,80 H24 A6,6 0 0 1 18,74 Z" fill="#7a4e93"/>
+<rect x="30" y="44" width="40" height="30" rx="3" fill="#fbf7f1"/>
+<rect x="36" y="52" width="24" height="3" rx="1.5" fill="#b592c7"/><rect x="36" y="60" width="18" height="3" rx="1.5" fill="#b592c7"/></svg>
+</div><h4>Organize seus documentos</h4><p>Pasta com papéis: relatórios, receitas e exames juntos.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M34,22 C40,20 46,26 46,32 L44,40 C40,42 36,42 32,40 L30,30 C30,26 32,23 34,22 Z" fill="#7a4e93"/>
+<path d="M26,44 c-6,20 8,40 30,44 c6,0 10,-6 10,-10 l-8,-6 c-4,-2 -8,-2 -10,2 c-8,-4 -14,-12 -16,-20 c4,-2 4,-6 2,-10 Z" fill="#7a4e93"/>
+<path d="M60,30 a14,14 0 0 1 12,12 M60,20 a24,24 0 0 1 22,22" stroke="#d4674a" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+</div><h4>Disque Saúde 160</h4><p>Fone com as ondas de chamada.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<path d="M22,44 H36 L66,26 V74 L36,56 H22 Z" fill="#7a4e93"/>
+<rect x="28" y="56" width="12" height="20" rx="3" fill="#4b2a5e"/>
+<path d="M72,40 a12,12 0 0 1 0,20 M76,30 a22,22 0 0 1 0,40" stroke="#d4674a" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+</div><h4>Ouvidoria 162</h4><p>Megafone: a reclamação registrada.</p></div><div class="it"><div class="im" style="padding:2mm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" ><rect width="100" height="100" rx="24" fill="#f5f0f8"/>
+<rect x="48" y="24" width="4" height="54" rx="2" fill="#4b2a5e"/>
+<rect x="34" y="76" width="32" height="5" rx="2.5" fill="#4b2a5e"/>
+<rect x="22" y="32" width="56" height="4" rx="2" fill="#4b2a5e"/>
+<path d="M18,54 H42 A12,12 0 0 1 18,54 Z" fill="#d4674a"/>
+<path d="M58,54 H82 A12,12 0 0 1 58,54 Z" fill="#b592c7"/>
+<line x1="30" y1="34" x2="22" y2="54" stroke="#7a4e93" stroke-width="2"/><line x1="30" y1="34" x2="38" y2="54" stroke="#7a4e93" stroke-width="2"/>
+<line x1="70" y1="34" x2="62" y2="54" stroke="#7a4e93" stroke-width="2"/><line x1="70" y1="34" x2="78" y2="54" stroke="#7a4e93" stroke-width="2"/>
+<circle cx="50" cy="24" r="5" fill="#d9a441"/></svg>
+</div><h4>Defensoria Pública</h4><p>Balança pequena, versão de bolso do capítulo 8.</p></div>
+  </div>
+  <h2>Ícones de rótulo</h2>
+  <p>Traço fino, em linha, para os rótulos das caixas e do bloco de Instagram. Herdam a cor do rótulo em que estão.</p>
+  <div class="gal four icons" style="grid-template-columns: repeat(5, 1fr)">
+    <div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2.5 20h19L12 3Z"/><line x1="12" y1="10" x2="12" y2="14"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg>
+</div><h4>Importante / Atenção</h4></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.7.6 1 1.3 1 2.1h5c0-.8.3-1.5 1-2.1A6 6 0 0 0 12 3Z"/></svg>
+</div><h4>Uma dica importante</h4></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>
+</div><h4>Lembre-se</h4></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+</div><h4>Sol (reserva)</h4></div><div class="it"><div class="im"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+</div><h4>Instagram</h4></div>
+  </div>
+</section>
+
+<section class="m" id="m9">
+  <div class="num">09</div>
+  <h1>Regras de paginação</h1>
+  <p class="lead">O que o leitor não vê, mas sente: as regras que fazem cada página parecer "arrumada".</p>
+  <ul class="rules">
+    <li><strong>Uma largura só.</strong> Texto, listas, caixas, tabela, cartões e QR Codes têm a mesma largura de 140 mm. A borda direita do miolo é uma linha só.</li>
+    <li><strong>Título nunca fica órfão.</strong> Cada título vai colado ao seu primeiro parágrafo (e a uma lista curta, se houver). Seções curtas passam inteiras para a página seguinte quando não cabem.</li>
+    <li><strong>Sem viúvas.</strong> As duas últimas palavras de todo parágrafo, item e título são coladas com espaço inquebrável: nunca sobra uma palavra sozinha na última linha.</li>
+    <li><strong>Quebras de página protegidas.</strong> No mínimo três linhas de um parágrafo de cada lado de uma quebra.</li>
+    <li><strong>Um destaque por capítulo.</strong> Só o parágrafo de abertura fica na serifa maior; o corpo é uniforme.</li>
+    <li><strong>Fim de capítulo no rodapé.</strong> A faixa lilás com a borboleta ocupa a base da última página de cada capítulo, com o número da página dentro dela.</li>
+    <li><strong>Numeração de livro.</strong> Pré-textuais em algarismos romanos, capítulos em arábicos, rodapé com o nome do capítulo.</li>
+  </ul>
+  <div class="why">
+    <div class="lab">Por que tanta regra</div>
+    <p>Porque cartilha de saúde é lida em pedaços, muitas vezes na sala de espera. Cada página precisa fazer sentido sozinha. Regras automáticas garantem que, quando a autora alterar um parágrafo, a cartilha inteira continue arrumada sem retrabalho manual.</p>
+  </div>
+</section>
+
+<section class="m" id="m10">
+  <div class="num">10</div>
+  <h1>Legibilidade e letramento em saúde</h1>
+  <p class="lead">Decisões tomadas com base nas recomendações para materiais educativos impressos em saúde.</p>
+  <ul class="rules">
+    <li>Corpo de texto em 10,5 pt e entrelinha generosa, acima do mínimo recomendado para leitores adultos com baixa escolaridade ou dificuldade visual.</li>
+    <li>Contraste alto entre texto e fundo; cores nunca são o único código (alertas têm ícone e rótulo, além da cor).</li>
+    <li>Títulos em forma de pergunta, como a autora escreveu ("Posso amamentar?"), porque é assim que o paciente procura a informação.</li>
+    <li>Ícones apoiam a leitura de sequências longas (sintomas, remédios) sem substituir o texto.</li>
+    <li>Linguagem da autora preservada na íntegra: a diagramação organiza, não reescreve.</li>
+    <li>QR Codes com margem de silêncio e alto contraste, validados por leitura automática no PDF final.</li>
+  </ul>
+</section>
+
+<section class="m" id="m11">
+  <div class="num">11</div>
+  <h1>Produção e entregas</h1>
+  <p class="lead">Um único conteúdo-fonte gera todas as versões. Alterações de texto entram uma vez e se propagam.</p>
+  <ul class="rules">
+    <li><strong>PDF de leitura</strong> (A4, RGB) para tela, e-mail e impressão caseira.</li>
+    <li><strong>PDF de gráfica</strong>: 216 × 303 mm, sangria de 3 mm, marcas de corte e registro, cores convertidas para CMYK, fontes embutidas. Capa, contracapa e faixas de fim de capítulo avançam na sangria.</li>
+    <li><strong>Versão web</strong> responsiva, com o mesmo texto, navegação pelo sumário e botão de download do PDF.</li>
+    <li><strong>Prova comentável</strong> em página HTML paginada, usada nas rodadas de revisão.</li>
+    <li><strong>Ficha catalográfica</strong> (CIP) montada com CDD 616.772 e CDU 616.5-002.52; ISBN a preencher após o registro na Câmara Brasileira do Livro.</li>
+    <li><strong>Marcas</strong>: Fortunato Estúdio (tipográfica, a partir da identidade do estúdio), Sociedade de Reumatologia de Brasília (vetor oficial, versões colorida e branca), ANPLúpus e AMAVI Raras (arquivos oficiais).</li>
+  </ul>
+  <div class="why">
+    <div class="lab">Por que escalável</div>
+    <p>A cartilha vai ter novas edições: telefones mudam, protocolos mudam, o ISBN chega. Todo o projeto foi construído para que a segunda edição custe uma tarde, não um novo projeto.</p>
+  </div>
+</section>
+
+<section class="m cred" id="m12">
+  <div class="num">12</div>
+  <h1>Créditos e autoria</h1>
+  <dl>
+    <dt>Conteúdo</dt><dd>Dra. Paula Cristina Montina, médica reumatologista, CRM-DF 26.523 · RQE 21.843</dd>
+    <dt>Projeto gráfico</dt><dd>Fortunato Estúdio · direção de design: Victor Fortunato</dd>
+    <dt>Diagramação</dt><dd>Fortunato Estúdio</dd>
+    <dt>Ilustrações</dt><dd>Fortunato Estúdio (43 peças vetoriais autorais)</dd>
+    <dt>Apoio</dt><dd>Sociedade de Reumatologia de Brasília (SRB)</dd>
+    <dt>Redes de apoio</dt><dd>ANPLúpus · AMAVI Raras</dd>
+    <dt>Formato</dt><dd>A4, 56 páginas, 1ª edição, Brasília, 2026</dd>
+  </dl>
+  <div class="decl">
+    O projeto gráfico, a diagramação e todas as ilustrações desta cartilha são obras autorais da Fortunato Estúdio, criadas especificamente para o Manual para o paciente com lúpus do Distrito Federal. Não foram utilizadas imagens de banco, modelos prontos ou ilustrações de terceiros. O texto é de autoria da Dra. Paula Cristina Montina e foi reproduzido na íntegra.
+  </div>
+  <p style="font-size:.86rem;color:var(--ink-soft)">Este memorial acompanha a entrega dos arquivos finais e documenta as decisões de projeto para consulta em edições futuras.</p>
+</section>
+
+<section class="m-back">
+  <div class="inner"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 56" role="img" aria-label="Fortunato Estúdio de marcas">
+  <text x="0" y="34" font-family="'STIX Two Text', 'Fraunces', Georgia, serif" font-weight="600" font-size="30" letter-spacing="6" fill="#F6F5F1">FORTUNATO</text>
+  <text x="226" y="18" font-family="'STIX Two Text', 'Fraunces', Georgia, serif" font-weight="500" font-size="12" fill="#BFBDB5">®</text>
+  <line x1="246" y1="14" x2="246" y2="38" stroke="#F6F5F1" stroke-opacity=".3" stroke-width="1"/>
+  <text x="256" y="22" font-family="'Inter', system-ui, sans-serif" font-weight="500" font-size="7.6" letter-spacing="1.1" fill="#BFBDB5">ESTÚDIO</text>
+  <text x="256" y="33" font-family="'Inter', system-ui, sans-serif" font-weight="500" font-size="7.6" letter-spacing="1.1" fill="#BFBDB5">DE MARCAS</text>
+</svg>
+<p>Estúdio de design de marcas · fortunatoestudio.com</p></div>
+</section>
+
+<script>window.PagedConfig = { auto: true, after: () => { window.__pagedDone = true; } };</script>
+<script src="paged.polyfill.js"></script>
+</body>
+</html>
