@@ -14,6 +14,16 @@ await page.waitForFunction(() => window.__pagedDone === true, null, { timeout: 1
 await page.waitForTimeout(300);
 const html = await page.evaluate(() => {
   document.querySelectorAll("script").forEach(s => s.remove());
+  // Regras inseridas via CSSOM pelo Paged.js (target-counter, string-set, contadores) não aparecem no HTML:
+  // serializa todas as folhas de estilo em um único <style>.
+  const css = [];
+  for (const sheet of Array.from(document.styleSheets)) {
+    try { for (const r of Array.from(sheet.cssRules)) css.push(r.cssText); } catch (e) {}
+  }
+  document.querySelectorAll('style, link[rel="stylesheet"]').forEach(el => el.remove());
+  const all = document.createElement("style");
+  all.textContent = css.join("\n");
+  document.head.appendChild(all);
   const extra = document.createElement("style");
   extra.textContent = `
     html { background:#e9e4ec; }
