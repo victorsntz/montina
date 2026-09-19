@@ -499,7 +499,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .imprint .logos { display: flex; gap: 12mm; align-items: center; margin: 1rem 0 1.4rem; }
 .imprint .logos .logo { height: 12mm; display: flex; align-items: center; }
 .imprint .logos .logo svg { height: 100%; width: auto; }
-.imprint .logos .logo img { height: 22mm; width: auto; }
+.imprint .logos .logo img { height: 20mm; width: auto; }
 
 /* sumário */
 .toc { break-after: page; page-break-after: always; }
@@ -563,7 +563,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .back-cover .logos { align-items: center; gap: 18mm; }
 .back-cover .logos .logo { height: 14mm; display: flex; align-items: center; }
 .back-cover .logos .logo svg { height: 100%; width: auto; }
-.back-cover .logos .logo img { height: 26mm; width: auto; background: var(--white); border-radius: 8px; padding: 3mm 4mm; }
+.back-cover .logos .logo img { height: 24mm; width: auto; }
 .back-cover .logos .placeholder { border: 1px dashed var(--plum-300); border-radius: 6px; padding: 0 6mm; font-size: 0.75rem; color: var(--plum-300); height: 16mm; display: flex; align-items: center; }
 
 /* =====================================================================
