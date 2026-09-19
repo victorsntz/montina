@@ -533,10 +533,10 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 
 /* sumário */
 .toc { break-after: page; page-break-after: always; }
-.toc h1 { font-size: 2.6rem; font-weight: 500; margin-bottom: 1.6rem; }
+.toc h1 { font-size: 2.6rem; font-weight: 500; margin-bottom: 1.1rem; }
 .toc ol { list-style: none; padding: 0; margin: 0; max-width: 150mm; }
 .toc li { margin: 0; }
-.toc li.l1 { margin-top: 0.8rem; }
+.toc li.l1 { margin-top: 0.55rem; }
 .toc li.l1.front > a { font-size: 1.05rem; color: var(--ink-soft); }
 .toc li.l1 > a {
   display: grid;
@@ -544,10 +544,11 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   align-items: baseline;
   gap: 0.6rem;
   font-family: var(--serif);
-  font-size: 1.2rem;
+  font-size: 1.08rem;
+  line-height: 1.25;
   color: var(--plum-900);
   font-weight: 500;
-  padding: 0.25rem 0;
+  padding: 0.18rem 0;
   border-bottom: 1px solid var(--lilac-200);
 }
 .toc li.l1 > a .n { font-family: var(--sans); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; color: var(--plum-500); }
@@ -555,24 +556,32 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   display: grid;
   grid-template-columns: 2.4rem 1fr 2.2rem;
   gap: 0.6rem;
-  font-size: 0.86rem;
+  font-size: 0.84rem;
+  line-height: 1.3;
   color: var(--ink-soft);
-  padding: 0.08rem 0;
+  padding: 0.05rem 0;
 }
 .toc a::after { content: target-counter(attr(href url), page); font-family: var(--sans); font-size: 0.85rem; color: var(--plum-500); font-variant-numeric: tabular-nums; text-align: right; }
 
 /* prefácio */
-/* prefácio em uma página só, com retrato pequeno */
-.preface { font-size: 0.93rem; line-height: 1.48; }
-.preface p { max-width: none; margin-bottom: 0.6rem; }
-.preface p.lead { font-size: 1.12rem; line-height: 1.35; margin-bottom: 0.7rem; }
-.preface .box.quote { font-size: 1.02rem; margin: 0.7rem 0 0.8rem; padding-top: 0.1rem; padding-bottom: 0.1rem; }
-.preface-head { display: grid; grid-template-columns: 1fr 34mm; gap: 8mm; align-items: end; margin-bottom: 1.1rem; }
-.preface-head h1 { font-size: 2.15rem; font-weight: 500; line-height: 1.08; }
-.portrait { width: 34mm; height: 34mm; border-radius: 50%; overflow: hidden; background: var(--lilac-100); border: 4px solid var(--lilac-050); box-shadow: 0 0 0 1.5px var(--lilac-200); }
-.portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
+/* prefácio: perfil editorial em duas colunas, uma página */
+.preface { font-size: 0.88rem; line-height: 1.43; }
+.preface-title { font-size: 2.3rem; font-weight: 500; line-height: 1.06; margin-bottom: 0.9rem; max-width: 160mm; }
+.preface-grid { display: grid; grid-template-columns: 50mm 1fr; gap: 9mm; align-items: start; }
+.preface-side { background: var(--lilac-050); border-radius: 16px; padding: 4mm; }
+.portrait { width: 42mm; height: 54mm; border-radius: 12px; overflow: hidden; background: var(--lilac-100); }
+.portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 12%; display: block; }
 .photo-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--plum-300); }
-.preface .signature { margin-top: 1.1rem; font-family: var(--serif); font-size: 1rem; }
+.preface-side .who { font-size: 0.72rem; line-height: 1.4; color: var(--ink-soft); margin: 3.5mm 0 0; white-space: nowrap; }
+.preface-side .who strong { display: block; font-family: var(--serif); font-size: 1.02rem; color: var(--plum-900); font-weight: 500; margin-bottom: 0.15rem; }
+.preface-side .pull {
+  margin-top: 4mm; background: var(--plum-700); color: var(--lilac-100); border-radius: 10px;
+  padding: 3.5mm 4mm; font-family: var(--serif); font-size: 0.98rem; line-height: 1.3;
+  font-variation-settings: "opsz" 24, "SOFT" 60;
+}
+.preface-body p { max-width: none; margin-bottom: 0.55rem; }
+.preface-body p.lead { font-size: 1.1rem; line-height: 1.35; margin-bottom: 0.7rem; }
+.preface .signature { margin-top: 0.6rem; font-family: var(--serif); font-size: 0.98rem; break-inside: avoid; page-break-inside: avoid; }
 .preface .signature strong { display: block; font-size: 1.2rem; font-weight: 500; color: var(--plum-900); }
 
 /* contracapa */
@@ -695,6 +704,9 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 }
 @media screen and (max-width: 640px) {
   .chapter-grid { grid-template-columns: repeat(2, 1fr); }
+  .preface-grid { grid-template-columns: 1fr; }
+  .preface-side { display: grid; grid-template-columns: 42mm 1fr; gap: 12px; align-items: center; }
+  .preface-side .pull { grid-column: 1 / -1; }
   .tp-foot { flex-direction: column; align-items: flex-start; gap: 12px; }
   html { font-size: 16px; }
   body.web .cover h1 { font-size: 2.6rem; }
