@@ -171,7 +171,7 @@ const print = template
       const band = document.createElement("div");
       band.className = "chapter-last-band";
       band.innerHTML = '<span class="rule"></span>' + end.querySelector("svg").outerHTML +
-        '<span class="txt">Fim do capítulo ' + end.dataset.num + '</span><span class="rule"></span><span class="pg">' + (page.position + 1) + '</span>';
+        '<span class="rule"></span><span class="pg">' + (page.position + 1) + '</span>';
       pageEl.querySelector(".pagedjs_pagebox").appendChild(band);
     }
   }
