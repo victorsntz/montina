@@ -87,15 +87,15 @@ capa = f'''
 <circle cx="182" cy="52" r="16" fill="{GD}" opacity=".9"/>
 <!-- pétalas / asas translúcidas ao fundo -->
 <g opacity=".28">
-  <ellipse cx="70" cy="215" rx="70" ry="44" transform="rotate(-35 70 215)" fill="{P5}"/>
-  <ellipse cx="160" cy="215" rx="70" ry="44" transform="rotate(35 160 215)" fill="{P5}"/>
+  <ellipse cx="57" cy="215" rx="70" ry="44" transform="rotate(-35 57 215)" fill="{P5}"/>
+  <ellipse cx="153" cy="215" rx="70" ry="44" transform="rotate(35 153 215)" fill="{P5}"/>
 </g>
 <g opacity=".16">
-  <ellipse cx="60" cy="248" rx="52" ry="30" transform="rotate(25 60 248)" fill="{L2}"/>
-  <ellipse cx="170" cy="248" rx="52" ry="30" transform="rotate(-25 170 248)" fill="{L2}"/>
+  <ellipse cx="50" cy="248" rx="52" ry="30" transform="rotate(25 50 248)" fill="{L2}"/>
+  <ellipse cx="160" cy="248" rx="52" ry="30" transform="rotate(-25 160 248)" fill="{L2}"/>
 </g>
 <!-- borboleta principal -->
-{butterfly(118, 212, s=1.15, upper=P3, lower=TC, body=L1, spots=L0)}
+{butterfly(105, 212, s=1.15, upper=P3, lower=TC, body=L1, spots=L0)}
 <!-- pontos de luz -->
 <circle cx="34" cy="150" r="2.2" fill="{L2}" opacity=".8"/>
 <circle cx="52" cy="128" r="1.3" fill="{L2}" opacity=".6"/>
@@ -106,6 +106,9 @@ capa = f'''
 <path d="M0,268 C60,258 150,258 210,268" stroke="{P5}" stroke-width=".8" fill="none" opacity=".5"/>
 '''
 write("capa", svg("0 0 210 297", capa, 'preserveAspectRatio="xMidYMax slice"'))
+
+# borboleta menor para a contracapa
+write("capa-verso", svg("0 0 160 130", butterfly(80, 66, s=0.9, upper=P3, lower=TC, body=L1, spots=L0)))
 
 # ---------------------------------------------------------------------
 # ABERTURAS DE CAPÍTULO (viewBox 200)

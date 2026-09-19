@@ -13,15 +13,15 @@
 <circle cx="182" cy="52" r="16" fill="#d9a441" opacity=".9"/>
 <!-- pétalas / asas translúcidas ao fundo -->
 <g opacity=".28">
-  <ellipse cx="70" cy="215" rx="70" ry="44" transform="rotate(-35 70 215)" fill="#7a4e93"/>
-  <ellipse cx="160" cy="215" rx="70" ry="44" transform="rotate(35 160 215)" fill="#7a4e93"/>
+  <ellipse cx="57" cy="215" rx="70" ry="44" transform="rotate(-35 57 215)" fill="#7a4e93"/>
+  <ellipse cx="153" cy="215" rx="70" ry="44" transform="rotate(35 153 215)" fill="#7a4e93"/>
 </g>
 <g opacity=".16">
-  <ellipse cx="60" cy="248" rx="52" ry="30" transform="rotate(25 60 248)" fill="#d9c7e3"/>
-  <ellipse cx="170" cy="248" rx="52" ry="30" transform="rotate(-25 170 248)" fill="#d9c7e3"/>
+  <ellipse cx="50" cy="248" rx="52" ry="30" transform="rotate(25 50 248)" fill="#d9c7e3"/>
+  <ellipse cx="160" cy="248" rx="52" ry="30" transform="rotate(-25 160 248)" fill="#d9c7e3"/>
 </g>
 <!-- borboleta principal -->
-<g transform="translate(118 212) rotate(0) scale(1.15)">
+<g transform="translate(105 212) rotate(0) scale(1.15)">
   <ellipse cx="-30" cy="-16" rx="30" ry="22" transform="rotate(-25 -30 -16)" fill="#b592c7"/>
   <ellipse cx="30" cy="-16" rx="30" ry="22" transform="rotate(25 30 -16)" fill="#b592c7"/>
   <ellipse cx="-22" cy="20" rx="20" ry="16" transform="rotate(20 -22 20)" fill="#d4674a"/>

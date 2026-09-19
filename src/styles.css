@@ -64,7 +64,7 @@
   --serif: "Fraunces", Georgia, "Times New Roman", serif;
   --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
-  --measure: 132mm;
+  --measure: 140mm;
 }
 
 * { box-sizing: border-box; }
@@ -95,6 +95,7 @@ h1, h2, h3, h4 {
   font-variation-settings: "opsz" 72, "SOFT" 30;
 }
 
+h2, h3 { max-width: var(--measure); }
 h2 {
   font-size: 1.9rem;
   margin: 1.8rem 0 0.7rem;
@@ -137,12 +138,12 @@ p {
 }
 p.lead {
   font-family: var(--serif);
-  font-size: 1.28rem;
+  font-size: 1.22rem;
   line-height: 1.4;
   color: var(--plum-900);
   font-weight: 400;
   font-variation-settings: "opsz" 24, "SOFT" 50;
-  max-width: 140mm;
+  max-width: var(--measure);
 }
 strong { font-weight: 700; color: var(--plum-900); }
 em { font-style: italic; }
@@ -250,6 +251,21 @@ hr.sep {
 }
 .chapter-opener .art svg { width: 100%; height: 100%; }
 
+/* título colado ao primeiro bloco; seções curtas inteiras */
+.keep { break-inside: avoid; page-break-inside: avoid; }
+.keep > h2:first-child { margin-top: 1.8rem; }
+.keep > h3:first-child { margin-top: 1.35rem; }
+
+/* fim de capítulo */
+.chapter-end {
+  display: flex; align-items: center; gap: 4mm;
+  max-width: var(--measure);
+  margin: 2.2rem 0 0;
+  break-inside: avoid; page-break-inside: avoid;
+}
+.chapter-end span { flex: 1; height: 2px; background: var(--plum-500); border-radius: 2px; }
+.chapter-end svg { width: 11mm; height: auto; flex: none; }
+
 /* ---------- caixas ---------- */
 .box {
   break-inside: avoid;
@@ -257,7 +273,7 @@ hr.sep {
   border-radius: 10px;
   padding: 1rem 1.15rem 0.85rem 1.15rem;
   margin: 1.1rem 0 1.2rem;
-  max-width: 150mm;
+  max-width: var(--measure);
   background: var(--lilac-050);
   border-left: 5px solid var(--plum-500);
 }
@@ -301,7 +317,7 @@ hr.sep {
   gap: 5mm;
   align-items: start;
   margin: 1.2rem 0;
-  max-width: 155mm;
+  max-width: var(--measure);
   break-inside: avoid;
   page-break-inside: avoid;
 }
@@ -314,7 +330,7 @@ hr.sep {
 table {
   border-collapse: collapse;
   width: 100%;
-  max-width: 160mm;
+  max-width: var(--measure);
   margin: 0.8rem 0 1.2rem;
   font-size: 0.92rem;
   break-inside: avoid;
@@ -346,7 +362,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   border-radius: 12px;
   padding: 1.1rem 1.25rem;
   margin: 1rem 0 1.2rem;
-  max-width: 155mm;
+  max-width: var(--measure);
   background: var(--white);
 }
 .card h4 { margin-top: 0; }
@@ -361,7 +377,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   gap: 7mm;
   align-items: center;
   margin: 0 0 1rem;
-  max-width: 160mm;
+  max-width: var(--measure);
   break-inside: avoid;
   page-break-inside: avoid;
 }
@@ -385,7 +401,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   grid-template-columns: 34mm 1fr;
   gap: 6mm;
   align-items: center;
-  max-width: 150mm;
+  max-width: var(--measure);
   margin: 1rem 0 1.3rem;
   padding: 1rem;
   border-radius: 12px;
@@ -406,7 +422,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   gap: 0.4rem;
   align-items: center;
   margin: 0.8rem 0 1.2rem;
-  max-width: 160mm;
+  max-width: var(--measure);
   break-inside: avoid;
   page-break-inside: avoid;
 }
@@ -596,6 +612,8 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   position: relative;
 }
 .back-cover .inner { position: absolute; left: 22mm; right: 22mm; bottom: 26mm; }
+.back-cover .mark { position: absolute; left: 0; right: 0; top: 78mm; display: flex; justify-content: center; }
+.back-cover .mark svg { width: 62mm; height: auto; }
 .back-cover .quote { font-family: var(--serif); font-size: 1.7rem; line-height: 1.3; color: var(--white); max-width: 150mm; font-variation-settings: "opsz" 72, "SOFT" 80; margin-bottom: 2.5rem; }
 .back-cover .support-label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--plum-300); margin-bottom: 0.8rem; }
 .back-cover .logos { display: flex; gap: 14mm; align-items: center; }
@@ -681,6 +699,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   body.web .cover .edition { text-align: right; }
   body.web .back-cover { border-radius: 24px; min-height: 380px; margin-top: 60px; }
   body.web .back-cover .inner { position: relative; left: 0; right: 0; bottom: 0; padding: 48px 32px; }
+  body.web .back-cover .mark { position: relative; top: 0; padding-top: 40px; }
   body.web .chapter-opener { min-height: 0; padding-top: 48px; }
   body.web .chapter-opener .art { position: relative; width: 220px; height: 220px; margin-bottom: 24px; }
   body.web .front-matter, body.web .toc { padding-top: 32px; }

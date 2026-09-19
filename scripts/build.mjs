@@ -93,9 +93,45 @@ ${c.subs.map(s => `<li class="l2"><a href="#${s.id}"><span></span><span>${s.titl
 </section>`;
 body = body.replace("<!--TOC-->", toc);
 
-// numeração automática nos h2 dentro de cada capítulo (N.M)
-sections.forEach((s, i) => {
-  const end = i + 1 < sections.length ? sections[i + 1].start : body.length;
+// ---- fluxo editorial por capítulo ----
+// 1) um único parágrafo de destaque (lead) por capítulo, o de abertura
+// 2) cada h2/h3 fica colado ao primeiro bloco seguinte; seções curtas não se partem
+// 3) ornamento de fim de capítulo
+const chapterEnd = `<div class="chapter-end"><span></span>${inlineSvg("mark-borboleta")}<span></span></div>`;
+const KEEP_WHOLE = 1500; // caracteres de texto ≈ meia página
+function keepTogether(html) {
+  // divide em segmentos a partir de h2 "de topo" (os h2 dentro de .spot têm margin-top:0 e ficam de fora)
+  const parts = html.split(/(?=<h2 (?![^>]*margin-top:0))/);
+  return parts.map((seg, idx) => {
+    if (idx === 0) return seg;
+    const textLen = strip(seg).length;
+    if (textLen <= KEEP_WHOLE) return `<div class="keep">${seg}</div>`;
+    // título + primeiro bloco simples (p ou ul)
+    return seg.replace(/^(<h2[^>]*>[\s\S]*?<\/h2>\s*)(<p[^>]*>[\s\S]*?<\/p>|<ul[^>]*>[\s\S]*?<\/ul>)?/, (m, h, first) => `<div class="keep">${h}${first || ""}</div>`);
+  }).join("");
+}
+function keepH3(html) {
+  return html.replace(/(<h3[^>]*>[\s\S]*?<\/h3>\s*)(<p[^>]*>[\s\S]*?<\/p>|<ul[^>]*>[\s\S]*?<\/ul>)/g, (m, h, first) => `<div class="keep">${h}${first}</div>`);
+}
+body = body.replace(/<section class="chapter"[\s\S]*?<\/section>/g, chapter => {
+  const cut = chapter.indexOf("</div>", chapter.indexOf('class="chapter-opener"')); // fim do opener é o último </div> do bloco; usamos o marcador seguro abaixo
+  const openerEnd = chapter.indexOf('</div>\n\n', chapter.indexOf('class="chapter-opener"')) + '</div>'.length;
+  let head = chapter.slice(0, openerEnd);
+  let rest = chapter.slice(openerEnd);
+  // só o primeiro lead do corpo permanece
+  let leadSeen = false;
+  rest = rest.replace(/<p class="lead">/g, () => { if (leadSeen) return "<p>"; leadSeen = true; return '<p class="lead">'; });
+  rest = rest.replace(/<\/section>\s*$/, "").replace(/\s+$/, "");
+  rest = keepH3(keepTogether(rest));
+  // o ornamento de fim de capítulo viaja junto com o último bloco (nunca sozinho numa página)
+  const idx = rest.lastIndexOf("\n  <");
+  const tail = rest.slice(idx);
+  if (tail.startsWith('\n  <div class="keep">')) {
+    rest = rest.slice(0, idx) + tail.replace(/<\/div>\s*$/, `${chapterEnd}</div>`);
+  } else {
+    rest = rest.slice(0, idx) + `\n  <div class="keep">${tail.trim()}${chapterEnd}</div>`;
+  }
+  return `${head}${rest}\n</section>`;
 });
 
 const template = readFileSync(join(root, "src/template.html"), "utf8");
