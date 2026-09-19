@@ -100,8 +100,7 @@ capa = f'''
 <circle cx="34" cy="150" r="2.2" fill="{L2}" opacity=".8"/>
 <circle cx="52" cy="128" r="1.3" fill="{L2}" opacity=".6"/>
 <circle cx="196" cy="150" r="1.6" fill="{GD}" opacity=".7"/>
-<circle cx="24" cy="262" r="1.4" fill="{GD}" opacity=".6"/>
-<circle cx="188" cy="262" r="2" fill="{L2}" opacity=".6"/>
+
 <!-- linha de horizonte sutil -->
 <path d="M0,268 C60,258 150,258 210,268" stroke="{P5}" stroke-width=".8" fill="none" opacity=".5"/>
 '''
