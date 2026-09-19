@@ -59,10 +59,14 @@
   .gal .it svg { width: 100%; height: auto; display: block; }
   .gal .it h4 { margin: .5rem 0 .15rem; font-size: .92rem; }
   .gal .it p { font-size: .76rem; color: var(--ink-soft); line-height: 1.32; margin: 0; }
-  .gal.icons .im { padding: 4mm; color: var(--plum-700); max-width: 22mm; }
+  .gal.icons .im { padding: 3mm; color: var(--plum-700); max-width: 16mm; }
+  .gal.icons .it h4 { font-size: .72rem; }
   .comp { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin: .8rem 0; }
   .comp > div { break-inside: avoid; }
   .comp .box, .comp .card, .comp .qr, .comp .spot { margin: 0 0 .6rem; max-width: none; }
+  .comp .qr { grid-template-columns: 22mm 1fr; padding: .7rem; gap: 4mm; }
+  .comp .qr .code { width: 22mm; height: 22mm; }
+  .comp .box { padding: .7rem .9rem .6rem; }
   .rules li { margin-bottom: .45rem; }
   .cred dl { display: grid; grid-template-columns: max-content 1fr; gap: .4rem 1rem; max-width: var(--measure); }
   .cred dt { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--plum-500); font-weight: 700; padding-top: .15rem; }
