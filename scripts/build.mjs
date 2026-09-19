@@ -142,6 +142,17 @@ body = body.replace(/<section class="chapter"[\s\S]*?<\/section>/g, chapter => {
   return `${head}${rest}\n</section>`;
 });
 
+// ---- sem viúvas: cola as duas últimas palavras de cada bloco de texto ----
+// Troca o último espaço (antes da última palavra, ignorando tags de fechamento) por espaço inquebrável.
+function noWidows(html) {
+  return html.replace(/(<(p|li|h1|h2|h3|h4|dd|dt|div class="tp-quote"|span class="t"|p class="[^"]*")[^>]*>)([\s\S]*?)(<\/(?:p|li|h1|h2|h3|h4|dd|dt|div|span)>)/g, (m, open, tag, inner, close) => {
+    if (inner.includes("<ul") || inner.includes("<div class=") || inner.includes("<p")) return m; // blocos aninhados: deixa para os filhos
+    const fixed = inner.replace(/[ \t\n]+(?=(?:<[^>]+>)*[^\s<>]+(?:<\/[a-z]+>)*[ \t\n]*$)/, "\u00a0");
+    return open + fixed + close;
+  });
+}
+body = noWidows(body);
+
 const template = readFileSync(join(root, "src/template.html"), "utf8");
 
 // ---- versão web ----
