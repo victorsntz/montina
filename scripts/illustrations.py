@@ -265,6 +265,13 @@ spots["spot-pele"] = f'''
 <circle cx="40" cy="44" r="3" fill="{P7}"/><circle cx="60" cy="44" r="3" fill="{P7}"/>
 <path d="M44,68 C47,71 53,71 56,68" stroke="{P7}" stroke-width="2.5" fill="none" stroke-linecap="round"/>'''
 
+spots["spot-atencao-sol"] = f'''
+<circle cx="70" cy="30" r="11" fill="{GD}"/>
+<g stroke="{GD}" stroke-width="2.5" stroke-linecap="round"><line x1="70" y1="12" x2="70" y2="16"/><line x1="83" y1="17" x2="80" y2="20"/><line x1="88" y1="30" x2="84" y2="30"/><line x1="57" y1="17" x2="60" y2="20"/><line x1="52" y1="30" x2="56" y2="30"/></g>
+<path d="M44,28 L78,86 H10 Z" fill="{TC}" stroke="{TC}" stroke-width="6" stroke-linejoin="round"/>
+<rect x="41" y="46" width="6" height="20" rx="3" fill="{CR}"/>
+<circle cx="44" cy="75" r="3.5" fill="{CR}"/>'''
+
 spots["spot-articulacoes"] = f'''
 <g transform="rotate(-40 50 50)">
   <rect x="14" y="43" width="72" height="14" rx="7" fill="{L2}"/>
