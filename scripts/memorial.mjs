@@ -80,18 +80,21 @@ const html = `<!DOCTYPE html>
 <link rel="stylesheet" href="styles.css">
 <style>
   body.print { font-size: 1rem; }
-  .m-cover { page: cover; break-after: page; box-sizing: border-box; height: 297mm; width: 210mm; margin: -20mm -18mm 0 -22mm; padding: 22mm 22mm 26mm; background: var(--plum-900); color: var(--white); display: flex; flex-direction: column; justify-content: space-between; }
+  /* capa e contracapa: cor escura do site da Fortunato (#15140F); o fundo vai na página inteira via handler */
+  .m-cover { page: cover; break-after: page; box-sizing: border-box; height: 100%; width: 100%; margin: 0; padding: 22mm 22mm 26mm; color: #F6F5F1; display: flex; flex-direction: column; justify-content: space-between; }
   .m-cover .top { display: flex; justify-content: space-between; align-items: center; }
   .m-cover .top svg { height: 10mm; width: auto; }
-  .m-cover .top span { font-size: .74rem; color: var(--plum-300); letter-spacing: .16em; text-transform: uppercase; }
+  .m-cover .top span { font-size: .74rem; color: #BFBDB5; letter-spacing: .16em; text-transform: uppercase; }
   .m-cover .art { display: flex; justify-content: center; align-items: center; flex: 1; }
   .m-cover .art svg { width: 78mm; height: auto; }
-  .m-cover .kicker { font-size: .78rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--lilac-200); margin-bottom: .9rem; }
-  .m-cover h1 { color: var(--white); font-size: 3.6rem; font-weight: 400; line-height: 1.02; letter-spacing: -.02em; max-width: 160mm; font-variation-settings: "opsz" 144, "SOFT" 100; margin: 0; }
-  .m-cover .sub { margin-top: 1.3rem; font-family: var(--serif); font-size: 1.25rem; line-height: 1.35; color: var(--lilac-200); max-width: 150mm; }
-  .m-cover .sub strong { color: var(--white); font-weight: 500; }
-  .m-cover .rule { height: 2px; background: var(--plum-500); width: 34mm; margin: 1.6rem 0 1.1rem; }
-  .m-cover .meta { font-size: .8rem; color: var(--plum-300); letter-spacing: .06em; }
+  .m-cover .kicker { font-size: .78rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: #BFBDB5; margin-bottom: .9rem; }
+  .m-cover h1 { color: #F6F5F1; font-size: 3.6rem; font-weight: 400; line-height: 1.02; letter-spacing: -.02em; max-width: 160mm; font-variation-settings: "opsz" 144, "SOFT" 100; margin: 0; }
+  .m-cover .sub { margin-top: 1.3rem; font-family: var(--serif); font-size: 1.25rem; line-height: 1.35; color: #BFBDB5; max-width: 150mm; }
+  .m-cover .sub strong { color: #F6F5F1; font-weight: 500; }
+  .m-cover .rule { height: 2px; background: #5C5B55; width: 34mm; margin: 1.6rem 0 1.1rem; }
+  .m-cover .meta { font-size: .8rem; color: #8f8b82; letter-spacing: .06em; }
+  .pagedjs_page.dark-page { background: #15140F; }
+  .pagedjs_page.dark-page .pagedjs_margin-bottom-left, .pagedjs_page.dark-page .pagedjs_margin-bottom-right { visibility: hidden; }
   section.m { break-before: page; }
   section.m h1 { font-size: 2.3rem; font-weight: 500; margin: 0 0 .5rem; max-width: 150mm; }
   section.m .num { font-family: var(--sans); font-size: .74rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--plum-500); margin-bottom: .8rem; }
@@ -99,6 +102,10 @@ const html = `<!DOCTYPE html>
   .why { border-left: 5px solid var(--terracotta); padding: .2rem 0 .2rem 1rem; margin: .9rem 0 1.1rem; max-width: var(--measure); }
   .why .lab { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: #a6432a; margin-bottom: .25rem; }
   .why p { margin-bottom: .35rem; }
+  .capa-grid { display: grid; grid-template-columns: 82mm 1fr; gap: 9mm; align-items: start; margin-top: .6rem; }
+  .capa-grid figure.big img { box-shadow: 0 6px 22px rgba(43,27,51,.22); }
+  .capa-txt h4 { margin: 0 0 .25rem; font-size: .95rem; }
+  .capa-txt p { font-size: .9rem; margin-bottom: .8rem; max-width: none; }
   .pages { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5mm; margin: 1rem 0 1.2rem; }
   .pages.three { grid-template-columns: repeat(3, 1fr); }
   .pages.two { grid-template-columns: repeat(2, 1fr); max-width: 150mm; }
@@ -148,10 +155,9 @@ const html = `<!DOCTYPE html>
   .cred dt { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--plum-500); font-weight: 700; padding-top: .15rem; }
   .cred dd { margin: 0; }
   .decl { background: var(--lilac-050); border-radius: 14px; padding: 1.1rem 1.3rem; margin: 1.2rem 0; max-width: var(--measure); font-family: var(--serif); font-size: 1.05rem; line-height: 1.45; color: var(--plum-900); font-variation-settings: "opsz" 24, "SOFT" 50; }
-  .m-back { page: cover; break-before: page; height: 297mm; width: 210mm; margin: -20mm -18mm 0 -22mm; background: var(--plum-900); position: relative; }
-  .m-back .inner { position: absolute; left: 22mm; right: 22mm; bottom: 28mm; color: var(--lilac-200); }
+  .m-back { page: cover; break-before: page; box-sizing: border-box; height: 100%; width: 100%; margin: 0; padding: 22mm 22mm 28mm; display: flex; flex-direction: column; justify-content: flex-end; }
   .m-back svg { height: 12mm; width: auto; }
-  .m-back p { color: var(--plum-300); font-size: .8rem; margin-top: 1rem; max-width: 120mm; }
+  .m-back p { color: #8f8b82; font-size: .8rem; margin-top: 1rem; max-width: 120mm; }
   .chapter h1 { string-set: none; }
   section.m h1 { string-set: chapter-title content(text); }
   @media screen { body.print { background:#ddd } .pagedjs_page { background:white; margin: 8mm auto; box-shadow: 0 2px 12px rgba(0,0,0,.2);} }
@@ -212,8 +218,29 @@ const html = `<!DOCTYPE html>
   </div>
 </section>
 
-<section class="m" id="m3">
+<section class="m capa-sec" id="m2b">
   <div class="num">03</div>
+  <h1>A capa</h1>
+  <p class="lead">A capa precisava funcionar em três lugares ao mesmo tempo: na mão do paciente, na mesa do consultório e na foto do lançamento.</p>
+  <div class="capa-grid">
+    <figure class="pg big"><img src="memorial/capa.png" alt=""><figcaption>Capa final, A4.</figcaption></figure>
+    <div class="capa-txt">
+      <h4>Fundo escuro</h4>
+      <p>Ameixa escura, a cor mais profunda da paleta. Dá peso de livro, destaca a cartilha numa pilha de folhetos claros e faz a borboleta e o título saltarem sem esforço.</p>
+      <h4>Um protagonista, um ponto de luz</h4>
+      <p>A borboleta é o único desenho; o sol dourado no canto superior direito é o único ponto de luz. Nada compete com os dois. As asas translúcidas ao fundo dão profundidade sem virar "ilustração de fundo".</p>
+      <h4>Hierarquia de leitura</h4>
+      <p>O olho entra pelo título em Fraunces no terço superior, desce pela borboleta e termina nos créditos da autora na base. "Lúpus" em itálico é a única palavra com tratamento diferente: é o assunto do livro.</p>
+      <h4>Créditos no lugar de assinatura</h4>
+      <p>Nome, especialidade, CRM e RQE da Dra. Paula ficam na base esquerda, como assinatura. À direita, "1ª edição · 2026". Existe respiro deliberado entre a ilustração e os créditos, para nada encostar em nada.</p>
+      <h4>Pensada para a gráfica</h4>
+      <p>O fundo avança 3 mm na sangria do arquivo de impressão, então a faca pode desviar sem deixar fio branco na borda. As cores foram convertidas para CMYK mantendo a ameixa fechada e o dourado limpo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="m" id="m3">
+  <div class="num">04</div>
   <h1>Cores</h1>
   <p class="lead">Uma família de ameixa e lilás para a identidade, terracota para alerta, dourado para dica. Nada além disso.</p>
   <div class="swatches">
@@ -226,7 +253,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m5">
-  <div class="num">04</div>
+  <div class="num">05</div>
   <h1>Estrutura editorial</h1>
   <p class="lead">A cartilha foi organizada como um livro: partes pré-textuais, onze capítulos com abertura própria, uma página de fechamento e a contracapa.</p>
   <div class="why">
@@ -246,7 +273,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m6">
-  <div class="num">05</div>
+  <div class="num">06</div>
   <h1>Componentes</h1>
   <p class="lead">Um conjunto pequeno de peças que se repete do começo ao fim. O leitor aprende o vocabulário nas primeiras páginas e nunca mais precisa pensar nele.</p>
   <div class="comp">
@@ -274,18 +301,13 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m7">
-  <div class="num">06</div>
+  <div class="num">07</div>
   <h1>Ilustrações autorais</h1>
   <p class="lead">Todas as ilustrações desta cartilha são autorais, criadas pela Fortunato Estúdio para este projeto. Nenhuma vem de banco de imagens.</p>
   <p>São ${nSvgs} peças vetoriais: a capa, onze aberturas de capítulo, vinte e quatro ícones de destaque, cinco ícones de rótulo, a marca de fim de capítulo e as versões da borboleta. Por serem vetor, imprimem nítidas em qualquer tamanho, do A5 ao cartaz, e funcionam na web sem perda.</p>
   <div class="why">
     <div class="lab">O estilo</div>
     <p>Formas geométricas suaves, sem contorno, construídas só com elipses, círculos e retângulos arredondados. Paleta reduzida à da cartilha. Nenhum rosto realista, nenhuma cena de hospital: o paciente se vê nas imagens sem se ver doente.</p>
-  </div>
-  <h2>Capa</h2>
-  <div class="pages two">
-    ${fig("capa", "Ameixa escura, sol dourado no alto, a borboleta centralizada sobre asas translúcidas de fundo e o título em Fraunces com \"lúpus\" em itálico.")}
-    <div><p>A capa precisava funcionar em três lugares: na mão do paciente, na mesa do consultório e na foto do lançamento. Por isso ela é escura, com um único ponto de luz (o sol) e um único protagonista (a borboleta). O título ocupa o terço superior e os créditos da autora ficam na base, com espaço livre entre eles e o desenho.</p></div>
   </div>
   <h2 class="newpage" style="margin-top:0">Aberturas de capítulo</h2>
   <div class="gal four">
@@ -294,7 +316,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m8">
-  <div class="num">07</div>
+  <div class="num">08</div>
   <h1>Ícones de destaque</h1>
   <p class="lead">Vinte e quatro ícones para os sintomas, os medicamentos, os hábitos e os canais de ajuda. Cada um sobre um quadrado lilás de cantos arredondados, sempre no mesmo tamanho.</p>
   <div class="gal six">
@@ -303,7 +325,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m9">
-  <div class="num">08</div>
+  <div class="num">09</div>
   <h1>Regras de paginação</h1>
   <p class="lead">O que o leitor não vê, mas sente: as regras que fazem cada página parecer "arrumada".</p>
   <ul class="rules">
@@ -322,7 +344,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m10">
-  <div class="num">09</div>
+  <div class="num">10</div>
   <h1>Legibilidade e letramento em saúde</h1>
   <p class="lead">Decisões tomadas com base nas recomendações para materiais educativos impressos em saúde.</p>
   <ul class="rules">
@@ -336,7 +358,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m" id="m11">
-  <div class="num">10</div>
+  <div class="num">11</div>
   <h1>Produção e entregas</h1>
   <p class="lead">Um único conteúdo-fonte gera todas as versões. Alterações de texto entram uma vez e se propagam.</p>
   <ul class="rules">
@@ -354,7 +376,7 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m cred" id="m12">
-  <div class="num">11</div>
+  <div class="num">12</div>
   <h1>Créditos e autoria</h1>
   <dl>
     <dt>Conteúdo</dt><dd>Dra. Paula Cristina Montina, médica reumatologista, CRM-DF 26.523 · RQE 21.843</dd>
@@ -372,11 +394,18 @@ const html = `<!DOCTYPE html>
 </section>
 
 <section class="m-back">
-  <div class="inner">${svg("logo-fortunato-dark")}<p>Estúdio de design de marcas · fortunatoestudio.com</p></div>
+  <div>${svg("logo-fortunato-dark")}<p>Estúdio de design de marcas · fortunatoestudio.com</p></div>
 </section>
 
-<script>window.PagedConfig = { auto: true, after: () => { window.__pagedDone = true; } };</script>
+<script>window.PagedConfig = { auto: false };</script>
 <script src="paged.polyfill.js"></script>
+<script>
+  class PaginaEscura extends Paged.Handler {
+    afterPageLayout(pageEl) { if (pageEl.querySelector(".m-cover, .m-back")) pageEl.classList.add("dark-page"); }
+  }
+  Paged.registerHandlers(PaginaEscura);
+  window.PagedPolyfill.preview().then(() => { window.__pagedDone = true; });
+</script>
 </body>
 </html>`;
 
