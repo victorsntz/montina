@@ -107,11 +107,16 @@ function keepTogether(html) {
     const textLen = strip(seg).length;
     if (textLen <= KEEP_WHOLE) return `<div class="keep">${seg}</div>`;
     // título + primeiro bloco simples (p ou ul)
-    return seg.replace(/^(<h2[^>]*>[\s\S]*?<\/h2>\s*)(<p[^>]*>[\s\S]*?<\/p>|<ul[^>]*>[\s\S]*?<\/ul>)?/, (m, h, first) => `<div class="keep">${h}${first || ""}</div>`);
+    // título + primeiro bloco (p ou ul) + uma lista curta logo em seguida
+    return seg.replace(/^(<h2[^>]*>[\s\S]*?<\/h2>\s*)(<p[^>]*>[\s\S]*?<\/p>|<ul[^>]*>[\s\S]*?<\/ul>)?(\s*<ul[^>]*>[\s\S]*?<\/ul>)?/, (m, h, first, list) => `<div class="keep">${h}${first || ""}${shortList(list)}</div>`);
   }).join("");
 }
+function shortList(list) {
+  if (!list) return "";
+  return (list.match(/<li/g) || []).length <= 9 ? list : "";
+}
 function keepH3(html) {
-  return html.replace(/(<h3[^>]*>[\s\S]*?<\/h3>\s*)(<p[^>]*>[\s\S]*?<\/p>|<ul[^>]*>[\s\S]*?<\/ul>)/g, (m, h, first) => `<div class="keep">${h}${first}</div>`);
+  return html.replace(/(<h3[^>]*>[\s\S]*?<\/h3>\s*)(<p[^>]*>[\s\S]*?<\/p>|<ul[^>]*>[\s\S]*?<\/ul>)(\s*<ul[^>]*>[\s\S]*?<\/ul>)?/g, (m, h, first, list) => `<div class="keep">${h}${first}${shortList(list)}</div>`);
 }
 body = body.replace(/<section class="chapter"[\s\S]*?<\/section>/g, chapter => {
   const cut = chapter.indexOf("</div>", chapter.indexOf('class="chapter-opener"')); // fim do opener é o último </div> do bloco; usamos o marcador seguro abaixo
