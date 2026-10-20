@@ -363,6 +363,15 @@ spots["spot-ossos"] = f'''
   <circle cx="76" cy="42" r="8" fill="{CR}" stroke="{P7}" stroke-width="3"/><circle cx="76" cy="58" r="8" fill="{CR}" stroke="{P7}" stroke-width="3"/>
 </g>'''
 
+spots["spot-atividade"] = f'''
+<g transform="translate(3,-4)">
+<path d="M10,46 H20 M7,54 H19 M12,62 H20" stroke="{P3}" stroke-width="3.5" stroke-linecap="round"/>
+<path d="M23,66 L25,38 C25,34 28,31 32,31 L42,31 C44,39 49,44 56,46 L71,50 C79,52 84,57 84,64 L84,66 Z" fill="{TC}"/>
+<path d="M30,57 C40,55 52,51 64,55" stroke="{CR}" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+<circle cx="45" cy="41" r="2.2" fill="{CR}"/><circle cx="50.5" cy="45" r="2.2" fill="{CR}"/><circle cx="56.5" cy="47.6" r="2.2" fill="{CR}"/>
+<rect x="21" y="65" width="65" height="8" rx="4" fill="{P7}"/>
+</g>'''
+
 spots["spot-acompanhamento"] = f'''
 <rect x="22" y="28" width="56" height="52" rx="6" fill="{CR}" stroke="{P7}" stroke-width="3"/>
 <rect x="22" y="28" width="56" height="14" rx="6" fill="{P5}"/>

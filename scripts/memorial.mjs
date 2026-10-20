@@ -385,7 +385,7 @@ const html = `<!DOCTYPE html>
     <dt>Ilustrações</dt><dd>Fortunato Estúdio (${nSvgs} peças vetoriais autorais)</dd>
     <dt>Apoio</dt><dd>Sociedade de Reumatologia de Brasília (SRB) · ANPLúpus</dd>
     <dt>Redes de apoio</dt><dd>ANPLúpus · AMAVI Raras</dd>
-    <dt>Formato</dt><dd>A4, 56 páginas, 1ª edição, Brasília, 2026</dd>
+    <dt>Formato</dt><dd>A4, 60 páginas, 1ª edição, Brasília, 2026</dd>
   </dl>
   <div class="decl">
     O projeto gráfico, a diagramação e todas as ilustrações desta cartilha são obras autorais da Fortunato Estúdio, criadas especificamente para o Manual para o paciente com lúpus do Distrito Federal. Não foram utilizadas imagens de banco, modelos prontos ou ilustrações de terceiros. O texto é de autoria da Dra. Paula Cristina Montina e foi reproduzido na íntegra.

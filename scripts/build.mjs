@@ -120,6 +120,18 @@ function shortList(list) {
 function keepH3(html) {
   return html.replace(/(<h3[^>]*>[\s\S]*?<\/h3>\s*)(<p[^>]*>[\s\S]*?<\/p>|<ul[^>]*>[\s\S]*?<\/ul>)(\s*<ul[^>]*>[\s\S]*?<\/ul>)?/g, (m, h, first, list) => `<div class="keep">${h}${first}${shortList(list)}</div>`);
 }
+// blocos de topo de um trecho de HTML (contagem de profundidade das tags; ignora void e auto-fechadas)
+const VOID_TAGS = new Set(["br", "img", "hr", "meta", "link", "input", "source", "wbr"]);
+function topBlocks(html) {
+  const out = []; let depth = 0, start = -1;
+  for (const m of html.matchAll(/<(\/?)([a-zA-Z][a-zA-Z0-9-]*)\b[^>]*?(\/?)>/g)) {
+    const [, close, tag, self] = m;
+    if (self || VOID_TAGS.has(tag.toLowerCase())) { if (depth === 0) out.push({ start: m.index, end: m.index + m[0].length }); continue; }
+    if (!close) { if (depth === 0) start = m.index; depth++; }
+    else { depth--; if (depth === 0) out.push({ start, end: m.index + m[0].length }); }
+  }
+  return out;
+}
 let chapterIndex = 0;
 body = body.replace(/<section class="chapter"[\s\S]*?<\/section>/g, chapter => {
   const chapterEnd = chapterEndFor(++chapterIndex);
@@ -132,14 +144,14 @@ body = body.replace(/<section class="chapter"[\s\S]*?<\/section>/g, chapter => {
   rest = rest.replace(/<p class="lead">/g, () => { if (leadSeen) return "<p>"; leadSeen = true; return '<p class="lead">'; });
   rest = rest.replace(/<\/section>\s*$/, "").replace(/\s+$/, "");
   rest = keepH3(keepTogether(rest));
-  // o ornamento de fim de capítulo viaja junto com o último bloco (nunca sozinho numa página)
-  const idx = rest.lastIndexOf("\n  <");
-  const tail = rest.slice(idx);
-  if (tail.startsWith('\n  <div class="keep">')) {
-    rest = rest.slice(0, idx) + tail.replace(/<\/div>\s*$/, `${chapterEnd}</div>`);
-  } else {
-    rest = rest.slice(0, idx) + `\n  <div class="keep">${tail.trim()}${chapterEnd}</div>`;
-  }
+  // o ornamento de fim de capítulo viaja junto com o último bloco (nunca sozinho numa página);
+  // uma caixa (Importante, Dica, Lembre-se) também nunca fecha o capítulo sozinha: leva junto o bloco anterior
+  const blocks = topBlocks(rest);
+  const last = blocks[blocks.length - 1];
+  let from = last.start;
+  const prev = blocks[blocks.length - 2];
+  if (prev && /^<div class="box\b/.test(rest.slice(last.start)) && strip(rest.slice(prev.start, prev.end)).length <= 1200) from = prev.start;
+  rest = rest.slice(0, from) + `<div class="keep">${rest.slice(from, last.end)}${chapterEnd}</div>` + rest.slice(last.end);
   return `${head}${rest}\n</section>`;
 });
 
