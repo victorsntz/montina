@@ -86,11 +86,11 @@ function strip(s) { return s.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim()
 const toc = `<section class="toc" id="sumario">
 <h1>Sumário</h1>
 <ol>
-<li class="l1 front"><a href="#prefacio"><span class="n"></span><span>Prefácio</span></a></li>
-${tocItems.map(c => `<li class="l1"><a href="#${c.id}"><span class="n">${String(c.num).padStart(2, "0")}</span><span>${c.title}</span></a>
-${c.subs.map(s => `<li class="l2"><a href="#${s.id}"><span></span><span>${s.title}</span></a></li>`).join("\n")}</li>`).join("\n")}
-<li class="l1 front"><a href="#referencias"><span class="n"></span><span>Referências bibliográficas</span></a></li>
-<li class="l1 front"><a href="#borboleta"><span class="n"></span><span>Por que a borboleta?</span></a></li>
+<li class="l1 front roman"><a href="#prefacio"><span class="n"></span><span class="tt">Prefácio</span></a></li>
+${tocItems.map(c => `<li class="l1"><a href="#${c.id}"><span class="n">${String(c.num).padStart(2, "0")}</span><span class="tt">${c.title}</span></a>
+${c.subs.map(s => `<li class="l2"><a href="#${s.id}"><span></span><span class="tt">${s.title}</span></a></li>`).join("\n")}</li>`).join("\n")}
+<li class="l1 front"><a href="#referencias"><span class="n"></span><span class="tt">Referências bibliográficas</span></a></li>
+<li class="l1 front"><a href="#borboleta"><span class="n"></span><span class="tt">Por que a borboleta?</span></a></li>
 </ol>
 </section>`;
 body = body.replace("<!--TOC-->", toc);
@@ -100,7 +100,7 @@ body = body.replace("<!--TOC-->", toc);
 // 2) cada h2/h3 fica colado ao primeiro bloco seguinte; seções curtas não se partem
 // 3) ornamento de fim de capítulo
 const chapterEndFor = (n) => `<div class="chapter-end" data-num="${n}"><span></span>${inlineSvg("mark-borboleta")}<span></span></div>`;
-const KEEP_WHOLE = 700; // caracteres de texto ≈ meia página
+const KEEP_WHOLE = 500; // caracteres de texto ≈ um terço de página: seção curta não se parte
 function keepTogether(html) {
   // divide em segmentos a partir de h2 "de topo" (os h2 dentro de .spot têm margin-top:0 e ficam de fora)
   const parts = html.split(/(?=<h2 (?![^>]*margin-top:0))/);
@@ -108,17 +108,40 @@ function keepTogether(html) {
     if (idx === 0) return seg;
     const textLen = strip(seg).length;
     if (textLen <= KEEP_WHOLE) return `<div class="keep">${seg}</div>`;
-    // título + primeiro bloco simples (p ou ul)
-    // título + primeiro bloco (p ou ul) + uma lista curta logo em seguida
-    return seg.replace(/^(<h2[^>]*>[\s\S]*?<\/h2>\s*)(<p[^>]*>[\s\S]*?<\/p>|<ul[^>]*>[\s\S]*?<\/ul>)?(\s*<ul[^>]*>[\s\S]*?<\/ul>)?/, (m, h, first, list) => `<div class="keep">${h}${first || ""}${shortList(list)}</div>`);
+    return keepHead(seg);
   }).join("");
 }
-function shortList(list) {
-  if (!list) return "";
-  return (list.match(/<li/g) || []).length <= 9 ? list : "";
+// título + o texto que vem logo depois, até somar umas duas linhas (≈160 caracteres): um título nunca fica no pé
+// da página só com uma frase curta. Lista curta (até 3 itens) vai inteira; lista longa leva só os 2 primeiros itens.
+function keepHead(seg) {
+  const bl = topBlocks(seg);
+  if (!bl.length) return seg;
+  let inner = seg.slice(0, bl[0].end), consumed = bl[0].end, text = 0, extra = "";
+  for (let i = 1; i < bl.length && text < 160; i++) {
+    const html = seg.slice(bl[i].start, bl[i].end);
+    if (i > 1 && !/^<(p|ul)\b/.test(html)) break;
+    const gap = seg.slice(consumed, bl[i].start);
+    if (/^<ul\b/.test(html)) {
+      const [a, b] = splitList(html);
+      inner += gap + a; consumed = bl[i].end;
+      if (b) { extra = b; break; }
+    } else { inner += gap + html; consumed = bl[i].end; }
+    text += strip(html).length;
+  }
+  return `<div class="keep">${inner}</div>${extra}${seg.slice(consumed)}`;
+}
+// lista com até 3 itens vai inteira; maior que isso, os 2 primeiros itens ficam presos ao título e o resto continua numa lista colada
+function splitList(list) {
+  const lead = list.match(/^\s*/)[0];
+  const open = list.match(/<ul[^>]*>/)[0];
+  const items = list.match(/<li\b[\s\S]*?<\/li>/g) || [];
+  if (items.length <= 3) return [list, ""];
+  const cls = (extra) => open.includes('class="') ? open.replace('class="', `class="${extra} `) : open.replace("<ul", `<ul class="${extra}"`);
+  return [`${lead}${cls("keep-head")}${items.slice(0, 2).join("")}</ul>`, `${cls("cont")}${items.slice(2).join("")}</ul>`];
 }
 function keepH3(html) {
-  return html.replace(/(<h3[^>]*>[\s\S]*?<\/h3>\s*)(<p[^>]*>[\s\S]*?<\/p>|<ul[^>]*>[\s\S]*?<\/ul>)(\s*<ul[^>]*>[\s\S]*?<\/ul>)?/g, (m, h, first, list) => `<div class="keep">${h}${first}${shortList(list)}</div>`);
+  // só os h3 de topo (recuo de 2 espaços); os h3 dentro de cartões (.spot) já viajam com o cartão inteiro
+  return html.replace(/(\n  )(<h3[^>]*>[\s\S]*?<\/h3>(?:\s*(?:<p[^>]*>[\s\S]*?<\/p>|<ul[^>]*>[\s\S]*?<\/ul>)){0,3})/g, (m, lead, seg) => lead + keepHead(seg));
 }
 // blocos de topo de um trecho de HTML (contagem de profundidade das tags; ignora void e auto-fechadas)
 const VOID_TAGS = new Set(["br", "img", "hr", "meta", "link", "input", "source", "wbr"]);
@@ -158,12 +181,37 @@ body = body.replace(/<section class="chapter"[\s\S]*?<\/section>/g, chapter => {
 // ---- sem viúvas: cola as duas últimas palavras de cada bloco de texto ----
 // Troca o último espaço (antes da última palavra, ignorando tags de fechamento) por espaço inquebrável.
 function noWidows(html) {
-  return html.replace(/(<(p|li|h1|h2|h3|h4|dd|dt|div class="tp-quote"|span class="t"|p class="[^"]*")[^>]*>)([\s\S]*?)(<\/(?:p|li|h1|h2|h3|h4|dd|dt|div|span)>)/g, (m, open, tag, inner, close) => {
+  return html.replace(/(<(p|li|h1|h2|h3|h4|dd|dt|td|div class="tp-quote"|span class="tt"|p class="[^"]*")[^>]*>)([\s\S]*?)(<\/(?:p|li|h1|h2|h3|h4|dd|dt|td|div|span)>)/g, (m, open, tag, inner, close) => {
     if (inner.includes("<ul") || inner.includes("<div class=") || inner.includes("<p")) return m; // blocos aninhados: deixa para os filhos
-    const fixed = inner.replace(/[ \t\n]+(?=(?:<[^>]+>)*[^\s<>]+(?:<\/[a-z]+>)*[ \t\n]*$)/, "\u00a0");
+    const fixed = inner.replace(/[ \t\n]+(?=(?:<[^>]+>)*[^\s<>]+(?:<\/[a-z]+>[^\s<>]*)*[ \t\n]*$)/, "\u00a0");
     return open + fixed + close;
   });
 }
+// ---- acabamento tipográfico ----
+// aspas tipográficas nos nós de texto (abre depois de espaço, início ou parêntese; fecha nos demais casos)
+function smartQuotes(html) {
+  let prev = " ";
+  return html.replace(/(<[^>]+>)|([^<]+)/g, (m, tag, text) => {
+    if (tag) return tag;
+    let out = "";
+    for (const ch of text) {
+      if (ch === '"') out += /[\s(\[{ —–-]/.test(prev) ? "“" : "”";
+      else out += ch;
+      prev = ch;
+    }
+    return out;
+  });
+}
+body = smartQuotes(body);
+// tratamentos e nome próprio não se separam no fim da linha
+body = body.replace(/\b(Dra?\.) (?=[A-ZÁÉÍÓÚÂÊÔÃÕÇ])/g, "$1 ").replace(/Cristina Montina/g, "Cristina Montina");
+// URL dos QR Codes: quebra só depois de barra (nunca no meio da palavra)
+body = body.replace(/(<p class="url">)([\s\S]*?)(<\/p>)/g, (m, a, t, b) => a + t.replace(/\//g, "/<wbr>") + b);
+// referências: volume, página e intervalos não se separam
+body = body.replace(/(<ol class="refs-list">)([\s\S]*?)(<\/ol>)/, (m, a, t, b) =>
+  a + t.replace(/\b(v|p|n|supl)\. (?=\d)/g, "$1. ").replace(/(\d+)([–-])(\d+)/g, '<span class="nw">$1$2$3</span>') + b);
+// fluxos em pílulas: o separador (+ ou →) viaja com a etapa seguinte, nunca fica pendurado no fim da linha
+body = body.replace(/<span class="arrow">([\s\S]*?)<\/span>\s*(<span class="step">[\s\S]*?<\/span>)/g, '<span class="pair"><span class="arrow">$1</span>$2</span>');
 body = noWidows(body);
 
 const template = readFileSync(join(root, "src/template.html"), "utf8");
@@ -200,7 +248,31 @@ const print = template
       pageEl.querySelector(".pagedjs_pagebox").appendChild(band);
     }
   }
-  Paged.registerHandlers(FimDeCapitulo);
+  // Topo da mancha alinhado: o primeiro bloco de cada página de texto não carrega margem superior.
+  class TopoAlinhado extends Paged.Handler {
+    afterPageLayout(pageEl) {
+      const area = pageEl.querySelector(".pagedjs_page_content");
+      if (!area || !area.querySelector("section.chapter") || area.querySelector(".chapter-opener")) return;
+      let el = area.firstElementChild;
+      for (let i = 0; el && i < 8; i++) {
+        if (el.matches(".spot .icon")) break;
+        el.style.marginTop = "0";
+        el = el.firstElementChild;
+      }
+    }
+  }
+  // Sumário: o Prefácio fica nas páginas iniciais (romanas), então o número dele sai em romano, lido da página real.
+  class SumarioRomano extends Paged.Handler {
+    afterRendered(pages) {
+      const alvo = document.querySelector(".pagedjs_page #prefacio");
+      const link = document.querySelector(".toc li.roman > a");
+      if (!alvo || !link) return;
+      let n = Number(alvo.closest(".pagedjs_page").dataset.pageNumber), r = "";
+      for (const [v, k] of [[10, "x"], [9, "ix"], [5, "v"], [4, "iv"], [1, "i"]]) while (n >= v) { r += k; n -= v; }
+      link.setAttribute("data-pg", r);
+    }
+  }
+  Paged.registerHandlers(FimDeCapitulo, TopoAlinhado, SumarioRomano);
   window.PagedPolyfill.preview().then(() => { window.__pagedDone = true; });
 </script>`);
 writeFileSync(join(dist, "print.html"), print);
