@@ -232,7 +232,7 @@ const html = `<!DOCTYPE html>
       <h4>Hierarquia de leitura</h4>
       <p>O olho entra pelo título em Fraunces no terço superior, desce pela borboleta e termina nos créditos da autora na base. "Lúpus" em itálico é a única palavra com tratamento diferente: é o assunto do livro.</p>
       <h4>Créditos no lugar de assinatura</h4>
-      <p>Nome, especialidade, CRM e RQE da Dra. Paula ficam na base esquerda, como assinatura. À direita, "1ª edição · 2026". Existe respiro deliberado entre a ilustração e os créditos, para nada encostar em nada.</p>
+      <p>Na base esquerda, só o nome da autora, "Paula C. Montina", como assinatura: na capa não entram CRM, RQE nem especialidade, que ficam na ficha técnica. À direita, "1ª edição · 2026". Existe respiro deliberado entre a ilustração e a assinatura, para nada encostar em nada.</p>
       <h4>Pensada para a gráfica</h4>
       <p>O fundo avança 3 mm na sangria do arquivo de impressão, então a faca pode desviar sem deixar fio branco na borda. As cores foram convertidas para CMYK mantendo a ameixa fechada e o dourado limpo.</p>
     </div>
@@ -255,7 +255,7 @@ const html = `<!DOCTYPE html>
 <section class="m" id="m5">
   <div class="num">05</div>
   <h1>Estrutura editorial</h1>
-  <p class="lead">A cartilha foi organizada como um livro: partes pré-textuais, onze capítulos com abertura própria, uma página de fechamento e a contracapa.</p>
+  <p class="lead">A cartilha foi organizada como um livro: partes pré-textuais, onze capítulos com abertura própria, as referências bibliográficas da autora, uma página de fechamento e a contracapa.</p>
   <div class="why">
     <div class="lab">Por que aberturas de página inteira</div>
     <p>Cada capítulo é uma pergunta diferente do paciente ("posso engravidar?", "meu remédio foi negado, e agora?"). A abertura em página inteira dá uma pausa, avisa a mudança de assunto e deixa o livro fácil de folhear até o ponto certo.</p>
@@ -268,7 +268,7 @@ const html = `<!DOCTYPE html>
     ${fig("abertura", "Abertura de capítulo: ilustração, numeral e a frase da autora.")}
     ${fig("fim", "Faixa de fim de capítulo no rodapé, com a borboleta.")}
     ${fig("bonus", "Página bônus: a história da borboleta e uma palavra da autora.")}
-    ${fig("contracapa", "Contracapa: borboleta pequena, frase-síntese e marcas de apoio.")}
+    ${fig("contracapa", "Contracapa: borboleta pequena, frase-síntese, colaboradores e marcas de apoio.")}
   </div>
 </section>
 
@@ -367,7 +367,7 @@ const html = `<!DOCTYPE html>
     <li><strong>Versão web</strong> responsiva, com o mesmo texto, navegação pelo sumário e botão de download do PDF.</li>
     <li><strong>Prova comentável</strong> em página HTML paginada, usada nas rodadas de revisão.</li>
     <li><strong>Ficha catalográfica</strong> (CIP) montada com CDD 616.772 e CDU 616.5-002.52; ISBN a preencher após o registro na Câmara Brasileira do Livro.</li>
-    <li><strong>Marcas</strong>: Fortunato Estúdio (tipográfica, a partir da identidade do estúdio), Sociedade de Reumatologia de Brasília (vetor oficial, versões colorida e branca), ANPLúpus e AMAVI Raras (arquivos oficiais).</li>
+    <li><strong>Marcas</strong>: Fortunato Estúdio (tipográfica, a partir da identidade do estúdio), Sociedade de Reumatologia de Brasília (vetor oficial, versões colorida e branca), ANPLúpus (apoio e rede, arquivo oficial) e AMAVI Raras (arquivo oficial).</li>
   </ul>
   <div class="why">
     <div class="lab">Por que escalável</div>
@@ -383,7 +383,7 @@ const html = `<!DOCTYPE html>
     <dt>Projeto gráfico</dt><dd>Fortunato Estúdio · direção de design: Victor Fortunato</dd>
     <dt>Diagramação</dt><dd>Fortunato Estúdio</dd>
     <dt>Ilustrações</dt><dd>Fortunato Estúdio (${nSvgs} peças vetoriais autorais)</dd>
-    <dt>Apoio</dt><dd>Sociedade de Reumatologia de Brasília (SRB)</dd>
+    <dt>Apoio</dt><dd>Sociedade de Reumatologia de Brasília (SRB) · ANPLúpus</dd>
     <dt>Redes de apoio</dt><dd>ANPLúpus · AMAVI Raras</dd>
     <dt>Formato</dt><dd>A4, 56 páginas, 1ª edição, Brasília, 2026</dd>
   </dl>
