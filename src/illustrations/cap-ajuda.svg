@@ -6,5 +6,6 @@
 <rect x="110" y="126" width="46" height="5" rx="2.5" fill="#fbf7f1"/>
 <rect x="110" y="137" width="30" height="5" rx="2.5" fill="#fbf7f1"/>
 <!-- fone -->
-<path d="M150,40 C160,38 170,44 170,54 L166,62 C160,60 156,58 152,54 L150,40 Z" fill="#4b2a5e"/>
-<path d="M136,50 c-8,24 4,44 24,52" stroke="#4b2a5e" stroke-width="8" fill="none" stroke-linecap="round"/></svg>
+<g transform="translate(155 67) rotate(-38)">
+  <path d="M-4,-32 H7 A5,5 0 0 1 12,-27 V-22 A5,5 0 0 1 7,-17 H1 C-3,-17 -5,-10 -5,0 C-5,10 -3,17 1,17 H7 A5,5 0 0 1 12,22 V27 A5,5 0 0 1 7,32 H-4 C-12,32 -16,18 -16,0 C-16,-18 -12,-32 -4,-32 Z" fill="#4b2a5e"/>
+</g></svg>

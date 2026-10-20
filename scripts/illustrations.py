@@ -140,7 +140,7 @@ chap["cap-habitos"] = blob_bg() + f'''
 <!-- guarda-sol -->
 <path d="M18,110 A58,58 0 0 1 134,110 Z" fill="{P5}"/>
 <path d="M18,110 A58,58 0 0 1 76,52 V110 Z" fill="{P7}"/>
-<path d="M18,110 C26,104 34,104 42,110 C50,104 58,104 66,110 C74,104 82,104 90,110 C98,104 106,104 114,110 C122,104 130,104 134,110" fill="{L0}"/>
+<path d="M18,112 V110 C25.73,104 33.47,104 41.2,110 C48.93,104 56.67,104 64.4,110 C72.13,104 79.87,104 87.6,110 C95.33,104 103.07,104 110.8,110 C118.53,104 126.27,104 134,110 V112 Z" fill="{L0}"/>
 <path d="M76,52 V166" stroke="{P9}" stroke-width="4" stroke-linecap="round"/>
 <path d="M76,166 C76,176 92,176 92,166" stroke="{P9}" stroke-width="4" fill="none" stroke-linecap="round"/>
 <!-- protetor solar -->
@@ -165,7 +165,7 @@ chap["cap-gravidez"] = blob_bg() + f'''
 <path d="M70,40 C72,24 96,20 106,32 C100,36 84,40 70,40 Z" fill="{P7}"/>
 <path d="M74,66 H98 C100,74 108,82 118,84 C140,88 148,108 140,130 C136,142 134,154 134,168 H70 V150 C70,132 64,112 66,92 C67,80 70,70 74,66 Z" fill="{P5}"/>
 <path d="M126,104 C122,98 114,96 112,104 C110,110 118,116 126,122 C134,116 142,110 140,104 C138,96 130,98 126,104 Z" fill="{TC}"/>
-<path d="M150,44 A16,16 0 1 1 156,76 A12,12 0 1 0 150,44 Z" fill="{GD}"/>
+<path d="M143.7,49.8 A16,16 0 1 1 148.2,74 A13,13 0 1 0 143.7,49.8 Z" fill="{GD}"/>
 <circle cx="44" cy="138" r="3" fill="{GD}"/>
 <circle cx="150" cy="150" r="2.4" fill="{P3}"/>'''
 
@@ -214,25 +214,26 @@ chap["cap-ajuda"] = blob_bg() + f'''
 <rect x="110" y="126" width="46" height="5" rx="2.5" fill="{CR}"/>
 <rect x="110" y="137" width="30" height="5" rx="2.5" fill="{CR}"/>
 <!-- fone -->
-<path d="M150,40 C160,38 170,44 170,54 L166,62 C160,60 156,58 152,54 L150,40 Z" fill="{P7}"/>
-<path d="M136,50 c-8,24 4,44 24,52" stroke="{P7}" stroke-width="8" fill="none" stroke-linecap="round"/>'''
+<g transform="translate(155 67) rotate(-38)">
+  <path d="M-4,-32 H7 A5,5 0 0 1 12,-27 V-22 A5,5 0 0 1 7,-17 H1 C-3,-17 -5,-10 -5,0 C-5,10 -3,17 1,17 H7 A5,5 0 0 1 12,22 V27 A5,5 0 0 1 7,32 H-4 C-12,32 -16,18 -16,0 C-16,-18 -12,-32 -4,-32 Z" fill="{P7}"/>
+</g>'''
 
 chap["cap-anplupus"] = blob_bg() + f'''
 <circle cx="100" cy="100" r="38" fill="{L1}"/>
 <path d="M100,118 C90,108 78,100 80,88 C82,80 94,78 100,86 C106,78 118,80 120,88 C122,100 110,108 100,118 Z" fill="{TC}"/>
+<circle cx="100" cy="100" r="54" fill="none" stroke="{P3}" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/>
 {person(100, 40, 1.4, P5)}
 {person(154, 74, 1.4, P7)}
 {person(154, 130, 1.4, P5)}
 {person(100, 164, 1.4, P7)}
 {person(46, 130, 1.4, P5)}
-{person(46, 74, 1.4, P7)}
-<circle cx="100" cy="100" r="54" fill="none" stroke="{P3}" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/>'''
+{person(46, 74, 1.4, P7)}'''
 
 chap["cap-amavi"] = blob_bg() + f'''
-<path d="M40,104 L100,52 L160,104 V160 A8,8 0 0 1 152,168 H48 A8,8 0 0 1 40,160 Z" fill="{P5}"/>
-<path d="M30,108 L100,46 L170,108" stroke="{P7}" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
 <rect x="128" y="60" width="14" height="28" rx="2" fill="{P7}"/>
-<path d="M100,146 C88,134 70,124 74,108 C78,96 94,96 100,108 C106,96 122,96 126,108 C130,124 112,134 100,146 Z" fill="{TC}"/>
+<path d="M40,99.1 L100,46 L160,99.1 V160 A8,8 0 0 1 152,168 H48 A8,8 0 0 1 40,160 Z" fill="{P5}"/>
+<path d="M30,108 L100,46 L170,108" stroke="{P7}" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M100,138 C88,126 70,116 74,100 C78,88 94,88 100,100 C106,88 122,88 126,100 C130,116 112,126 100,138 Z" fill="{TC}"/>
 <circle cx="100" cy="128" r="0" fill="{CR}"/>
 <rect x="88" y="148" width="24" height="20" rx="3" fill="{L1}"/>'''
 
