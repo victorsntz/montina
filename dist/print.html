@@ -23,9 +23,9 @@
 <rect width="210" height="297" fill="#2b1b33"/>
 <rect width="210" height="297" fill="url(#glow)"/>
 <!-- arco solar -->
-<circle cx="188" cy="30" r="33" fill="none" stroke="#d9a441" stroke-width="1.2" opacity=".55"/>
-<circle cx="188" cy="30" r="22" fill="#d9a441" opacity=".18"/>
-<circle cx="188" cy="30" r="12" fill="#d9a441" opacity=".9"/>
+<circle cx="197" cy="16" r="31" fill="none" stroke="#d9a441" stroke-width="1.2" opacity=".55"/>
+<circle cx="197" cy="16" r="21" fill="#d9a441" opacity=".18"/>
+<circle cx="197" cy="16" r="12" fill="#d9a441" opacity=".9"/>
 <!-- pétalas / asas translúcidas ao fundo -->
 <g opacity=".28">
   <ellipse cx="57" cy="191" rx="70" ry="44" transform="rotate(-35 57 191)" fill="#7a4e93"/>
@@ -58,17 +58,18 @@
 </svg>
 </div>
   <div class="text">
-    <div class="kicker">Cartilha · Distrito Federal</div>
-    <h1>Manual para o paciente com <em>lúpus</em></h1>
+    <div class="kicker">Cartilha · Distrito Federal · 1ª edição · 2026</div>
+    <h1>Manual para o<br>paciente com <em>lúpus</em></h1>
     <p class="sub">Entender a doença, participar do tratamento,<br>conhecer seus direitos e saber onde buscar ajuda.</p>
   </div>
   <div class="meta">
     <div class="author">
       <strong>Paula C. Montina</strong>
     </div>
-    <div class="edition">1ª edição · 2026</div>
   </div>
 </section>
+
+<section class="guarda" id="segunda-capa" aria-hidden="true"></section>
 
 <section class="front-matter title-page" id="folha-de-rosto">
   <div class="tp-head">
@@ -231,6 +232,7 @@
 <section class="front-matter imprint" id="ficha-tecnica">
   <h4>Autoria e conteúdo</h4>
   <p><strong>Dra. Paula Cristina Montina</strong><br>Médica Reumatologista · CRM-DF 26.523 · RQE 21.843<br>Atuação nos serviços público e privado do Distrito Federal, incluindo os ambulatórios de lúpus do Instituto Hospital de Base do Distrito Federal (IHBDF).</p>
+  <p class="collab-credit"><strong>Colaboração</strong><br><span class="nw">Ana Paula Monteiro Gomides Reis</span> · <span class="nw">Carlos Eduardo Lins</span> · <span class="nw">Jamille Nascimento Carneiro</span> · <span class="nw">Licia Mota</span> · <span class="nw">Regina Alice fon Kircheiheim</span> · <span class="nw">Tainá Cândida de Almeida Gontijo Carneiro</span></p>
 
   <h4>Projeto gráfico, diagramação e ilustrações</h4>
   <p>Fortunato Estúdio</p>
@@ -258,7 +260,7 @@
       <div>
         Montina, Paula Cristina<br>
         &nbsp;&nbsp;&nbsp;&nbsp;Manual para o paciente com lúpus do Distrito Federal / Paula Cristina Montina ; projeto gráfico e ilustrações Fortunato Estúdio. – 1. ed. – Brasília, DF : [s. n.], 2026.<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;59 p. : il. color. ; 30 cm.<br><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;64 p. : il. color. ; 30 cm.<br><br>
         &nbsp;&nbsp;&nbsp;&nbsp;ISBN 978-65-00-00000-0 <em>(preencher após o registro na CBL)</em><br><br>
         &nbsp;&nbsp;&nbsp;&nbsp;1. Lúpus eritematoso sistêmico. 2. Reumatologia. 3. Educação em saúde. 4. Pacientes – Direitos. 5. Sistema Único de Saúde (SUS) – Distrito Federal. I. Fortunato Estúdio. II. Título.
       </div>
@@ -1770,6 +1772,8 @@ Informação também é uma forma de cuidado</div>
   </div>
 </section>
 
+<section class="guarda" id="terceira-capa" aria-hidden="true"></section>
+
 <section class="back-cover" id="contracapa">
   <div class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 130" ><g transform="translate(80 66) rotate(0) scale(0.9)">
   <ellipse cx="-30" cy="-16" rx="30" ry="22" transform="rotate(-25 -30 -16)" fill="#b592c7"/>
@@ -1789,12 +1793,17 @@ Informação também é uma forma de cuidado</div>
   <div class="inner">
     <p class="quote">“O lúpus faz parte da sua história, mas não define quem você é.”</p>
 
-    <!-- COLABORADORES: preencher quando a Dra. Paula enviar os nomes (todos médicos reumatologistas).
-         Formato de cada item: <li><strong>Nome Sobrenome</strong> · CRM-DF 00.000 · RQE 00.000</li>
-         O bloco só aparece quando houver pelo menos um <li>. -->
+    <!-- Colaboradores: médicos reumatologistas que colaboraram com o conteúdo (em ordem alfabética). -->
     <div class="collab">
       <div class="support-label">Colaboradores</div>
-      <ul class="collab-list"></ul>
+      <ul class="collab-list">
+        <li>Ana Paula Monteiro Gomides Reis</li>
+        <li>Carlos Eduardo Lins</li>
+        <li>Jamille Nascimento Carneiro</li>
+        <li>Licia Mota</li>
+        <li>Regina Alice fon Kircheiheim</li>
+        <li>Tainá Cândida de Almeida Gontijo Carneiro</li>
+      </ul>
     </div>
 
     <div class="support-label">Apoio</div>
@@ -1853,7 +1862,17 @@ Informação também é uma forma de cuidado</div>
       link.setAttribute("data-pg", r);
     }
   }
-  Paged.registerHandlers(FimDeCapitulo, TopoAlinhado, SumarioRomano);
+  // Livreto: as páginas que o paginador deixa em branco para a abertura cair na página da esquerda viram "Anotações".
+  class PaginasDeAnotacoes extends Paged.Handler {
+    afterRendered() {
+      document.querySelectorAll(".pagedjs_blank_page .pagedjs_page_content").forEach(area => {
+        if (area.querySelector(".notas-auto")) return;
+        area.style.position = "relative";
+        area.innerHTML = '<div class="notas-auto"><div class="notas-kicker">Anotações</div><div class="notas-linhas">' + '<div class="linha"></div>'.repeat(27) + '</div></div>';
+      });
+    }
+  }
+  Paged.registerHandlers(FimDeCapitulo, TopoAlinhado, SumarioRomano, PaginasDeAnotacoes);
   window.PagedPolyfill.preview().then(() => { window.__pagedDone = true; });
 </script>
 </body>

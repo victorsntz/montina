@@ -193,8 +193,8 @@ hr.sep {
 
 /* ---------- capítulo: abertura ---------- */
 .chapter {
-  break-before: page;
-  page-break-before: always;
+  break-before: left;
+  page-break-before: left;
 }
 .chapter-opener {
   break-after: page;
@@ -272,6 +272,8 @@ body.print .chapter-end { display: none; }
 .chapter-last-band svg { width: 11mm; height: auto; flex: none; }
 .chapter-last-band .txt { font-family: var(--sans); font-size: 7.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--plum-700); font-weight: 700; white-space: nowrap; }
 .chapter-last-band .pg { font-family: var(--serif); font-size: 10pt; color: var(--plum-700); margin-left: 2mm; }
+.pagedjs_left_page .chapter-last-band { flex-direction: row-reverse; padding: 0 22mm 0 18mm; }
+.pagedjs_left_page .chapter-last-band .pg { margin-left: 0; margin-right: 2mm; }
 
 /* fim de capítulo (versão web, em linha) */
 .chapter-end {
@@ -471,7 +473,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 }
 .cover .art { position: absolute; inset: 0; }
 .cover .art svg { width: 100%; height: 100%; display: block; }
-.cover .text { position: absolute; left: 22mm; right: 20mm; top: 34mm; }
+.cover .text { position: absolute; left: 20mm; right: 20mm; top: 34mm; text-align: center; }
 .cover .kicker {
   font-family: var(--sans);
   font-size: 0.8rem;
@@ -483,12 +485,13 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 }
 .cover h1 {
   color: var(--white);
-  font-size: 4.6rem;
+  font-size: 5.3rem;
   font-weight: 400;
   line-height: 1.0;
   letter-spacing: -0.02em;
   font-variation-settings: "opsz" 144, "SOFT" 100;
-  max-width: 150mm;
+  max-width: none;
+  text-wrap: wrap;
 }
 .cover h1 em { font-style: italic; font-weight: 300; color: var(--lilac-200); }
 .cover .sub {
@@ -496,17 +499,19 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   font-family: var(--serif);
   font-size: 1.35rem;
   color: var(--lilac-200);
-  max-width: 130mm;
+  max-width: 150mm;
+  margin-left: auto;
+  margin-right: auto;
   line-height: 1.35;
   font-variation-settings: "opsz" 24, "SOFT" 50;
   text-wrap: wrap;
 }
 .cover .meta { position: static; }
 .cover .author {
-  position: absolute; left: 22mm; bottom: 28mm; right: 20mm;
+  position: absolute; left: 20mm; bottom: 26mm; right: 20mm; text-align: center;
   font-size: 0.9rem; color: var(--lilac-200); line-height: 1.5;
 }
-.cover .author strong { color: var(--white); font-weight: 600; display: block; font-size: 1.05rem; }
+.cover .author strong { color: var(--white); font-weight: 600; display: block; font-size: 1.5rem; letter-spacing: 0.03em; }
 .cover .edition { position: absolute; right: 20mm; bottom: 28mm; text-align: right; font-size: 0.8rem; color: var(--plum-300); letter-spacing: 0.12em; text-transform: uppercase; }
 
 .front-matter { break-after: page; page-break-after: always; }
@@ -549,6 +554,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .imprint { font-size: 0.86rem; color: var(--ink-soft); min-height: 240mm; display: flex; flex-direction: column; justify-content: flex-end; }
 .imprint h4 { margin-top: 1.2rem; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; }
 .imprint p { margin-bottom: 0.3rem; max-width: 130mm; }
+.imprint .collab-credit { margin-top: 0.5rem; }
 .imprint .catalog {
   border: 1px solid var(--plum-300);
   padding: 0.8rem 1rem 0.7rem;
@@ -661,7 +667,8 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .back-cover .logos .logo img { height: 20mm; width: auto; }
 .back-cover .logos .logo img[src*="anplupus"] { height: 17mm; }
 .back-cover .collab { margin-bottom: 2rem; }
-.back-cover .collab-list { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 10mm; font-size: 0.86rem; line-height: 1.45; color: var(--lilac-200); }
+.back-cover .collab-list { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 10mm; font-size: 0.86rem; line-height: 1.45; color: var(--lilac-100); max-width: 166mm; }
+.back-cover .collab-list li::before { content: none; }
 .back-cover .collab-list li { break-inside: avoid; margin-bottom: 0.3rem; }
 .back-cover .collab-list strong { color: var(--white); font-weight: 600; }
 .back-cover .collab:has(.collab-list:empty) { display: none; }
@@ -700,6 +707,36 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
     padding-top: 5.5mm;
   }
 }
+/* livreto: páginas da esquerda espelham a margem (lombada sempre com 22 mm) e o rodapé (fólio na borda externa) */
+@page :left {
+  margin-left: 18mm;
+  margin-right: 22mm;
+  @bottom-left {
+    content: counter(page);
+    font-family: "Fraunces", serif;
+    font-size: 10pt;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #4b2a5e;
+    vertical-align: top;
+    padding-top: 5.5mm;
+  }
+  @bottom-right {
+    content: string(chapter-title);
+    font-family: "Inter", sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7a4e93;
+    text-align: right;
+    vertical-align: top;
+    padding-top: 6mm;
+  }
+}
+@page :right {
+  margin-left: 22mm;
+  margin-right: 18mm;
+}
 @page cover {
   margin: 0;
   @top-left { content: none; }
@@ -719,6 +756,12 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   @bottom-left { content: none; }
   @bottom-right { content: counter(page, lower-roman); }
 }
+@page front:left {
+  @bottom-left { content: counter(page, lower-roman); }
+  @bottom-right { content: none; }
+}
+@page cover:left { margin: 0; }
+@page cover:right { margin: 0; }
 
 
 .chapter h1, .bonus h1 { string-set: chapter-title content(text); }
@@ -806,3 +849,15 @@ h1, h2, h3, h4 { text-wrap: balance; }
 .nw { white-space: nowrap; }
 ul.keep-head { margin-bottom: 0; }
 ul.cont { margin-top: 0; }
+
+/* ---------- livreto: guardas (2ª e 3ª capa) e páginas de anotações ---------- */
+.guarda { page: cover; break-before: page; break-after: page; height: 297mm; width: 210mm; background: var(--plum-900); }
+#terceira-capa { break-before: right; }
+.back-cover { break-before: left; page-break-before: left; }
+.notas-kicker {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--plum-500);
+  padding-bottom: 3mm; border-bottom: 2px solid var(--plum-300);
+}
+.notas-linhas .linha { height: 9mm; border-bottom: 0.6pt solid var(--lilac-200); }
+.pagedjs_blank_page .notas-auto { position: absolute; inset: 0; }
+body.web .guarda, body.web .notas { display: none; }

@@ -6,14 +6,15 @@ import { writeFileSync, existsSync } from "node:fs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
-const [, , inputName = "print.html", outputName = "prova.html", title = "Prova de diagramação · A4 · aponte página + trecho para pedir correções"] = process.argv;
+const [, , inputName = "print.html", outputName = "prova.html", title = "Prova de diagramação · livreto A4 em páginas duplas · aponte página + trecho para pedir correções"] = process.argv;
 const executablePath = [process.env.CHROMIUM_PATH, "/opt/pw-browsers/chromium-1194/chrome-linux/chrome", "/usr/bin/chromium", "/usr/bin/google-chrome"].filter(Boolean).find(p => existsSync(p));
 const browser = await chromium.launch({ executablePath, args: ["--no-sandbox", "--allow-file-access-from-files"] });
 const page = await browser.newPage();
 await page.goto(pathToFileURL(join(dist, inputName)).href, { waitUntil: "load" });
 await page.waitForFunction(() => window.__pagedDone === true, null, { timeout: 180000 });
 await page.waitForTimeout(300);
-const html = await page.evaluate((title) => {
+const spreads = inputName.startsWith("print");
+const html = await page.evaluate(({ title, spreads }) => {
   document.querySelectorAll("script").forEach(s => s.remove());
   // Regras inseridas via CSSOM pelo Paged.js (target-counter, string-set, contadores) não aparecem no HTML:
   // serializa todas as folhas de estilo em um único <style>.
@@ -26,7 +27,18 @@ const html = await page.evaluate((title) => {
   all.textContent = css.join("\n");
   document.head.appendChild(all);
   const extra = document.createElement("style");
-  extra.textContent = `
+  extra.textContent = spreads ? `
+    html { background:#e9e4ec; }
+    body { margin: 0; padding: 12px 0 40px; }
+    /* livreto: páginas duplas, como o leitor vê aberto (capa sozinha à direita) */
+    .pagedjs_pages { display:grid; grid-template-columns: repeat(2, max-content); justify-content:center; row-gap:16px; }
+    .pagedjs_page:first-child { grid-column: 2; }
+    .pagedjs_page { background:#fff; box-shadow:0 4px 18px rgba(43,27,51,.14); }
+    .prova-bar { position: sticky; top: 0; z-index: 5; background:#2b1b33; color:#ece2f1; font: 13px/1.4 Inter, system-ui, sans-serif; padding: 10px 16px; margin: -12px 0 14px; text-align:center; }
+    @media (max-width: 1720px) { .pagedjs_pages { zoom: .62; } }
+    @media (max-width: 1080px) { .pagedjs_pages { zoom: .45; } }
+    @media (max-width: 760px) { .pagedjs_pages { grid-template-columns: max-content; zoom: .42; } .pagedjs_page:first-child { grid-column: 1; } }
+  ` : `
     html { background:#e9e4ec; }
     body { margin: 0; padding: 12px 0 40px; }
     .pagedjs_pages { display:flex; flex-direction:column; align-items:center; gap:14px; }
@@ -40,7 +52,7 @@ const html = await page.evaluate((title) => {
   bar.textContent = title;
   document.body.prepend(bar);
   return "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-}, title);
+}, { title, spreads });
 await browser.close();
 // caminhos absolutos do disco (file:///…/dist/) viram relativos, para a prova funcionar publicada
 const rel = html.split(pathToFileURL(dist).href + "/").join("");

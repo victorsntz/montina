@@ -19,11 +19,22 @@ Saídas em `dist/`:
 
 | Arquivo | Uso |
 | --- | --- |
-| `cartilha-lupus-df-a4.pdf` | leitura em tela e impressão caseira (A4, RGB) |
-| `cartilha-lupus-df-a4-grafica-sangria3mm.pdf` | gráfica, RGB, 216 × 303 mm com marcas |
-| `cartilha-lupus-df-a4-grafica-sangria3mm-cmyk.pdf` | gráfica, CMYK, mesmo formato (arquivo final de impressão) |
-| `prova.html` | prova paginada estática, para revisão no navegador |
+| `cartilha-lupus-df-a4.pdf` | leitura em tela e impressão caseira (A4, RGB, 64 páginas, mesma paginação do livreto) |
+| `cartilha-lupus-df-livreto-curvas-cmyk.pdf` | **arquivo final de gráfica**: livreto grampeado, 64 páginas em sequência, CMYK, texto em curvas, 216 × 303 mm (sangria de 3 mm) com marcas de corte |
+| `cartilha-lupus-df-livreto-capa-4pp-curvas.pdf` | só a capa (1ª, 2ª, 3ª e 4ª capa), para imprimir em papel mais encorpado |
+| `cartilha-lupus-df-livreto-miolo-curvas.pdf` | só o miolo (60 páginas) |
+| `cartilha-lupus-df-livreto-paginas-duplas.pdf` | visualização em páginas duplas, como o leitor vê o livreto aberto |
+| `cartilha-lupus-df-a4-grafica-sangria3mm-cmyk.pdf` | gráfica, CMYK, com as fontes embutidas (para gráficas que preferem texto vivo) |
+| `prova.html` | prova paginada estática em páginas duplas, para revisão no navegador |
 | `memorial-projeto-grafico.pdf` | memorial descritivo do projeto gráfico (`npm run memorial`) |
+
+Arquivos do livreto: `npm run build && npm run livreto` (gera o PDF com sangria, converte para CMYK com o texto em curvas, separa capa e miolo, confere que o total e o miolo são múltiplos de 4 e gera as páginas duplas; usa `gs` e o Python com `pymupdf`).
+
+### Regras do livreto
+
+- Total múltiplo de 4 (grampo canoa): capa, 2ª capa (guarda), miolo de 60 páginas, 3ª capa (guarda) e 4ª capa.
+- Margens espelhadas: 22 mm do lado da lombada, 18 mm do lado de fora; número da página sempre na borda externa.
+- Toda abertura de capítulo cai na página da esquerda, de frente para o começo do texto. Quando a conta não fecha, o paginador insere uma página de "Anotações" no lugar de uma página em branco.
 
 O script `scripts/pdf.mjs` procura o Chromium em `CHROMIUM_PATH`, `/opt/pw-browsers/...` ou nos caminhos comuns do sistema.
 
