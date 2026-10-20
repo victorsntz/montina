@@ -12,6 +12,7 @@ def sentences(text, strip_html=False):
     out=[]
     for para in text.split('\n'):
         para=re.sub(r'^\s*(#+|-|\d+\\?\.)\s*','',para)
+        para=para.replace('**','')  # rotulos '**X:**' do recorte passam a dividir frase como o HTML (h3/label + p)
         for s in re.split(r'(?<=[.;:!?])\s+', para):
             n=norm(s)
             if len(n.split())>=3: out.append(n)
