@@ -385,7 +385,7 @@ const html = `<!DOCTYPE html>
     <dt>Ilustrações</dt><dd>Fortunato Estúdio (${nSvgs} peças vetoriais autorais)</dd>
     <dt>Apoio</dt><dd>Sociedade de Reumatologia de Brasília (SRB) · ANPLúpus</dd>
     <dt>Redes de apoio</dt><dd>ANPLúpus · AMAVI Raras</dd>
-    <dt>Formato</dt><dd>A4, 60 páginas, 1ª edição, Brasília, 2026</dd>
+    <dt>Formato</dt><dd>A4, 59 páginas, 1ª edição, Brasília, 2026</dd>
   </dl>
   <div class="decl">
     O projeto gráfico, a diagramação e todas as ilustrações desta cartilha são obras autorais da Fortunato Estúdio, criadas especificamente para o Manual para o paciente com lúpus do Distrito Federal. Não foram utilizadas imagens de banco, modelos prontos ou ilustrações de terceiros. O texto é de autoria da Dra. Paula Cristina Montina e foi reproduzido na íntegra.
@@ -409,5 +409,18 @@ const html = `<!DOCTYPE html>
 </body>
 </html>`;
 
-writeFileSync(join(dist, "memorial.html"), html);
+// aspas tipográficas só no texto do <body> (nunca em atributos, CSS ou script)
+function smartQuotes(doc) {
+  const i = doc.indexOf("<body"), j = doc.lastIndexOf("<script");
+  const head = doc.slice(0, i), tail = j > i ? doc.slice(j) : "", mid = doc.slice(i, j > i ? j : doc.length);
+  let prev = " ";
+  const body = mid.replace(/(<[^>]+>)|([^<]+)/g, (m, tag, text) => {
+    if (tag) return tag;
+    let out = "";
+    for (const ch of text) { out += ch === '"' ? (/[\s(\[{ —–-]/.test(prev) ? "“" : "”") : ch; prev = ch; }
+    return out;
+  });
+  return head + body + tail;
+}
+writeFileSync(join(dist, "memorial.html"), smartQuotes(html));
 console.log("memorial ok → dist/memorial.html");

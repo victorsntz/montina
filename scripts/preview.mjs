@@ -42,5 +42,7 @@ const html = await page.evaluate((title) => {
   return "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 }, title);
 await browser.close();
-writeFileSync(join(dist, outputName), html);
-console.log(`prova ok: ${(html.length / 1024).toFixed(0)} KB → dist/${outputName}`);
+// caminhos absolutos do disco (file:///…/dist/) viram relativos, para a prova funcionar publicada
+const rel = html.split(pathToFileURL(dist).href + "/").join("");
+writeFileSync(join(dist, outputName), rel);
+console.log(`prova ok: ${(rel.length / 1024).toFixed(0)} KB → dist/${outputName}`);

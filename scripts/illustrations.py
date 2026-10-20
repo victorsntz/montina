@@ -82,9 +82,9 @@ capa = f'''
 <rect width="210" height="297" fill="{P9}"/>
 <rect width="210" height="297" fill="url(#glow)"/>
 <!-- arco solar -->
-<circle cx="182" cy="52" r="46" fill="none" stroke="{GD}" stroke-width="1.2" opacity=".55"/>
-<circle cx="182" cy="52" r="30" fill="{GD}" opacity=".18"/>
-<circle cx="182" cy="52" r="16" fill="{GD}" opacity=".9"/>
+<circle cx="188" cy="30" r="33" fill="none" stroke="{GD}" stroke-width="1.2" opacity=".55"/>
+<circle cx="188" cy="30" r="22" fill="{GD}" opacity=".18"/>
+<circle cx="188" cy="30" r="12" fill="{GD}" opacity=".9"/>
 <!-- pétalas / asas translúcidas ao fundo -->
 <g opacity=".28">
   <ellipse cx="57" cy="191" rx="70" ry="44" transform="rotate(-35 57 191)" fill="{P5}"/>
