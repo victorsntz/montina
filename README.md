@@ -56,6 +56,7 @@ dist/             saída pronta (PDF, HTML, fontes e assets)
 | Arquivo | Destino |
 | --- | --- |
 | `ubs` | https://info.saude.df.gov.br/busca-saude-ubs/ |
+| `ceaf-digital` | https://ceafdigital.saude.df.gov.br/ |
 | `farmacia-estoque` | https://info.saude.df.gov.br/saude-do-cidadao/painel-infosaude-farmacias-de-alto-custo/ |
 | `instagram-anplupus` | https://www.instagram.com/anplupus |
 | `instagram-amaviraras` | https://www.instagram.com/amaviraras |
