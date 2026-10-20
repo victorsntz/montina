@@ -193,8 +193,8 @@ hr.sep {
 
 /* ---------- capítulo: abertura ---------- */
 .chapter {
-  break-before: left;
-  page-break-before: left;
+  break-before: page;
+  page-break-before: always;
 }
 .chapter-opener {
   break-after: page;
@@ -435,6 +435,13 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .qr h4.with-ico svg { width: 1.15rem; height: 1.15rem; color: var(--plum-500); flex: none; }
 .qr p { margin: 0 0 0.3rem; max-width: none; }
 .qr .url { font-size: 0.8rem; color: var(--plum-500); word-break: normal; overflow-wrap: anywhere; }
+/* dois QR Codes lado a lado (site + Instagram) */
+.qr-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; max-width: var(--measure); margin: 1rem 0 1.3rem; break-inside: avoid; page-break-inside: avoid; }
+.qr-duo .qr { margin: 0; max-width: none; grid-template-columns: 24mm 1fr; gap: 3.5mm; align-items: start; padding: 3.5mm; }
+.qr-duo .qr .code { width: 24mm; height: 24mm; padding: 1.4mm; }
+.qr-duo .qr h4 { font-size: 0.86rem; line-height: 1.25; }
+.qr-duo .qr p { font-size: 0.78rem; line-height: 1.4; }
+.qr-duo .qr .url { font-size: 0.74rem; }
 
 /* ---------- fluxo (caminho) ---------- */
 .flow {
@@ -573,7 +580,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .imprint .logos .logo { height: 12mm; display: flex; align-items: center; }
 .imprint .logos .logo svg { height: 100%; width: auto; }
 .imprint .logos .logo img { height: 20mm; width: auto; }
-.imprint .logos .logo img[src*="anplupus"] { height: 16mm; }
+.imprint .logos .logo img[src*="anplupus-horizontal"] { height: 8.5mm; }
 
 /* sumário */
 .toc { break-after: page; page-break-after: always; }
@@ -665,7 +672,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .back-cover .logos .logo { height: 12mm; display: flex; align-items: center; }
 .back-cover .logos .logo svg { height: 100%; width: auto; }
 .back-cover .logos .logo img { height: 20mm; width: auto; }
-.back-cover .logos .logo img[src*="anplupus"] { height: 17mm; }
+.back-cover .logos .logo img[src*="anplupus-horizontal"] { height: 8.5mm; }
 .back-cover .collab { margin-bottom: 2rem; }
 .back-cover .collab-list { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 10mm; font-size: 0.86rem; line-height: 1.45; color: var(--lilac-100); max-width: 166mm; }
 .back-cover .collab-list li::before { content: none; }
@@ -839,6 +846,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   body.web .spot { grid-template-columns: 56px 1fr; gap: 12px; }
   body.web .spot .icon { width: 56px; height: 56px; }
   body.web .qr { grid-template-columns: 1fr; }
+  body.web .qr-duo { grid-template-columns: 1fr; }
   body.web table { display: block; overflow-x: auto; }
   body.web td:first-child { white-space: normal; }
 }
@@ -852,12 +860,17 @@ ul.cont { margin-top: 0; }
 
 /* ---------- livreto: guardas (2ª e 3ª capa) e páginas de anotações ---------- */
 .guarda { page: cover; break-before: page; break-after: page; height: 297mm; width: 210mm; background: var(--plum-900); }
-#terceira-capa { break-before: right; }
 .back-cover { break-before: left; page-break-before: left; }
-.notas-kicker {
-  font-family: var(--sans); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--plum-500);
-  padding-bottom: 3mm; border-bottom: 2px solid var(--plum-300);
-}
-.notas-linhas .linha { height: 9mm; border-bottom: 0.6pt solid var(--lilac-200); }
-.pagedjs_blank_page .notas-auto { position: absolute; inset: 0; }
-body.web .guarda, body.web .notas { display: none; }
+body.web .guarda { display: none; }
+
+/* contracapa: tudo centralizado, no mesmo eixo da borboleta */
+.back-cover .inner { text-align: center; }
+.back-cover .quote { margin-left: auto; margin-right: auto; }
+.back-cover .logos { justify-content: center; gap: 12mm; margin-left: auto; margin-right: auto; }
+.back-cover .collab-list { columns: auto; display: block; text-align: center; max-width: 150mm; margin: 0 auto; line-height: 1.7; }
+.back-cover .collab-list li { display: inline; white-space: normal; margin: 0; padding: 0; }
+.back-cover .collab-list li:not(:last-child)::after { content: "  ·  "; color: var(--plum-300); }
+
+/* logos de apoio da contracapa: caixa com a altura do logo mais alto, nada invade o rótulo */
+.back-cover .logos .logo { height: 20mm; }
+.back-cover .logos .logo svg { height: 11mm; }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Arquivos de gráfica do livreto (grampeado, A4 fechado, 64 páginas).
+"""Arquivos de gráfica do livreto (grampeado, A4 fechado, total múltiplo de 4).
 Entrada: dist/cartilha-lupus-df-a4-grafica-sangria3mm.pdf (gerado por `node scripts/pdf.mjs print-grafica.html …`).
 Saídas em dist/:
   cartilha-lupus-df-livreto-curvas-cmyk.pdf      todas as páginas em sequência, CMYK, texto em curvas, sangria 3 mm e marcas

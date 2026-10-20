@@ -336,7 +336,7 @@ const html = `<!DOCTYPE html>
     <li><strong>Um destaque por capítulo.</strong> Só o parágrafo de abertura fica na serifa maior; o corpo é uniforme.</li>
     <li><strong>Fim de capítulo no rodapé.</strong> A faixa lilás com a borboleta ocupa a base da última página de cada capítulo, com o número da página dentro dela.</li>
     <li><strong>Numeração de livro.</strong> Pré-textuais em algarismos romanos, capítulos em arábicos, rodapé com o nome do capítulo.</li>
-    <li><strong>Pensada como livreto.</strong> Margens espelhadas (22 mm do lado da lombada, 18 mm do lado de fora) e número da página sempre na borda externa. Toda abertura de capítulo cai na página da esquerda, de frente para o começo do texto, como uma página dupla. Quando a conta não fecha, entra uma página de "Anotações" para o paciente levar dúvidas à consulta, em vez de uma página em branco. O total fecha em 64 páginas, múltiplo de 4, como o grampo exige.</li>
+    <li><strong>Pensada como livreto.</strong> Margens espelhadas (22 mm do lado da lombada, 18 mm do lado de fora) e número da página sempre na borda externa. A 2ª capa é uma guarda na cor da capa, a folha de rosto e o prefácio caem em página da direita, e a contracapa fecha na última página da esquerda. O total fecha em 60 páginas, múltiplo de 4, como o grampo exige, sem nenhuma página em branco.</li>
   </ul>
   <div class="why">
     <div class="lab">Por que tanta regra</div>
@@ -364,7 +364,7 @@ const html = `<!DOCTYPE html>
   <p class="lead">Um único conteúdo-fonte gera todas as versões. Alterações de texto entram uma vez e se propagam.</p>
   <ul class="rules">
     <li><strong>PDF de leitura</strong> (A4, RGB) para tela, e-mail e impressão caseira.</li>
-    <li><strong>PDF de gráfica do livreto</strong>: 64 páginas em sequência (16 folhas A3 dobradas e grampeadas), 216 × 303 mm com sangria de 3 mm, marcas de corte e registro, CMYK e todo o texto convertido em curvas. Também separado em capa (1ª, 2ª, 3ª e 4ª capa, para papel mais encorpado) e miolo de 60 páginas. Capa, guardas e faixas de fim de capítulo avançam na sangria.</li>
+    <li><strong>PDF de gráfica do livreto</strong>: 60 páginas em sequência (15 folhas A3 dobradas e grampeadas), 216 × 303 mm com sangria de 3 mm, marcas de corte e registro, CMYK e todo o texto convertido em curvas. Também separado em capa (1ª, 2ª, 3ª e 4ª capa, para papel mais encorpado) e miolo de 56 páginas. Capa, guarda e faixas de fim de capítulo avançam na sangria.</li>
     <li><strong>Visualização em páginas duplas</strong>, para conferir os pares como o leitor vai ver o livreto aberto.</li>
     <li><strong>Versão web</strong> responsiva, com o mesmo texto, navegação pelo sumário e botão de download do PDF.</li>
     <li><strong>Prova comentável</strong> em página HTML paginada, usada nas rodadas de revisão.</li>
@@ -387,7 +387,7 @@ const html = `<!DOCTYPE html>
     <dt>Ilustrações</dt><dd>Fortunato Estúdio (${nSvgs} peças vetoriais autorais)</dd>
     <dt>Apoio</dt><dd>Sociedade de Reumatologia de Brasília (SRB) · ANPLúpus</dd>
     <dt>Redes de apoio</dt><dd>ANPLúpus · AMAVI Raras</dd>
-    <dt>Formato</dt><dd>Livreto A4 grampeado, 64 páginas, 1ª edição, Brasília, 2026</dd>
+    <dt>Formato</dt><dd>Livreto A4 grampeado, 60 páginas, 1ª edição, Brasília, 2026</dd>
   </dl>
   <div class="decl">
     O projeto gráfico, a diagramação e todas as ilustrações desta cartilha são obras autorais da Fortunato Estúdio, criadas especificamente para o Manual para o paciente com lúpus do Distrito Federal. Não foram utilizadas imagens de banco, modelos prontos ou ilustrações de terceiros. O texto é de autoria da Dra. Paula Cristina Montina e foi reproduzido na íntegra.

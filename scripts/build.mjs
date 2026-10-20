@@ -272,17 +272,7 @@ const print = template
       link.setAttribute("data-pg", r);
     }
   }
-  // Livreto: as páginas que o paginador deixa em branco para a abertura cair na página da esquerda viram "Anotações".
-  class PaginasDeAnotacoes extends Paged.Handler {
-    afterRendered() {
-      document.querySelectorAll(".pagedjs_blank_page .pagedjs_page_content").forEach(area => {
-        if (area.querySelector(".notas-auto")) return;
-        area.style.position = "relative";
-        area.innerHTML = '<div class="notas-auto"><div class="notas-kicker">Anotações</div><div class="notas-linhas">' + '<div class="linha"></div>'.repeat(27) + '</div></div>';
-      });
-    }
-  }
-  Paged.registerHandlers(FimDeCapitulo, TopoAlinhado, SumarioRomano, PaginasDeAnotacoes);
+  Paged.registerHandlers(FimDeCapitulo, TopoAlinhado, SumarioRomano);
   window.PagedPolyfill.preview().then(() => { window.__pagedDone = true; });
 </script>`);
 writeFileSync(join(dist, "print.html"), print);
