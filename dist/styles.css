@@ -496,9 +496,10 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   font-family: var(--serif);
   font-size: 1.35rem;
   color: var(--lilac-200);
-  max-width: 120mm;
+  max-width: 130mm;
   line-height: 1.35;
   font-variation-settings: "opsz" 24, "SOFT" 50;
+  text-wrap: wrap;
 }
 .cover .meta { position: static; }
 .cover .author {
