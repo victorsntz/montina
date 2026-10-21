@@ -55,6 +55,8 @@ def logo_png(src, nome, altura):
 logo_png(r("assets", "logos", "anplupus-horizontal.png"), "anplupus.png", 120)
 logo_png(r("assets", "logos", "amaviraras.png"), "amaviraras.png", 200)
 shutil.copy(r("assets", "logos", "srb.svg"), os.path.join(OUT, "img", "srb.svg"))
+shutil.copy(r("assets", "logos", "srb-branco.svg"), os.path.join(OUT, "img", "srb-branco.svg"))
+logo_png(r("assets", "logos", "anplupus-horizontal-branco.png"), "anplupus-branco.png", 80)
 
 # ---- fontes, PDF, favicon, css, js ----
 for f in ("fraunces-latin-wght-normal.woff2", "fraunces-latin-wght-italic.woff2", "inter-latin-wght-normal.woff2", "stix-two-text-600.woff2"):

@@ -208,20 +208,34 @@ body { margin: 0; background: #fff; }
 .lp-cta h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); max-width: 24ch; color: var(--white); font-weight: 400; }
 
 /* rodapé */
-.lp-foot { background: var(--plum-950); color: var(--plum-300); padding: 48px 0 40px; font-size: .88rem; }
-.lp-foot__label { font-size: .72rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--plum-300); margin-bottom: 18px; }
-.lp-foot__logos { display: flex; flex-wrap: wrap; align-items: center; gap: 28px 44px; padding: 22px 26px; background: var(--white); border-radius: var(--radius); }
-.lp-foot__logos img { height: 44px; width: auto; }
-.lp-foot__logos img[src*="anplupus"] { height: 30px; }
-.lp-foot__logos img[src*="srb"] { height: 58px; }
-.lp-foot__logo--svg svg { height: 34px; width: auto; display: block; }
-.lp-foot__note { margin-top: 26px; max-width: 80ch; line-height: 1.55; }
-.lp-foot__credits { margin-top: 12px; color: var(--plum-300); }
-.lp-foot__studio { margin-top: 4px; color: var(--plum-300); }
-.lp-foot__studio a { color: var(--lilac-100); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(217, 199, 227, .45); }
+.lp-foot { background: var(--plum-950); color: var(--plum-300); padding: clamp(56px, 7vw, 80px) 0 32px; font-size: .9rem; }
+.lp-foot a { text-decoration: none; }
+.lp-foot__top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: clamp(32px, 5vw, 64px); padding-bottom: 40px; border-bottom: 1px solid rgba(217, 199, 227, .14); }
+.lp-foot__mark { width: 46px; height: auto; display: block; margin-bottom: 18px; }
+.lp-foot__title { font-family: var(--serif); font-size: 1.45rem; line-height: 1.2; color: var(--white); max-width: 22ch; font-variation-settings: "opsz" 48, "SOFT" 80; text-wrap: balance; }
+.lp-foot__author { margin-top: 12px; line-height: 1.55; color: var(--plum-300); }
+.lp-foot__dl { display: inline-flex; align-items: baseline; gap: 10px; margin-top: 22px; color: var(--white); font-weight: 650; border-bottom: 1.5px solid var(--terra); padding-bottom: 3px; transition: color .2s ease, border-color .2s ease; }
+.lp-foot__dl span { font-weight: 400; font-size: .8rem; color: var(--plum-300); }
+.lp-foot__dl:hover { color: var(--lilac-200); border-color: var(--lilac-200); }
+.lp-foot__label { font-size: .72rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--plum-300); margin-bottom: 20px; }
+.lp-foot__logos, .lp-foot__links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: flex-start; }
+.lp-foot__logos { gap: 22px; }
+.lp-foot__logos a { display: block; border-radius: 4px; }
+.lp-foot__logos svg { height: 30px; width: auto; display: block; }
+.lp-foot__logos img { width: auto; opacity: .9; }
+.lp-foot__logos img[src*="srb"] { height: 50px; }
+.lp-foot__logos img[src*="anplupus"] { height: 24px; }
+.lp-foot__logos li { transition: opacity .2s ease; }
+.lp-foot__logos a:hover { opacity: .7; }
+.lp-foot__links { gap: 12px; }
+.lp-foot__links a { color: var(--lilac-100); border-bottom: 1px solid transparent; transition: border-color .2s ease; }
+.lp-foot__links a:hover { border-color: var(--lilac-200); }
+.lp-foot__bottom { display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px 48px; padding-top: 28px; font-size: .8rem; line-height: 1.6; }
+.lp-foot__note { max-width: 62ch; color: var(--plum-300); opacity: .85; }
+.lp-foot__legal { text-align: right; color: var(--plum-300); }
+.lp-foot__studio { margin-top: 4px; }
+.lp-foot__studio a { color: var(--lilac-100); font-weight: 600; border-bottom: 1px solid rgba(217, 199, 227, .4); }
 .lp-foot__studio a:hover { border-color: var(--lilac-100); }
-a.lp-foot__logo--svg { display: inline-flex; border-radius: 6px; transition: opacity .2s ease; }
-a.lp-foot__logo--svg:hover { opacity: .7; }
 
 /* ---------- responsivo ---------- */
 @media (max-width: 980px) {
@@ -248,7 +262,10 @@ a.lp-foot__logo--svg:hover { opacity: .7; }
   .lp-chapters__art { width: 72px; height: 72px; }
   .lp-chapters__t { font-size: 1rem; }
   .lp-orgs { grid-template-columns: 1fr; }
-  .lp-foot__logos { gap: 22px 30px; }
+  .lp-foot__top { grid-template-columns: 1fr 1fr; }
+  .lp-foot__brand { grid-column: 1 / -1; }
+  .lp-foot__bottom { grid-template-columns: 1fr; }
+  .lp-foot__legal { text-align: left; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
