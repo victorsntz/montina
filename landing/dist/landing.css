@@ -143,6 +143,29 @@ body { margin: 0; background: #fff; }
 .lp-bf img { width: 100%; height: 100%; display: block; animation: lp-flap var(--f, .32s) ease-in-out infinite; transform-origin: 50% 50%; }
 @keyframes lp-flap { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.22); } }
 
+/* bloco "Por que a borboleta?": fundo ameixa, borboletas só aparecem com o mouse aqui */
+.lp-why { position: relative; overflow: hidden; color: var(--lilac-100); padding: clamp(72px, 10vw, 128px) 0;
+  background: radial-gradient(55% 60% at 50% 18%, rgba(122, 78, 147, .5), rgba(43, 27, 51, 0) 70%), var(--plum-900); }
+.lp-why__inner { position: relative; z-index: 2; }
+.lp-why__head { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.lp-why__art { all: unset; cursor: pointer; display: block; width: clamp(150px, 18vw, 210px); margin-bottom: 26px; border-radius: 50%;
+  filter: drop-shadow(0 18px 30px rgba(0,0,0,.35)); transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.lp-why__art svg { width: 100%; height: auto; display: block; }
+.lp-why__art:focus-visible { outline: 3px solid var(--gold); outline-offset: 8px; }
+.lp-why.is-voando .lp-why__art { transform: translateY(-6px) scale(1.04); }
+.lp-why h2 { font-size: clamp(2.2rem, 4.6vw, 3.4rem); color: var(--white); font-weight: 400; }
+.lp-why__cols { margin-top: clamp(40px, 6vw, 64px); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 48px); align-items: start; }
+.lp-why__col h3 { font-family: var(--sans); font-size: .78rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--lilac-200); margin-bottom: 18px; }
+.lp-why__col p { font-family: var(--serif); font-size: 1.12rem; line-height: 1.65; color: var(--lilac-100); font-variation-settings: "opsz" 18, "SOFT" 50; }
+.lp-why__col p + p { margin-top: 14px; }
+.lp-why__col--autora { background: rgba(236, 226, 241, .07); border: 1px solid rgba(217, 199, 227, .18); border-radius: var(--radius); padding: clamp(24px, 3vw, 36px); }
+.lp-why__col--autora p:not(.lp-why__sign) { color: var(--white); }
+.lp-why__sign { margin-top: 22px !important; font-family: var(--sans) !important; font-size: .9rem !important; line-height: 1.45 !important; color: var(--lilac-200) !important; }
+.lp-why__sign strong { display: block; font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--white); }
+.lp-why .lp-flutter { z-index: 1; }
+.lp-why .lp-bf { opacity: 0; transition: opacity .6s ease; }
+.lp-why .lp-bf.is-on { opacity: .95; }
+
 /* luz suave que acompanha o mouse no topo */
 .lp-hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(520px circle at var(--hx, 70%) var(--hy, 40%), rgba(217, 199, 227, .1), transparent 60%); }
 .lp-hero__sun { transition: transform .25s linear; }
@@ -247,6 +270,7 @@ body { margin: 0; background: #fff; }
   .lp-chapters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .lp-spreads { grid-template-columns: 1fr; max-width: 720px; }
   .lp-author { grid-template-columns: 1fr; }
+  .lp-why__cols { grid-template-columns: 1fr; max-width: 680px; margin-left: auto; margin-right: auto; }
   .lp-author__photo { max-width: 360px; }
 }
 @media (max-width: 640px) {
