@@ -29,7 +29,7 @@
   var revelar = $$("[data-reveal], [data-reveal-group]");
   $$("[data-reveal-group]").forEach(function (g) { $$(":scope > *", g).forEach(function (el, i) { el.style.setProperty("--d", (i * 0.06).toFixed(2) + "s"); }); });
   if ("IntersectionObserver" in window && !calmo) {
-    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -10% 0px", threshold: 0.12 });
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px 15% 0px", threshold: 0 });
     revelar.forEach(function (el) { io.observe(el); });
   } else revelar.forEach(function (el) { el.classList.add("is-in"); });
 
