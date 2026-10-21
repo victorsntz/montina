@@ -81,6 +81,18 @@ A pasta `landing/dist/` é um site estático pronto: página de download com moc
 
 ### Como colocar no ar
 
+**No ar agora:** https://victorsntz.github.io/montina/ (GitHub Pages, servido da branch `gh-pages`, que contém só a pasta `landing/dist`).
+
+Para atualizar o GitHub Pages depois de mudar a landing:
+
+```
+SITE_URL=https://victorsntz.github.io/montina/ /usr/bin/python3 scripts/landing.py
+git add landing && git commit -m "Atualiza a landing"
+git push origin $(git commit-tree $(git rev-parse HEAD:landing/dist) -p origin/gh-pages -m "Atualiza a landing"):refs/heads/gh-pages
+```
+
+Outras opções:
+
 1. **Mais rápido (sem programar):** entre em https://app.netlify.com/drop e arraste a pasta `landing/dist`. Em segundos sai um endereço público. Depois dá para ligar um domínio próprio no painel.
 2. **No site da Montina Medicina:** suba o conteúdo de `landing/dist` numa pasta do site, por exemplo `/cartilha/`. A página e os arquivos usam caminhos relativos, então funcionam em qualquer pasta.
 3. **Depois de ter o endereço definitivo:** troque em `landing/src/index.html` as metatags `og:image` e `og:url` por endereços completos (por exemplo `https://montinamedicina.com.br/cartilha/og-cartilha.jpg`) e monte de novo. É isso que faz a prévia com imagem aparecer quando o link é compartilhado no WhatsApp.
