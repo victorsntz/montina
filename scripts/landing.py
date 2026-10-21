@@ -13,6 +13,8 @@ PDF = os.path.join(ROOT, "dist", "cartilha-lupus-df-a4.pdf")
 PDF_NOME = "Manual-para-o-paciente-com-lupus-DF.pdf"
 r = lambda *p: os.path.join(ROOT, *p)
 
+FINAL = OUT
+OUT = FINAL + ".novo"  # monta ao lado e troca no fim, para a pasta publicada nunca ficar pela metade
 shutil.rmtree(OUT, ignore_errors=True)
 for d in ("img", "fonts", "ler"): os.makedirs(os.path.join(OUT, d), exist_ok=True)
 
@@ -89,4 +91,10 @@ Image.open(png).convert("RGB").save(os.path.join(OUT, "og-cartilha.jpg"), "JPEG"
 os.remove(png)
 
 total = sum(os.path.getsize(os.path.join(p, f)) for p, _, fs in os.walk(OUT) for f in fs)
-print(f"landing ok: landing/dist ({total / 1048576:.1f} MB, {sum(len(fs) for _, _, fs in os.walk(OUT))} arquivos)")
+n = sum(len(fs) for _, _, fs in os.walk(OUT))
+velha = FINAL + ".velha"
+shutil.rmtree(velha, ignore_errors=True)
+if os.path.exists(FINAL): os.rename(FINAL, velha)
+os.rename(OUT, FINAL)
+shutil.rmtree(velha, ignore_errors=True)
+print(f"landing ok: landing/dist ({total / 1048576:.1f} MB, {n} arquivos)")

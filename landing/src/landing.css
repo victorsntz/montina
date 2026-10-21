@@ -52,11 +52,11 @@ body { margin: 0; background: #fff; }
 /* ---------- topo ---------- */
 .lp-top {
   position: sticky; top: 0; z-index: 20;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  padding: 12px var(--gutter);
+  padding: 12px 0;
   background: rgba(43, 27, 51, .88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   color: var(--white);
 }
+.lp-top__inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .lp-top__brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--serif); font-size: 1.05rem; }
 .lp-top__mark svg { width: 34px; height: auto; display: block; }
 
