@@ -20,6 +20,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/fraunces-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="img/capa.webp" as="image">
 <link rel="stylesheet" href="landing.css">
 </head>
@@ -29,7 +30,7 @@
   <header class="lp-top">
     <div class="lp-wrap lp-top__inner">
       <a class="lp-top__brand" href="#inicio" aria-label="Manual para o paciente com lúpus, início">
-        <span class="lp-top__mark" aria-hidden="true"><!--svg:mark-borboleta--></span>
+        <span class="lp-top__mark" aria-hidden="true"><img src="img/borboleta-clara.svg" alt="" width="34" height="27"></span>
         <span>Manual para o paciente com lúpus</span>
       </a>
       <a class="lp-btn lp-btn--small" href="Manual-para-o-paciente-com-lupus-DF.pdf" download data-evento="baixar-topo">Baixar PDF</a>
@@ -43,7 +44,7 @@
       <div class="lp-hero__sun" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="lp-wrap lp-hero__grid">
         <div class="lp-hero__text">
-          <p class="lp-kicker">Cartilha gratuita · Distrito Federal</p>
+          <p class="lp-kicker"><span class="lp-nw">Cartilha gratuita</span><span class="lp-kicker__sep"> · </span><span class="lp-nw">Distrito Federal</span></p>
           <h1 id="lp-titulo">Manual para o<br class="lp-br"> paciente com <em>lúpus</em></h1>
           <p class="lp-hero__sub">Entender a doença, participar do tratamento, conhecer seus direitos e saber onde buscar ajuda.</p>
           <div class="lp-actions">
@@ -51,9 +52,9 @@
               <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14"/></svg>
               Baixar a cartilha grátis
             </a>
-            <a class="lp-btn lp-btn--ghost" href="ler/" data-evento="ler-online">Ler online</a>
+            <a class="lp-btn lp-btn--ghost" href="ler/index.html" data-evento="ler-online">Ler online</a>
           </div>
-          <p class="lp-hero__meta">PDF · 60 páginas · 2,4 MB</p>
+          <p class="lp-hero__meta">PDF · {{PDF_PAGINAS}} páginas · {{PDF_MB}}</p>
           <div class="lp-byline">
             <img src="img/paula-avatar.webp" alt="" width="56" height="56">
             <p>Escrita pela <strong>Dra. Paula Cristina Montina</strong>,<br>médica reumatologista</p>
@@ -61,16 +62,16 @@
         </div>
 
         <div class="lp-hero__art">
-          <figure class="lp-mock" aria-label="Mockup da cartilha impressa">
-            <img class="lp-mock__spread" src="img/miolo-capitulo-1.webp" alt="" width="1600" height="1131" loading="eager">
+          <figure class="lp-mock" aria-label="Prévia da cartilha impressa">
+            <img class="lp-mock__spread" src="img/miolo-capitulo-1-800.webp" alt="" width="800" height="566" fetchpriority="low">
             <div class="lp-book">
-              <button class="lp-book__inner" type="button" aria-pressed="false" aria-label="Abrir a cartilha e ver a primeira página">
+              <button class="lp-book__inner" type="button" aria-pressed="false" aria-label="Ver a primeira página da cartilha">
                 <span class="lp-book__back"></span>
                 <span class="lp-book__edge"></span>
-                <span class="lp-book__page"><img src="img/folha-de-rosto.webp" alt="" width="900" height="1273"></span>
+                <span class="lp-book__page"><img src="img/folha-de-rosto.webp" alt="Primeira página da cartilha, com a frase Informação para orientar, cuidado para acolher e esperança para seguir, e a lista dos onze capítulos." width="900" height="1273"></span>
                 <span class="lp-book__cover">
                   <span class="lp-book__face lp-book__face--front">
-                    <img src="img/capa.webp" alt="Capa da cartilha: título Manual para o paciente com lúpus, uma borboleta lilás e terracota e o nome da Dra. Paula Cristina Montina." width="900" height="1273">
+                    <img src="img/capa.webp" alt="Capa da cartilha: título Manual para o paciente com lúpus, uma borboleta lilás e terracota e o nome da Dra. Paula Cristina Montina." width="900" height="1273" fetchpriority="high">
                     <span class="lp-book__glare"></span>
                   </span>
                   <span class="lp-book__face lp-book__face--inside"></span>
@@ -78,7 +79,7 @@
               </button>
               <span class="lp-book__shadow" aria-hidden="true"></span>
             </div>
-            <p class="lp-book__hint" aria-hidden="true"><span class="lp-hint-mouse">Clique no livreto para abrir</span><span class="lp-hint-touch">Toque no livreto para abrir</span><span class="lp-hint-fechar">Clique de novo para fechar</span></p>
+            <p class="lp-book__hint" aria-hidden="true"><span class="lp-hint-mouse">Clique no livreto para abrir</span><span class="lp-hint-touch">Toque no livreto para abrir</span><span class="lp-hint-fechar">Clique de novo para fechar</span><span class="lp-hint-fechar-touch">Toque de novo para fechar</span></p>
           </figure>
         </div>
       </div>
@@ -100,18 +101,18 @@
         <p class="lp-kicker lp-kicker--dark">O que você encontra</p>
         <h2 id="lp-capitulos">Onze capítulos, do diagnóstico às redes de apoio</h2>
         <ol class="lp-chapters" data-reveal-group>
-          <li><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-entendendo--></span><span class="lp-chapters__n">01</span><span class="lp-chapters__t">Entendendo o lúpus</span></li>
-          <li><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-tratamento--></span><span class="lp-chapters__n">02</span><span class="lp-chapters__t">Como é feito o tratamento</span></li>
-          <li><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-habitos--></span><span class="lp-chapters__n">03</span><span class="lp-chapters__t">O tratamento vai além dos medicamentos</span></li>
-          <li><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-vacinacao--></span><span class="lp-chapters__n">04</span><span class="lp-chapters__t">Vacinação e lúpus</span></li>
-          <li><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-gravidez--></span><span class="lp-chapters__n">05</span><span class="lp-chapters__t">Gravidez, amamentação e anticoncepção</span></li>
-          <li><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-consulta--></span><span class="lp-chapters__n">06</span><span class="lp-chapters__t">Consulta com o reumatologista no DF</span></li>
-          <li><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-farmacia--></span><span class="lp-chapters__n">07</span><span class="lp-chapters__t">Farmácia de Alto Custo</span></li>
-          <li><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-direitos--></span><span class="lp-chapters__n">08</span><span class="lp-chapters__t">Seus direitos e deveres</span></li>
-          <li><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-ajuda--></span><span class="lp-chapters__n">09</span><span class="lp-chapters__t">Onde buscar ajuda no DF</span></li>
-          <li><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-anplupus--></span><span class="lp-chapters__n">10</span><span class="lp-chapters__t">ANPLúpus</span></li>
-          <li><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-amavi--></span><span class="lp-chapters__n">11</span><span class="lp-chapters__t">AMAVI Raras</span></li>
-          <li class="lp-chapters__quote"><p>“O lúpus faz parte da sua história, mas não define quem você é.”</p></li>
+          <li><div class="lp-chapters__card"><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-entendendo--></span><span class="lp-chapters__n">01</span><span class="lp-chapters__t">Entendendo o lúpus</span></div></li>
+          <li><div class="lp-chapters__card"><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-tratamento--></span><span class="lp-chapters__n">02</span><span class="lp-chapters__t">Como é feito o tratamento</span></div></li>
+          <li><div class="lp-chapters__card"><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-habitos--></span><span class="lp-chapters__n">03</span><span class="lp-chapters__t">O tratamento vai além dos medicamentos</span></div></li>
+          <li><div class="lp-chapters__card"><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-vacinacao--></span><span class="lp-chapters__n">04</span><span class="lp-chapters__t">Vacinação e lúpus</span></div></li>
+          <li><div class="lp-chapters__card"><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-gravidez--></span><span class="lp-chapters__n">05</span><span class="lp-chapters__t">Gravidez, amamentação e anticoncepção</span></div></li>
+          <li><div class="lp-chapters__card"><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-consulta--></span><span class="lp-chapters__n">06</span><span class="lp-chapters__t">Consulta com o reumatologista no DF</span></div></li>
+          <li><div class="lp-chapters__card"><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-farmacia--></span><span class="lp-chapters__n">07</span><span class="lp-chapters__t">Farmácia de Alto Custo</span></div></li>
+          <li><div class="lp-chapters__card"><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-direitos--></span><span class="lp-chapters__n">08</span><span class="lp-chapters__t">Seus direitos e deveres</span></div></li>
+          <li><div class="lp-chapters__card"><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-ajuda--></span><span class="lp-chapters__n">09</span><span class="lp-chapters__t">Onde buscar ajuda no DF</span></div></li>
+          <li><div class="lp-chapters__card"><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-anplupus--></span><span class="lp-chapters__n">10</span><span class="lp-chapters__t">ANPLúpus</span></div></li>
+          <li><div class="lp-chapters__card"><span class="lp-chapters__art" aria-hidden="true"><!--svg:cap-amavi--></span><span class="lp-chapters__n">11</span><span class="lp-chapters__t">AMAVI Raras</span></div></li>
+          <li class="lp-chapters__quote"><div class="lp-chapters__card"><p>“O lúpus faz parte da sua história, mas não define quem você é.”</p></div></li>
         </ol>
       </div>
     </section>
@@ -124,15 +125,15 @@
         <p class="lp-lead">Cada capítulo responde a uma pergunta de quem vive com lúpus. Caixas de atenção, dicas e QR Codes levam direto aos serviços do Distrito Federal.</p>
         <div class="lp-spreads" data-lightbox data-reveal-group>
           <figure>
-            <img src="img/miolo-capitulo-1.webp" alt="Páginas da cartilha: abertura do capítulo 1, Entendendo o lúpus, e o texto O que é o lúpus?" width="1600" height="1131">
+            <img src="img/miolo-capitulo-1-800.webp" srcset="img/miolo-capitulo-1-800.webp 800w, img/miolo-capitulo-1.webp 1600w" sizes="(max-width: 980px) 92vw, 344px" data-full="img/miolo-capitulo-1.webp" loading="lazy" decoding="async" alt="Páginas da cartilha: abertura do capítulo 1, Entendendo o lúpus, e o texto O que é o lúpus?" width="1600" height="1131">
             <figcaption>Abertura de capítulo: ilustração, número e a pergunta que o capítulo responde.</figcaption>
           </figure>
           <figure>
-            <img src="img/miolo-capitulo-3.webp" alt="Páginas da cartilha: abertura do capítulo 3, O tratamento vai além dos medicamentos, e a seção Proteja-se do sol." width="1600" height="1131">
+            <img src="img/miolo-capitulo-3-800.webp" srcset="img/miolo-capitulo-3-800.webp 800w, img/miolo-capitulo-3.webp 1600w" sizes="(max-width: 980px) 92vw, 344px" data-full="img/miolo-capitulo-3.webp" loading="lazy" decoding="async" alt="Páginas da cartilha: abertura do capítulo 3, O tratamento vai além dos medicamentos, e a seção Proteja-se do sol." width="1600" height="1131">
             <figcaption>Cuidados do dia a dia, com dicas práticas destacadas.</figcaption>
           </figure>
           <figure>
-            <img src="img/miolo-farmacia.webp" alt="Páginas da cartilha sobre a Farmácia de Alto Custo, com QR Code do CEAF Digital e a tabela das unidades no DF." width="1600" height="1131">
+            <img src="img/miolo-farmacia-800.webp" srcset="img/miolo-farmacia-800.webp 800w, img/miolo-farmacia.webp 1600w" sizes="(max-width: 980px) 92vw, 344px" data-full="img/miolo-farmacia.webp" loading="lazy" decoding="async" alt="Páginas da cartilha sobre a Farmácia de Alto Custo, com QR Code do CEAF Digital e a tabela das unidades no DF." width="1600" height="1131">
             <figcaption>QR Codes, endereços e telefones dos serviços do DF.</figcaption>
           </figure>
         </div>
@@ -190,7 +191,7 @@
     <section class="lp-section" aria-labelledby="lp-autora">
       <div class="lp-wrap lp-author" data-reveal>
         <div class="lp-author__photo">
-          <img src="img/paula.webp" alt="Dra. Paula Cristina Montina, médica reumatologista." width="800" height="1000">
+          <img src="img/paula.webp" alt="Dra. Paula Cristina Montina, médica reumatologista." width="800" height="1000" loading="lazy" decoding="async">
         </div>
         <div class="lp-author__text">
           <p class="lp-kicker lp-kicker--dark">Sobre a autora</p>
@@ -216,15 +217,17 @@
         <h2 id="lp-redes">Redes de apoio</h2>
         <div class="lp-orgs" data-reveal-group>
           <article class="lp-org">
-            <img src="img/anplupus.png" alt="ANPLúpus" height="44">
+            <img src="img/anplupus.png" alt="" height="40" loading="lazy" decoding="async">
             <h3>ANPLúpus</h3>
-            <p>Associação Nacional das Pessoas com Lúpus de Integração Social e Desenvolvimento Humano.</p>
+            <p>Associação com sede em Brasília que trabalha para acolher, informar, orientar e fortalecer pessoas que vivem com lúpus e seus familiares.</p>
+            <p class="lp-org__contato">WhatsApp <a href="https://wa.me/5561993809616" rel="noopener" target="_blank">(61) 99380-9616</a></p>
             <p class="lp-org__links"><a href="https://anplupus.org.br" rel="noopener" target="_blank">anplupus.org.br</a><a href="https://www.instagram.com/anplupus" rel="noopener" target="_blank">@anplupus</a></p>
           </article>
           <article class="lp-org">
-            <img src="img/amaviraras.png" alt="AMAVI Raras" height="64">
+            <img src="img/amaviraras.png" alt="" height="72" loading="lazy" decoding="async">
             <h3>AMAVI Raras</h3>
-            <p>Associação MariaVitória de Doenças Raras e Crônicas, em Brasília.</p>
+            <p>Instituição sem fins lucrativos, criada em Brasília, que acolhe e orienta pacientes e famílias de pessoas com doenças raras e crônicas.</p>
+            <p class="lp-org__contato">WhatsApp <a href="https://wa.me/5561982013885" rel="noopener" target="_blank">(61) 98201-3885</a></p>
             <p class="lp-org__links"><a href="https://www.amaviraras.org/" rel="noopener" target="_blank">amaviraras.org</a><a href="https://www.instagram.com/amaviraras" rel="noopener" target="_blank">@amaviraras</a></p>
           </article>
         </div>
@@ -234,7 +237,7 @@
     <!-- CHAMADA FINAL -->
     <section class="lp-cta" aria-labelledby="lp-cta-titulo">
       <div class="lp-wrap lp-cta__inner">
-        <span class="lp-cta__mark" aria-hidden="true"><!--svg:mark-borboleta--></span>
+        <span class="lp-cta__mark" aria-hidden="true"><img src="img/borboleta-clara.svg" alt="" width="64" height="51" loading="lazy"></span>
         <h2 id="lp-cta-titulo">Informação para orientar, cuidado para acolher e esperança para seguir.</h2>
         <div class="lp-actions lp-actions--center">
           <a class="lp-btn" href="Manual-para-o-paciente-com-lupus-DF.pdf" download data-evento="baixar-final">
@@ -257,21 +260,21 @@
         <div class="lp-foot__brand">
           <img class="lp-foot__mark" src="img/borboleta-clara.svg" alt="" width="46" height="37">
           <p class="lp-foot__title">Manual para o paciente com lúpus do Distrito Federal</p>
-          <p class="lp-foot__author">Dra. Paula Cristina Montina<br>Médica Reumatologista<br>CRM-DF 26.523 · RQE 21.843</p>
-          <a class="lp-foot__dl" href="Manual-para-o-paciente-com-lupus-DF.pdf" download data-evento="baixar-rodape">Baixar a cartilha <span>PDF · 2,4 MB</span></a>
+          <p class="lp-foot__author">Dra. Paula Cristina Montina<br>Médica Reumatologista<br><span class="lp-nw">CRM-DF 26.523 · RQE 21.843</span></p>
+          <a class="lp-foot__dl" href="Manual-para-o-paciente-com-lupus-DF.pdf" download data-evento="baixar-rodape">Baixar a cartilha <span>PDF · {{PDF_MB}}</span></a>
         </div>
         <div class="lp-foot__col">
           <p class="lp-foot__label">Apoio</p>
           <ul class="lp-foot__logos">
             <li><a href="https://fortunatoestudio.com" target="_blank" rel="noopener" aria-label="Fortunato Estúdio, abrir o site"><!--svg:logo-fortunato-dark--></a></li>
-            <li><img src="img/srb-branco.svg" alt="Sociedade de Reumatologia de Brasília" width="96" height="53"></li>
-            <li><img src="img/anplupus-branco.png" alt="ANPLúpus" width="110" height="26"></li>
+            <li><img src="img/srb-branco.svg" alt="Sociedade de Reumatologia de Brasília" width="96" height="53" loading="lazy"></li>
+            <li><img src="img/anplupus-branco.png" alt="ANPLúpus" width="110" height="26" loading="lazy"></li>
           </ul>
         </div>
         <nav class="lp-foot__col" aria-label="Links úteis">
           <p class="lp-foot__label">Links úteis</p>
           <ul class="lp-foot__links">
-            <li><a href="ler/">Ler a cartilha online</a></li>
+            <li><a href="ler/index.html">Ler a cartilha online</a></li>
             <li><a href="https://anplupus.org.br" target="_blank" rel="noopener">ANPLúpus</a></li>
             <li><a href="https://www.amaviraras.org/" target="_blank" rel="noopener">AMAVI Raras</a></li>
           </ul>
@@ -287,11 +290,11 @@
     </div>
   </footer>
 
-</div>
 <dialog class="lp-lightbox" aria-label="Página da cartilha ampliada">
   <button class="lp-lightbox__close" type="button" aria-label="Fechar">×</button>
   <img alt="">
 </dialog>
+</div>
 <script src="landing.js" defer></script>
 </body>
 </html>

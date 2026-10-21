@@ -4,6 +4,7 @@ Uso (depois de `npm run build && npm run pdf`):  /usr/bin/python3 scripts/landin
 Gera imagens a partir do PDF de leitura, copia fontes, logos, foto e o PDF para download,
 expande as ilustrações inline, inclui a versão para ler no celular (ler/) e a imagem de prévia (og-cartilha.jpg)."""
 import hashlib, os, re, shutil, subprocess, sys
+from urllib.parse import quote
 import pymupdf
 from PIL import Image
 
@@ -33,6 +34,8 @@ def dupla(i, nome):
     a, b = pagina(i, 800), pagina(i + 1, 800)
     sp = Image.new("RGB", (a.width + b.width, a.height), "white"); sp.paste(a, (0, 0)); sp.paste(b, (a.width, 0))
     sp.save(os.path.join(OUT, "img", nome), "WEBP", quality=82, method=6)
+    # versão leve para a grade e o mockup; a grande fica para o visor
+    sp.resize((800, round(sp.height * 800 / sp.width)), Image.LANCZOS).save(os.path.join(OUT, "img", nome.replace(".webp", "-800.webp")), "WEBP", quality=80, method=6)
 pagina(0, 900).save(os.path.join(OUT, "img", "capa.webp"), "WEBP", quality=88, method=6)
 pagina(achar("informação para orientar", depois=1), 900).save(os.path.join(OUT, "img", "folha-de-rosto.webp"), "WEBP", quality=86, method=6)
 dupla(achar("entendendo o lúpus", "o lúpus eritematoso sistêmico"), "miolo-capitulo-1.webp")
@@ -61,7 +64,13 @@ logo_png(r("assets", "logos", "anplupus-horizontal-branco.png"), "anplupus-branc
 # ---- fontes, PDF, favicon, css, js ----
 for f in ("fraunces-latin-wght-normal.woff2", "fraunces-latin-wght-italic.woff2", "inter-latin-wght-normal.woff2", "stix-two-text-600.woff2"):
     shutil.copy(r("dist", "fonts", f), os.path.join(OUT, "fonts", f))
-shutil.copy(PDF, os.path.join(OUT, PDF_NOME))
+# PDF para download, com autoria e assunto nos metadados (aparecem no leitor de PDF e no Google Drive)
+pdf = pymupdf.open(PDF)
+pdf.set_metadata({**pdf.metadata, "title": "Manual para o paciente com lúpus do Distrito Federal", "author": "Dra. Paula Cristina Montina",
+                  "subject": "Cartilha para pacientes com lúpus no Distrito Federal", "keywords": "lúpus, reumatologia, SUS, Distrito Federal, cartilha"})
+pdf.save(os.path.join(OUT, PDF_NOME), garbage=0, deflate=False)
+PDF_PAGINAS = len(pdf); pdf.close()
+PDF_MB = f"{os.path.getsize(os.path.join(OUT, PDF_NOME)) / 1e6:.1f} MB".replace(".", ",")  # MB decimal, como o celular mostra
 shutil.copy(r("src", "illustrations", "mark-borboleta.svg"), os.path.join(OUT, "favicon.svg"))
 # borboleta clara para voar sobre o fundo escuro do topo
 clara = open(r("src", "illustrations", "mark-borboleta.svg"), encoding="utf-8").read().replace("#7a4e93", "#b592c7").replace("#4b2a5e", "#ece2f1")
@@ -75,18 +84,23 @@ def svg(nome):
     return re.sub(r"<\?xml[^>]*>\s*", "", t).strip()
 html = open(os.path.join(SRC, "index.html"), encoding="utf-8").read()
 html = re.sub(r"<!--svg:([\w-]+)-->", lambda m: svg(m.group(1)), html)
+html = html.replace("{{PDF_PAGINAS}}", str(PDF_PAGINAS)).replace("{{PDF_MB}}", PDF_MB)
 # endereço público (ex.: SITE_URL=https://victorsntz.github.io/montina/): prévia do link com imagem e endereço completos
 SITE = os.environ.get("SITE_URL", "").strip()
 if SITE:
     SITE = SITE.rstrip("/") + "/"
     html = html.replace('<meta property="og:image" content="og-cartilha.jpg">', f'<meta property="og:url" content="{SITE}">\n<meta property="og:image" content="{SITE}og-cartilha.jpg">\n<link rel="canonical" href="{SITE}">')
+    # o botão do WhatsApp já leva o endereço, mesmo sem JavaScript
+    html = html.replace("Paula%20Cristina%20Montina\"", "Paula%20Cristina%20Montina%3A%20" + quote(SITE, safe="") + "\"", 1)
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(html)
 
 # ---- versão para ler no celular (a versão web da cartilha) ----
 ler = os.path.join(OUT, "ler")
 web = open(r("dist", "index.html"), encoding="utf-8").read()
 web = web.replace('href="cartilha-lupus-df-a4.pdf"', f'href="../{PDF_NOME}" download')
-web = web.replace('<a href="#sumario">', '<a href="../">← Voltar</a><a href="#sumario">', 1)
+web = web.replace('<a href="#sumario">', '<a href="../index.html">← Voltar</a><a href="#sumario">', 1)
+web = web.replace("</title>", '</title>\n<link rel="icon" href="../favicon.svg" type="image/svg+xml">', 1)
+web = re.sub(r"<img (?![^>]*loading=)", '<img loading="lazy" decoding="async" ', web)
 open(os.path.join(ler, "index.html"), "w", encoding="utf-8").write(web)
 shutil.copy(r("dist", "styles.css"), os.path.join(ler, "styles.css"))
 shutil.copytree(r("dist", "fonts"), os.path.join(ler, "fonts"))

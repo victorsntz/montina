@@ -368,7 +368,7 @@ const html = `<!DOCTYPE html>
     <li><strong>Visualização em páginas duplas</strong>, para conferir os pares como o leitor vai ver o livreto aberto.</li>
     <li><strong>Versão web</strong> responsiva, com o mesmo texto, navegação pelo sumário e botão de download do PDF.</li>
     <li><strong>Prova comentável</strong> em página HTML paginada, usada nas rodadas de revisão.</li>
-    <li><strong>Ficha catalográfica</strong> (CIP) montada com CDD 616.772 e CDU 616.5-002.52; ISBN a preencher após o registro na Câmara Brasileira do Livro.</li>
+    <li><strong>Ficha catalográfica</strong> (CIP) montada com CDD 616.772 e CDU 616.5-002.52; o ISBN entra na ficha assim que sair o registro na Câmara Brasileira do Livro.</li>
     <li><strong>Marcas</strong>: Fortunato Estúdio (tipográfica, a partir da identidade do estúdio), Sociedade de Reumatologia de Brasília (vetor oficial, versões colorida e branca), ANPLúpus (apoio e rede, arquivo oficial) e AMAVI Raras (arquivo oficial).</li>
   </ul>
   <div class="why">

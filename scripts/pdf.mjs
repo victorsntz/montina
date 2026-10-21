@@ -27,6 +27,7 @@ await page.waitForFunction(() => window.__pagedDone === true, null, { timeout: 1
 await page.waitForTimeout(500);
 await page.evaluate(() => document.fonts.ready);
 const pages = await page.evaluate(() => document.querySelectorAll(".pagedjs_page").length);
-await page.pdf({ path: out, preferCSSPageSize: true, printBackground: true, displayHeaderFooter: false });
+// tagged e outline: estrutura para leitores de tela e marcadores dos capítulos no leitor de PDF
+await page.pdf({ path: out, preferCSSPageSize: true, printBackground: true, displayHeaderFooter: false, tagged: true, outline: true });
 await browser.close();
 console.log(`pdf ok: ${pages} páginas → ${out} (${(statSync(out).size / 1024 / 1024).toFixed(2)} MB)`);
