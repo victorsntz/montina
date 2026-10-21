@@ -515,10 +515,11 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 }
 .cover .meta { position: static; }
 .cover .author {
-  position: absolute; left: 20mm; bottom: 26mm; right: 20mm; text-align: center;
+  position: absolute; left: 20mm; bottom: 20mm; right: 20mm; text-align: center;
   font-size: 0.9rem; color: var(--lilac-200); line-height: 1.5;
 }
 .cover .author strong { color: var(--white); font-family: var(--serif); font-weight: 400; display: block; font-size: 2.2rem; line-height: 1.1; letter-spacing: -0.01em; font-variation-settings: "opsz" 72, "SOFT" 100; }
+.cover .author .cred { display: block; margin-top: 2.5mm; font-family: var(--sans); font-size: 0.95rem; color: var(--lilac-200); letter-spacing: 0.02em; }
 .cover .edition { position: absolute; right: 20mm; bottom: 28mm; text-align: right; font-size: 0.8rem; color: var(--plum-300); letter-spacing: 0.12em; text-transform: uppercase; }
 
 .front-matter { break-after: page; page-break-after: always; }
