@@ -117,8 +117,8 @@ body { margin: 0; background: #fff; }
 }
 .lp-book__glare { /* reflexo que segue o mouse */
   position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: soft-light;
-  background: radial-gradient(70% 55% at var(--gx, 30%) var(--gy, 20%), rgba(255,255,255,.75), rgba(255,255,255,0) 60%),
-              linear-gradient(115deg, rgba(255,255,255,.14), rgba(255,255,255,0) 35%, rgba(255,255,255,0) 65%, rgba(0,0,0,.2));
+  background: radial-gradient(65% 50% at var(--gx, 30%) var(--gy, 20%), rgba(255,255,255,.32), rgba(255,255,255,0) 60%),
+              linear-gradient(115deg, rgba(255,255,255,.07), rgba(255,255,255,0) 35%, rgba(255,255,255,0) 65%, rgba(0,0,0,.16));
 }
 .lp-book__face--inside { transform: rotateY(180deg); background: linear-gradient(to left, #4a3156 0%, #3a2546 18%, #33203e 100%); box-shadow: inset -18px 0 22px -14px rgba(0,0,0,.5), inset 0 0 0 1px rgba(217,199,227,.22); }
 .lp-book__shadow { position: absolute; left: 6%; right: -4%; bottom: -7%; height: 12%; background: radial-gradient(closest-side, rgba(0,0,0,.55), rgba(0,0,0,0)); filter: blur(6px); z-index: -1; }
@@ -205,6 +205,7 @@ body { margin: 0; background: #fff; }
 .lp-author__photo { position: relative; }
 .lp-author__photo::before { content: ""; position: absolute; inset: 8% -6% -6% 8%; border-radius: 28px; background: var(--lilac-100); z-index: 0; }
 .lp-author__photo img { position: relative; z-index: 1; border-radius: 24px; aspect-ratio: 4 / 5; object-fit: cover; width: 100%; box-shadow: 0 30px 60px -30px rgba(43, 27, 51, .55); }
+.lp-nw { white-space: nowrap; }
 .lp-author__cred { margin: 10px 0 18px; font-size: .95rem; font-weight: 600; letter-spacing: .02em; color: var(--plum-500); }
 .lp-author__text > p { color: var(--ink-soft); max-width: 58ch; }
 .lp-quote { margin: 28px 0 0; padding: 4px 0 4px 22px; border-left: 3px solid var(--terra); }
@@ -323,4 +324,30 @@ body { margin: 0; background: #fff; }
   .lp-js [data-reveal].is-in, .lp-js [data-reveal-group].is-in > * { animation: none; }
   .lp-bf img, .lp-book__hint::before { animation: none; }
   .lp-book__cover, .lp-chapters li, .lp-chapters__art, .lp-spreads img { transition: none; }
+}
+
+/* ---------- celular: tudo centralizado (a barra fixa do topo continua marca à esquerda, botão à direita) ---------- */
+@media (max-width: 640px) {
+  .lp-hero__text { text-align: center; }
+  .lp-hero__sub { margin-left: auto; margin-right: auto; }
+  .lp-actions { justify-content: center; }
+  .lp-byline { flex-direction: column; text-align: center; margin-left: auto; margin-right: auto; }
+  .lp-facts__list li { text-align: center; }
+  .lp-section .lp-kicker, .lp-section h2, .lp-lead { text-align: center; margin-left: auto; margin-right: auto; }
+  .lp-chapters li { align-items: center; text-align: center; }
+  .lp-spreads figcaption { text-align: center; }
+  .lp-author { text-align: center; }
+  .lp-author__photo { margin-left: auto; margin-right: auto; }
+  .lp-author__text > p { margin-left: auto; margin-right: auto; }
+  .lp-quote { border-left: 0; border-top: 3px solid var(--terra); padding: 18px 0 0; }
+  .lp-why__col { text-align: center; }
+  .lp-org { align-items: center; text-align: center; }
+  .lp-org img { object-position: center; }
+  .lp-org__links { justify-content: center; }
+  .lp-foot__top { grid-template-columns: 1fr; text-align: center; }
+  .lp-foot__brand { display: flex; flex-direction: column; align-items: center; }
+  .lp-foot__title { margin-left: auto; margin-right: auto; }
+  .lp-foot__logos, .lp-foot__links { align-items: center; }
+  .lp-foot__bottom, .lp-foot__legal { text-align: center; }
+  .lp-foot__note { margin-left: auto; margin-right: auto; }
 }

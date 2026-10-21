@@ -67,6 +67,7 @@ shutil.copy(r("src", "illustrations", "mark-borboleta.svg"), os.path.join(OUT, "
 clara = open(r("src", "illustrations", "mark-borboleta.svg"), encoding="utf-8").read().replace("#7a4e93", "#b592c7").replace("#4b2a5e", "#ece2f1")
 open(os.path.join(OUT, "img", "borboleta-clara.svg"), "w", encoding="utf-8").write(clara)
 for f in ("landing.css", "landing.js"): shutil.copy(os.path.join(SRC, f), os.path.join(OUT, f))
+open(os.path.join(OUT, ".nojekyll"), "w").close()  # GitHub Pages: serve os arquivos como estão
 
 # ---- HTML com ilustrações inline ----
 def svg(nome):
@@ -74,6 +75,11 @@ def svg(nome):
     return re.sub(r"<\?xml[^>]*>\s*", "", t).strip()
 html = open(os.path.join(SRC, "index.html"), encoding="utf-8").read()
 html = re.sub(r"<!--svg:([\w-]+)-->", lambda m: svg(m.group(1)), html)
+# endereço público (ex.: SITE_URL=https://victorsntz.github.io/montina/): prévia do link com imagem e endereço completos
+SITE = os.environ.get("SITE_URL", "").strip()
+if SITE:
+    SITE = SITE.rstrip("/") + "/"
+    html = html.replace('<meta property="og:image" content="og-cartilha.jpg">', f'<meta property="og:url" content="{SITE}">\n<meta property="og:image" content="{SITE}og-cartilha.jpg">\n<link rel="canonical" href="{SITE}">')
 open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(html)
 
 # ---- versão para ler no celular (a versão web da cartilha) ----
