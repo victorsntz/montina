@@ -66,15 +66,15 @@
   /* ---- borboletas ---- */
   var voo = $(".lp-flutter"), bichos = [], mouse = { x: -9999, y: -9999 };
   if (voo) {
-    var n = mouseFino ? 10 : 5;
+    var n = mouseFino ? 4 : 3;
     for (var i = 0; i < n; i++) {
       var el = document.createElement("span"); el.className = "lp-bf";
-      var s = (mouseFino ? 26 : 20) + Math.random() * (mouseFino ? 30 : 18);
+      var s = 22 + Math.random() * 10;
       el.style.setProperty("--s", s.toFixed(0) + "px");
-      el.style.setProperty("--f", (0.24 + Math.random() * 0.18).toFixed(2) + "s");
+      el.style.setProperty("--f", (0.5 + Math.random() * 0.25).toFixed(2) + "s");
       el.innerHTML = '<img src="img/borboleta-clara.svg" alt="">';
       voo.appendChild(el);
-      bichos.push({ el: el, s: s, x: Math.random(), y: Math.random(), a: Math.random() * Math.PI * 2, v: 0.5 + Math.random() * 0.6, vx: 0, vy: 0 });
+      bichos.push({ el: el, s: s, x: Math.random(), y: Math.random(), a: Math.random() * Math.PI * 2, v: 0.22 + Math.random() * 0.2, vx: 0, vy: 0 });
     }
     if (mouseFino) {
       hero.addEventListener("pointermove", function (e) { var r = voo.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
@@ -102,10 +102,10 @@
       if (sun) sun.style.transform = "translate(" + (-atual.x * 18).toFixed(1) + "px," + (-atual.y * 14).toFixed(1) + "px)";
       /* borboletas: vagueiam, fogem do mouse e dão a volta pelas bordas */
       bichos.forEach(function (b) {
-        b.a += (Math.random() - 0.5) * 0.22;
+        b.a += (Math.random() - 0.5) * 0.12;
         var fx = Math.cos(b.a) * b.v, fy = Math.sin(b.a) * b.v * 0.7 - 0.05;
         var dx = b.x - mouse.x, dy = b.y - mouse.y, d2 = dx * dx + dy * dy;
-        if (d2 < 170 * 170) { var d = Math.sqrt(d2) || 1, f = (170 - d) / 170 * 3.2; fx += dx / d * f; fy += dy / d * f; b.a = Math.atan2(dy, dx); }
+        if (d2 < 130 * 130) { var d = Math.sqrt(d2) || 1, f = (130 - d) / 130 * 1.4; fx += dx / d * f; fy += dy / d * f; b.a = Math.atan2(dy, dx); }
         b.vx += (fx - b.vx) * 0.12; b.vy += (fy - b.vy) * 0.12;
         b.x += b.vx; b.y += b.vy;
         var m = b.s * 2;
