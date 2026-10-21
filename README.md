@@ -71,3 +71,16 @@ dist/             saída pronta (PDF, HTML, fontes e assets)
 | `farmacia-estoque` | https://info.saude.df.gov.br/saude-do-cidadao/painel-infosaude-farmacias-de-alto-custo/ |
 | `instagram-anplupus` | https://www.instagram.com/anplupus |
 | `instagram-amaviraras` | https://www.instagram.com/amaviraras |
+
+## Landing page para baixar a cartilha
+
+A pasta `landing/dist/` é um site estático pronto: página de download com mockup da cartilha, foto e apresentação da autora, capítulos, páginas de dentro, redes de apoio, botão de compartilhar no WhatsApp e a versão para ler online em `ler/`.
+
+- Fonte: `landing/src/` (`index.html`, `landing.css`, `landing.js`). Todo o CSS fica dentro de `.lp` com prefixo `lp-`, para a página poder entrar depois no site da Montina Medicina sem conflito de estilos.
+- Montar: `npm run build && npm run pdf && /usr/bin/python3 scripts/landing.py`. O script gera as imagens a partir do PDF de leitura, copia fontes, logos, foto e PDF, e cria a imagem de prévia `og-cartilha.jpg`.
+
+### Como colocar no ar
+
+1. **Mais rápido (sem programar):** entre em https://app.netlify.com/drop e arraste a pasta `landing/dist`. Em segundos sai um endereço público. Depois dá para ligar um domínio próprio no painel.
+2. **No site da Montina Medicina:** suba o conteúdo de `landing/dist` numa pasta do site, por exemplo `/cartilha/`. A página e os arquivos usam caminhos relativos, então funcionam em qualquer pasta.
+3. **Depois de ter o endereço definitivo:** troque em `landing/src/index.html` as metatags `og:image` e `og:url` por endereços completos (por exemplo `https://montinamedicina.com.br/cartilha/og-cartilha.jpg`) e monte de novo. É isso que faz a prévia com imagem aparecer quando o link é compartilhado no WhatsApp.

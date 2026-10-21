@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 150" role="img" aria-label="Sociedade de Reumatologia de Brasília (redesenho vetorial provisório)">
+  <defs>
+    <linearGradient id="srbSwoosh" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e6e6e6"/>
+      <stop offset="1" stop-color="#9a9a9a"/>
+    </linearGradient>
+  </defs>
+  <!-- elipse / faixa ao fundo -->
+  <path d="M40,58 C80,40 190,36 236,56 C246,62 240,72 214,78 C232,70 230,62 210,58 C170,48 90,50 46,66 Z" fill="url(#srbSwoosh)"/>
+  <!-- arcos (colunas do Palácio) -->
+  <path d="M8,84 C30,30 84,22 104,86" fill="none" stroke="#8c8c8c" stroke-width="5" stroke-linecap="round"/>
+  <path d="M104,86 C104,50 110,22 118,22 C126,22 132,50 132,86" fill="none" stroke="#8c8c8c" stroke-width="5" stroke-linecap="round"/>
+  <path d="M132,86 C150,26 208,26 232,84" fill="none" stroke="#8c8c8c" stroke-width="5" stroke-linecap="round"/>
+  <path d="M104,86 C112,70 122,70 132,86 Z" fill="#8c8c8c"/>
+  <!-- texto -->
+  <g font-family="'Inter', system-ui, sans-serif" font-weight="800" fill="#1f2a6b" text-anchor="middle" letter-spacing="3.2">
+    <text x="130" y="112" font-size="15">SOCIEDADE DE</text>
+    <text x="130" y="130" font-size="15">REUMATOLOGIA</text>
+    <text x="130" y="148" font-size="15">DE BRASÍLIA</text>
+  </g>
+</svg>
