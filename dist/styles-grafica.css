@@ -788,24 +788,38 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
     margin: 0 auto;
     padding: 0 24px 80px;
   }
-  body.web .cover, body.web .back-cover {
+  body.web .back-cover {
     margin: 0 0 40px;
     height: auto;
     width: auto;
     min-height: 760px;
-    border-radius: 0 0 24px 24px;
     display: flex; flex-direction: column; justify-content: space-between;
   }
-  body.web .cover .art { inset: 0; top: 140px; }
-  body.web .cover .text { position: relative; left: 0; top: 0; padding: 56px 32px 0; max-width: 520px; }
-  body.web .cover .meta {
-    position: relative; margin-top: 260px;
-    padding: 56px 32px 36px;
-    background: linear-gradient(to bottom, rgba(43,27,51,0) 0%, rgba(43,27,51,.85) 45%, rgba(43,27,51,.95) 100%);
-    display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap;
+  /* capa na tela: a mesma composição da impressa, em proporção A4, inteira na primeira dobra.
+     As medidas vêm da impressa convertidas para a largura da capa (1rem impresso = 1.764cqi). */
+  body.web .cover {
+    container-type: inline-size;
+    width: min(100%, 660px, calc((100svh - 120px) * 210 / 297));
+    height: auto;
+    aspect-ratio: 210 / 297;
+    margin: 36px auto 64px;
+    border-radius: 6px 14px 14px 6px;
+    box-shadow: 0 1px 2px rgba(43,27,51,.12), 0 24px 60px -18px rgba(43,27,51,.45);
   }
-  body.web .cover .author, body.web .cover .edition { position: static; }
-  body.web .cover .edition { text-align: right; }
+  body.web .cover::before {
+    content: ""; position: absolute; z-index: 2; left: 0; top: 0; bottom: 0; width: 2.6%;
+    background: linear-gradient(to right, rgba(0,0,0,.28), rgba(255,255,255,.08) 55%, transparent);
+    pointer-events: none;
+  }
+  body.web .cover .art { inset: 0; }
+  body.web .cover .text { left: 9.52cqi; right: 9.52cqi; top: 16.19cqi; padding: 0; max-width: none; }
+  body.web .cover .kicker { font-size: max(1.41cqi, 10px); margin-bottom: 2.47cqi; }
+  body.web .cover h1 { font-size: 9.35cqi; }
+  body.web .cover .sub { font-size: max(2.38cqi, 14px); margin-top: 2.47cqi; max-width: 76cqi; }
+  body.web .cover .meta { position: static; margin: 0; padding: 0; background: none; }
+  body.web .cover .author { left: 9.52cqi; right: 9.52cqi; bottom: 9.52cqi; }
+  body.web .cover .author strong { font-size: 3.88cqi; }
+  body.web .cover .author .cred { font-size: max(1.68cqi, 11.5px); margin-top: 1.19cqi; }
   body.web .back-cover { border-radius: 24px; min-height: 380px; margin-top: 60px; }
   body.web .back-cover .inner { position: relative; left: 0; right: 0; bottom: 0; padding: 48px 32px; }
   body.web .back-cover .mark { position: relative; top: 0; padding-top: 40px; }
@@ -837,10 +851,42 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   .preface-side .pull { grid-column: 1 / -1; }
   .tp-foot { flex-direction: column; align-items: flex-start; gap: 12px; }
   html { font-size: 16px; }
-  body.web .cover h1 { font-size: 2.6rem; }
-  body.web .cover { min-height: 640px; }
-  body.web .cover .meta { margin-top: 160px; }
-  body.web .cover .edition { text-align: left; }
+  /* no celular a capa ocupa a largura toda e fica mais alta que o A4; a arte se ancora embaixo */
+  body.web .cover {
+    width: auto; aspect-ratio: auto; height: max(600px, calc(100svh - 56px));
+    margin: 0 -24px 40px; border-radius: 0 0 22px 22px; box-shadow: none;
+  }
+  body.web .cover::before { display: none; }
+  body.web .cover .text { left: 24px; right: 24px; top: 44px; }
+  body.web .cover .kicker { font-size: 10.5px; letter-spacing: .2em; line-height: 1.7; margin-bottom: 18px; }
+  body.web .cover .kicker .sep { display: block; height: 0; overflow: hidden; }
+  body.web .cover h1 { font-size: 10.2cqi; }
+  body.web .cover .sub { font-size: 16px; margin-top: 16px; max-width: 300px; text-wrap: balance; }
+  body.web .cover .sub br { display: none; }
+  body.web .cover .author { left: 24px; right: 24px; bottom: 30px; }
+  body.web .cover .author strong { font-size: 25px; }
+  body.web .cover .author .cred { font-size: 12.5px; margin-top: 6px; line-height: 1.5; }
+  body.web .cover .author .cred .sep { display: block; height: 0; overflow: hidden; }
+  /* o recorte mais alto da arte esconderia o sol; no celular ele é redesenhado no canto, como na impressa */
+  body.web .cover .art circle[cx="197"] { display: none; }
+  body.web .cover .art::after {
+    content: ""; position: absolute; box-sizing: border-box;
+    width: 29.5cqi; height: 29.5cqi; right: -8.6cqi; top: -7.1cqi; border-radius: 50%;
+    border: .6cqi solid rgba(217,164,65,.55);
+    background: radial-gradient(closest-side, rgba(217,164,65,.9) 0 38.7%, rgba(217,164,65,.18) 39.5% 67.7%, transparent 68.5%);
+  }
+  body.web nav.webnav .dl { margin-left: auto; }
+  body.web .spot > div, body.web .card dd { min-width: 0; overflow-wrap: anywhere; }
+  body.web .flow .pair { white-space: normal; flex-wrap: wrap; }
+  body.web .refs h1, body.web .bonus h1 { font-size: 1.9rem; }
+  body.web .org-header { grid-template-columns: 96px minmax(0, 1fr); gap: 16px; }
+  body.web .org-header .org-logo { width: 96px; height: 96px; padding: 10px; }
+  body.web .preface-side { grid-template-columns: 112px minmax(0, 1fr); }
+  body.web .preface-side > * { min-width: 0; }
+  body.web nav.webnav { padding: 10px 16px; gap: 12px; }
+  body.web nav.webnav a { white-space: nowrap; }
+  body.web nav.webnav a[href="#sumario"] { display: none; }
+  body.web .imprint .logos, body.web .back-cover .logos { flex-wrap: wrap; gap: 16px 28px; justify-content: center; }
   body.web .chapter-opener h1 { font-size: 2.2rem; }
   body.web .chapter-opener .big-num { font-size: 5rem; }
   body.web h2 { font-size: 1.5rem; }
@@ -850,6 +896,15 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   body.web .qr-duo { grid-template-columns: 1fr; }
   body.web table { display: block; overflow-x: auto; }
   body.web td:first-child { white-space: normal; }
+}
+@media screen and (max-width: 400px) {
+  body.web .refs h1, body.web .bonus h1 { font-size: 1.5rem; }
+  body.web .tp-panel { padding-left: 14px; padding-right: 14px; }
+  body.web .chapter-grid { gap: 10px; }
+  body.web .chapter-grid a { padding: 12px 10px 10px; }
+  body.web .chapter-grid .t { font-size: .84rem; overflow-wrap: break-word; }
+  body.web .back-cover .inner { padding-left: 18px; padding-right: 18px; }
+  body.web .back-cover .collab-list { font-size: .78rem; }
 }
 
 /* ---------- acabamento tipográfico (auditoria) ---------- */

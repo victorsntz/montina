@@ -3,7 +3,7 @@
 Uso (depois de `npm run build && npm run pdf`):  /usr/bin/python3 scripts/landing.py
 Gera imagens a partir do PDF de leitura, copia fontes, logos, foto e o PDF para download,
 expande as ilustrações inline, inclui a versão para ler no celular (ler/) e a imagem de prévia (og-cartilha.jpg)."""
-import os, re, shutil, subprocess, sys
+import hashlib, os, re, shutil, subprocess, sys
 import pymupdf
 from PIL import Image
 
@@ -97,6 +97,11 @@ subprocess.run(["node", r("scripts", "landing-og.mjs"), OUT], check=True)
 png = os.path.join(OUT, "og-cartilha.png")
 Image.open(png).convert("RGB").save(os.path.join(OUT, "og-cartilha.jpg"), "JPEG", quality=88, optimize=True)
 os.remove(png)
+# o WhatsApp e as redes guardam a prévia em cache; a versão no endereço da imagem força a leitura da nova
+versao = hashlib.md5(open(os.path.join(OUT, "og-cartilha.jpg"), "rb").read()).hexdigest()[:8]
+pagina = os.path.join(OUT, "index.html")
+html = open(pagina, encoding="utf-8").read().replace('og-cartilha.jpg"', f'og-cartilha.jpg?v={versao}"')
+open(pagina, "w", encoding="utf-8").write(html)
 
 total = sum(os.path.getsize(os.path.join(p, f)) for p, _, fs in os.walk(OUT) for f in fs)
 n = sum(len(fs) for _, _, fs in os.walk(OUT))
