@@ -137,22 +137,23 @@ body { margin: 0; background: #fff; }
 @media (hover: none) { .lp-hint-mouse { display: none; } .lp-mock:not(.is-open) .lp-hint-touch { display: inline; } }
 @keyframes lp-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.8); opacity: .35; } }
 
-/* borboletas que voam no topo e fogem do mouse */
-.lp-flutter { position: absolute; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
-.lp-bf { position: absolute; left: 0; top: 0; width: var(--s, 22px); height: var(--s, 22px); margin: calc(var(--s, 22px) / -2) 0 0 calc(var(--s, 22px) / -2); will-change: transform; opacity: .62; }
-.lp-bf img { width: 100%; height: 100%; display: block; animation: lp-flap var(--f, .32s) ease-in-out infinite; transform-origin: 50% 50%; }
-@keyframes lp-flap { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.22); } }
 
-/* bloco "Por que a borboleta?": fundo ameixa, borboletas só aparecem com o mouse aqui */
+/* bloco "Por que a borboleta?": fundo ameixa; a borboleta bate as asas quando o mouse entra no bloco */
 .lp-why { position: relative; overflow: hidden; color: var(--lilac-100); padding: clamp(72px, 10vw, 128px) 0;
-  background: radial-gradient(55% 60% at 50% 18%, rgba(122, 78, 147, .5), rgba(43, 27, 51, 0) 70%), var(--plum-900); }
-.lp-why__inner { position: relative; z-index: 2; }
-.lp-why__head { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.lp-why__art { all: unset; cursor: pointer; display: block; width: clamp(150px, 18vw, 210px); margin-bottom: 26px; border-radius: 50%;
-  filter: drop-shadow(0 18px 30px rgba(0,0,0,.35)); transition: transform .6s cubic-bezier(.2,.7,.2,1); }
-.lp-why__art svg { width: 100%; height: auto; display: block; }
+  background: radial-gradient(45% 60% at 16% 22%, rgba(122, 78, 147, .5), rgba(43, 27, 51, 0) 70%), var(--plum-900); }
+.lp-why__inner { position: relative; }
+.lp-why__head { display: flex; align-items: center; gap: clamp(24px, 4vw, 48px); }
+.lp-why__head .lp-kicker { margin-bottom: 12px; }
+.lp-why__art { all: unset; cursor: pointer; display: block; flex: none; width: clamp(140px, 15vw, 190px); border-radius: 50%;
+  filter: drop-shadow(0 18px 30px rgba(0,0,0,.35)); transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+.lp-why__art svg { width: 100%; height: auto; display: block; overflow: visible; }
 .lp-why__art:focus-visible { outline: 3px solid var(--gold); outline-offset: 8px; }
-.lp-why.is-voando .lp-why__art { transform: translateY(-6px) scale(1.04); }
+.lp-asa { transform-box: fill-box; }
+.lp-asa--esq { transform-origin: right center; }
+.lp-asa--dir { transform-origin: left center; }
+.lp-why.is-batendo .lp-why__art { transform: translateY(-10px) rotate(-3deg); }
+.lp-why.is-batendo .lp-asa { animation: lp-bater .42s ease-in-out infinite; }
+@keyframes lp-bater { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.28); } }
 .lp-why h2 { font-size: clamp(2.2rem, 4.6vw, 3.4rem); color: var(--white); font-weight: 400; }
 .lp-why__cols { margin-top: clamp(40px, 6vw, 64px); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 48px); align-items: start; }
 .lp-why__col h3 { font-family: var(--sans); font-size: .78rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--lilac-200); margin-bottom: 18px; }
@@ -162,9 +163,6 @@ body { margin: 0; background: #fff; }
 .lp-why__col--autora p:not(.lp-why__sign) { color: var(--white); }
 .lp-why__sign { margin-top: 22px !important; font-family: var(--sans) !important; font-size: .9rem !important; line-height: 1.45 !important; color: var(--lilac-200) !important; }
 .lp-why__sign strong { display: block; font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--white); }
-.lp-why .lp-flutter { z-index: 1; }
-.lp-why .lp-bf { opacity: 0; transition: opacity .6s ease; }
-.lp-why .lp-bf.is-on { opacity: .95; }
 
 /* luz suave que acompanha o mouse no topo */
 .lp-hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(520px circle at var(--hx, 70%) var(--hy, 40%), rgba(217, 199, 227, .1), transparent 60%); }
@@ -322,7 +320,7 @@ body { margin: 0; background: #fff; }
 @keyframes lp-rise { from { opacity: 0; translate: 0 26px; } to { opacity: 1; translate: 0 0; } }
 @media (prefers-reduced-motion: reduce) {
   .lp-js [data-reveal].is-in, .lp-js [data-reveal-group].is-in > * { animation: none; }
-  .lp-bf img, .lp-book__hint::before { animation: none; }
+  .lp-book__hint::before, .lp-why.is-batendo .lp-asa { animation: none; }
   .lp-book__cover, .lp-chapters li, .lp-chapters__art, .lp-spreads img { transition: none; }
 }
 
@@ -340,6 +338,8 @@ body { margin: 0; background: #fff; }
   .lp-author__photo { margin-left: auto; margin-right: auto; }
   .lp-author__text > p { margin-left: auto; margin-right: auto; }
   .lp-quote { border-left: 0; border-top: 3px solid var(--terra); padding: 18px 0 0; }
+  .lp-why__head { flex-direction: column; text-align: center; }
+  .lp-why { background: radial-gradient(70% 45% at 50% 12%, rgba(122, 78, 147, .5), rgba(43, 27, 51, 0) 70%), var(--plum-900); }
   .lp-why__col { text-align: center; }
   .lp-org { align-items: center; text-align: center; }
   .lp-org img { object-position: center; }
