@@ -27,7 +27,8 @@ body { margin: 0; background: #fff; }
 :where(.lp) :is(h1, h2, h3) { font-family: var(--serif); font-weight: 450; line-height: 1.08; letter-spacing: -0.015em; margin: 0; text-wrap: balance; font-variation-settings: "opsz" 96, "SOFT" 80; }
 :where(.lp) p { margin: 0; text-wrap: pretty; }
 .lp-wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
-.lp :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+.lp :focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+:where(.lp) :focus-visible { border-radius: 6px; } /* sem especificidade: pílulas e círculos mantêm a forma no foco */
 /* nas seções claras o dourado não aparece: contorno ameixa */
 .lp :is(.lp-section, .lp-facts) :focus-visible { outline-color: var(--plum-700); }
 .lp { overflow-x: clip; }
@@ -228,7 +229,7 @@ html:not(.lp-js) .lp-spreads img { cursor: auto; }
 .lp-orgs { margin-top: 40px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
 .lp-org { background: var(--white); border-radius: var(--radius); padding: 28px; box-shadow: 0 0 0 1px rgba(122, 78, 147, .12); display: flex; flex-direction: column; gap: 10px; }
 .lp-org img { height: 52px; width: auto; max-width: 220px; object-fit: contain; object-position: left center; margin-bottom: 6px; }
-.lp-org img[src*="anplupus"] { height: 40px; }
+.lp-org img[src*="anplupus"] { height: 40px; margin: 16px 0 22px; } /* 16 + 40 + 22 = 72 + 6 do AMAVI: títulos alinhados */
 .lp-org img[src*="amavi"] { height: 72px; }
 .lp-org__contato { font-size: .95rem; }
 .lp-org__contato a { color: var(--plum-700); font-weight: 600; text-decoration: none; white-space: nowrap; }
@@ -286,7 +287,7 @@ html:not(.lp-js) .lp-spreads img { cursor: auto; }
   .lp-chapters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .lp-spreads { grid-template-columns: 1fr; max-width: 720px; }
   .lp-author { grid-template-columns: 1fr; }
-  .lp-why__cols { grid-template-columns: 1fr; max-width: 680px; margin-left: auto; margin-right: auto; }
+  .lp-why__cols { grid-template-columns: 1fr; max-width: 680px; }
   .lp-author__photo { max-width: 360px; }
   .lp-author__photo::before { inset: 6% -10px -10px 6%; }
 }
