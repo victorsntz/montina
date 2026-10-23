@@ -40,7 +40,7 @@ Arquivos do livreto: `npm run build && npm run livreto` (gera o PDF com sangria,
 ### Regras do livreto
 
 - Total múltiplo de 4 (grampo canoa), hoje 60 páginas: capa, 2ª capa (guarda), miolo de 56 páginas, 3ª capa (a página "Por que a borboleta?") e 4ª capa. O `scripts/livreto.py` falha se a conta não fechar depois de uma alteração de texto.
-- Margens espelhadas: 22 mm do lado da lombada, 18 mm do lado de fora; número da página sempre na borda externa.
+- Margens espelhadas: nas páginas de texto, mancha de 140 mm com 30 mm de lombada e 40 mm de borda externa (igual na página da esquerda e na da direita); fólio na borda externa alinhado ao texto, título corrido na interna. Pré-textuais (`page: front`) e a página da borboleta (`page: especial`) usam a largura toda: 22 mm de lombada e 18 mm fora.
 - Folha de rosto e prefácio em página da direita; contracapa sempre na última página da esquerda.
 
 O script `scripts/pdf.mjs` procura o Chromium em `CHROMIUM_PATH`, `/opt/pw-browsers/...` ou nos caminhos comuns do sistema.

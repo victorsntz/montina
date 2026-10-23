@@ -265,14 +265,14 @@ body.print .chapter-end { display: none; }
   background: var(--lilac-050);
   border-top: 2.5px solid var(--plum-500);
   display: flex; align-items: center; gap: 4mm;
-  padding: 0 18mm 0 22mm;
+  padding: 0 40mm 0 30mm; /* fios e fólio alinhados à mancha da página da direita */
   box-sizing: border-box;
 }
 .chapter-last-band .rule { flex: 1; height: 1px; background: var(--plum-300); }
 .chapter-last-band svg { width: 11mm; height: auto; flex: none; }
 .chapter-last-band .txt { font-family: var(--sans); font-size: 7.5pt; letter-spacing: 0.14em; text-transform: uppercase; color: var(--plum-700); font-weight: 700; white-space: nowrap; }
 .chapter-last-band .pg { font-family: var(--serif); font-size: 10pt; color: var(--plum-700); margin-left: 2mm; }
-.pagedjs_left_page .chapter-last-band { flex-direction: row-reverse; padding: 0 22mm 0 18mm; }
+.pagedjs_left_page .chapter-last-band { flex-direction: row-reverse; padding: 0 30mm 0 40mm; }
 .pagedjs_left_page .chapter-last-band .pg { margin-left: 0; margin-right: 2mm; }
 
 /* fim de capítulo (versão web, em linha) */
@@ -716,10 +716,11 @@ td.tel { white-space: nowrap; }
     padding-top: 5.5mm;
   }
 }
-/* livreto: páginas da esquerda espelham a margem (lombada sempre com 22 mm) e o rodapé (fólio na borda externa) */
+/* livreto: a mancha de 140 mm fica com 30 mm de lombada e 40 mm de borda externa nas duas páginas do par;
+   fólio na borda externa e título corrido na interna, alinhados às bordas do texto */
 @page :left {
-  margin-left: 18mm;
-  margin-right: 22mm;
+  margin-left: 40mm;
+  margin-right: 30mm;
   @bottom-left {
     content: counter(page);
     font-family: "Fraunces", serif;
@@ -743,8 +744,8 @@ td.tel { white-space: nowrap; }
   }
 }
 @page :right {
-  margin-left: 22mm;
-  margin-right: 18mm;
+  margin-left: 30mm;
+  margin-right: 40mm;
 }
 @page cover {
   margin: 0;
@@ -766,15 +767,26 @@ td.tel { white-space: nowrap; }
   @bottom-right { content: counter(page, lower-roman); }
 }
 @page front:left {
+  margin-left: 18mm;
+  margin-right: 22mm;
   @bottom-left { content: counter(page, lower-roman); }
   @bottom-right { content: none; }
 }
+/* pré-textuais (folha de rosto, ficha, sumário, prefácio) usam a largura toda: 22 mm de lombada, 18 mm fora */
+@page front:right {
+  margin-left: 22mm;
+  margin-right: 18mm;
+}
+/* "Por que a borboleta?" (3ª capa) é uma página de composição, em duas colunas: também usa a largura toda */
+@page especial:right { margin-left: 22mm; margin-right: 18mm; }
+@page especial:left { margin-left: 18mm; margin-right: 22mm; }
 @page cover:left { margin: 0; }
 @page cover:right { margin: 0; }
 
 
 .chapter h1, .bonus h1 { string-set: chapter-title content(text); }
 .front-matter, .toc { page: front; }
+#borboleta { page: especial; }
 .cover, .back-cover { page: cover; }
 .cover { margin: 0; }
 .back-cover { margin: 0; }
@@ -963,8 +975,8 @@ body.web .back-cover .isbn { display: none; }
 /* aberturas de capítulo, referências e bônus: só o fólio no rodapé (o título já está na página) */
 .pagedjs_right_page.chapter-first .pagedjs_margin-bottom-left,
 .pagedjs_left_page.chapter-first .pagedjs_margin-bottom-right { visibility: hidden; }
-/* livreto: a mancha de 140 mm espelha; nas páginas pares ela encosta na lombada, como nas ímpares */
-body.print .pagedjs_left_page .pagedjs_page_content :is(section.chapter, section.refs) > :not(.chapter-opener) { margin-left: 30mm; }
+/* aberturas na mancha de 140 mm: o título encolhe na mesma proporção (150 → 140 mm) e mantém as quebras de antes */
+body.print .chapter-opener h1 { font-size: 2.95rem; max-width: none; }
 /* contracapa: logos num eixo só, com o do meio sobre a linha central (a de "Apoio" e do ISBN) */
 body.print .back-cover .logos { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8mm; }
 body.print .back-cover .logos .logo:first-child { justify-self: end; margin-right: -3.6mm; }

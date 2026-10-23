@@ -78,6 +78,7 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <title>Memorial descritivo do projeto gráfico</title>
 <link rel="stylesheet" href="styles.css">
+<style>/* o memorial é um documento de leitura: mantém a largura toda, sem as margens de livreto da cartilha */ @page :left { margin-left: 18mm; margin-right: 22mm; } @page :right { margin-left: 22mm; margin-right: 18mm; }</style>
 <style>
   body.print { font-size: 1rem; }
   /* capa e contracapa: cor escura do site da Fortunato (#15140F); o fundo vai na página inteira via handler */
@@ -336,7 +337,7 @@ const html = `<!DOCTYPE html>
     <li><strong>Um destaque por capítulo.</strong> Só o parágrafo de abertura fica na serifa maior; o corpo é uniforme.</li>
     <li><strong>Fim de capítulo no rodapé.</strong> A faixa lilás com a borboleta ocupa a base da última página de cada capítulo, com o número da página dentro dela.</li>
     <li><strong>Numeração de livro.</strong> Pré-textuais em algarismos romanos, capítulos em arábicos, rodapé com o nome do capítulo.</li>
-    <li><strong>Pensada como livreto.</strong> Margens espelhadas (22 mm do lado da lombada, 18 mm do lado de fora) e número da página sempre na borda externa. A 2ª capa é uma guarda na cor da capa, a folha de rosto e o prefácio caem em página da direita, e a contracapa fecha na última página da esquerda. O total fecha em 60 páginas, múltiplo de 4, como o grampo exige, sem nenhuma página em branco.</li>
+    <li><strong>Pensada como livreto.</strong> Nas páginas de texto, a mancha de 140 mm fica com 30 mm de lombada e 40 mm de borda externa, igual nas páginas da esquerda e da direita; o número da página fica na borda externa, alinhado ao texto, e o título corrido na interna. Pré-textuais e a página da borboleta, que são composições, usam a largura toda. A 2ª capa é uma guarda na cor da capa, a folha de rosto e o prefácio caem em página da direita, e a contracapa fecha na última página da esquerda. O total fecha em 60 páginas, múltiplo de 4, como o grampo exige, sem nenhuma página em branco.</li>
   </ul>
   <div class="why">
     <div class="lab">Por que tanta regra</div>
