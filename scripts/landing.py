@@ -93,7 +93,7 @@ SITE = os.environ.get("SITE_URL", "").strip()
 # dados estruturados (schema.org Book): o Google entende que a página é de um livro, com ISBN, autora e formato
 livro = {"@context": "https://schema.org", "@type": "Book", "name": "Manual para o paciente com lúpus do Distrito Federal",
          "author": {"@type": "Person", "name": "Paula Cristina Montina", "honorificPrefix": "Dra.", "jobTitle": "Médica Reumatologista"},
-         "isbn": ISBN.replace("-", ""), "bookEdition": "1", "numberOfPages": PDF_PAGINAS,
+         "isbn": ISBN.replace("-", ""), "bookEdition": "1", "bookFormat": "https://schema.org/EBook", "numberOfPages": PDF_PAGINAS,
          "inLanguage": "pt-BR", "datePublished": "2026", "isAccessibleForFree": True, "locationCreated": "Brasília, DF",
          "about": "Lúpus eritematoso sistêmico",
          "description": "Cartilha gratuita para pacientes com lúpus, familiares e cuidadores do Distrito Federal: a doença, o tratamento, a vacinação, a gravidez, o acesso ao SUS e à Farmácia de Alto Custo, os direitos do paciente e onde buscar ajuda.",
