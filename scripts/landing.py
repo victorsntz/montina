@@ -86,12 +86,8 @@ def svg(nome):
 html = open(os.path.join(SRC, "index.html"), encoding="utf-8").read()
 html = re.sub(r"<!--svg:([\w-]+)-->", lambda m: svg(m.group(1)), html)
 html = html.replace("{{PDF_PAGINAS}}", str(PDF_PAGINAS)).replace("{{PDF_MB}}", PDF_MB)
-# endereço público (ex.: SITE_URL=https://victorsntz.github.io/montina/): prévia do link com imagem e endereço completos.
-# Com domínio próprio (ex.: DOMINIO=cartilhalupusdf.com.br), grava o CNAME do GitHub Pages e usa https://DOMINIO/ como endereço.
-DOMINIO = os.environ.get("DOMINIO", "").strip().lower().removeprefix("https://").removeprefix("http://").strip("/")
-SITE = os.environ.get("SITE_URL", "").strip() or (f"https://{DOMINIO}/" if DOMINIO else "")
-if DOMINIO:
-    open(os.path.join(OUT, "CNAME"), "w").write(DOMINIO + "\n")
+# endereço público (SITE_URL=https://montinamedicina.com/cartilha/): prévia do link com imagem, canônico e compartilhar com endereço completo
+SITE = os.environ.get("SITE_URL", "").strip()
 # dados estruturados (schema.org Book): o Google entende que a página é de um livro, com ISBN, autora e formato
 livro = {"@context": "https://schema.org", "@type": "Book", "name": "Manual para o paciente com lúpus do Distrito Federal",
          "author": {"@type": "Person", "name": "Paula Cristina Montina", "honorificPrefix": "Dra.", "jobTitle": "Médica Reumatologista"},
@@ -132,6 +128,73 @@ versao = hashlib.md5(open(os.path.join(OUT, "og-cartilha.jpg"), "rb").read()).he
 pagina = os.path.join(OUT, "index.html")
 html = open(pagina, encoding="utf-8").read().replace('og-cartilha.jpg"', f'og-cartilha.jpg?v={versao}"')
 open(pagina, "w", encoding="utf-8").write(html)
+
+# ---- raiz do domínio (landing/raiz): quem abre só o domínio cai na cartilha ----
+# A cartilha mora em /cartilha/, para o link compartilhado continuar valendo quando o site da Montina Medicina ocupar a raiz.
+# scripts/publicar.sh junta landing/raiz (raiz) e landing/dist (cartilha/) no branch gh-pages, que a Hostinger puxa pelo Git.
+if SITE.endswith("/cartilha/"):
+    BASE = SITE[: -len("cartilha/")]
+    RAIZ = r("landing", "raiz")
+    shutil.rmtree(RAIZ, ignore_errors=True); os.makedirs(RAIZ)
+    og = f"{SITE}og-cartilha.jpg?v={versao}"
+    open(os.path.join(RAIZ, "index.html"), "w", encoding="utf-8").write(f"""<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual para o paciente com lúpus do DF · Cartilha gratuita</title>
+<meta name="description" content="Cartilha gratuita da Dra. Paula Cristina Montina para pacientes com lúpus do Distrito Federal.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Manual para o paciente com lúpus do Distrito Federal">
+<meta property="og:description" content="Cartilha gratuita para entender a doença, participar do tratamento, conhecer seus direitos e saber onde buscar ajuda no DF.">
+<meta property="og:url" content="{SITE}">
+<meta property="og:image" content="{og}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2b1b33">
+<link rel="canonical" href="{SITE}">
+<link rel="icon" href="cartilha/favicon.svg" type="image/svg+xml">
+<meta http-equiv="refresh" content="0; url=cartilha/">
+<script>location.replace("cartilha/" + location.search + location.hash)</script>
+<style>body{{margin:0;min-height:100vh;display:grid;place-items:center;background:#2b1b33;color:#ece2f1;font:16px system-ui,sans-serif}}a{{color:#fff}}</style>
+</head>
+<body><p><a href="cartilha/">Abrir a cartilha Manual para o paciente com lúpus</a></p></body>
+</html>
+""")
+    open(os.path.join(RAIZ, ".htaccess"), "w").write(f"""# Hostinger (Apache/LiteSpeed). A raiz leva para a cartilha com 302 (temporário):
+# quando o site da Montina Medicina ocupar a raiz, é só apagar a linha abaixo.
+RedirectMatch 302 ^/$ /cartilha/
+
+AddDefaultCharset UTF-8
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+""")
+    open(os.path.join(RAIZ, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {BASE}sitemap.xml\n")
+    open(os.path.join(RAIZ, "sitemap.xml"), "w").write(f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{SITE}</loc><priority>1.0</priority></url>
+  <url><loc>{SITE}ler/index.html</loc><priority>0.8</priority></url>
+</urlset>
+""")
+    open(os.path.join(RAIZ, ".nojekyll"), "w").close()
+    # favicon.ico na raiz (navegadores e o Google pedem /favicon.ico mesmo com o SVG declarado)
+    marca = pymupdf.open(r("src", "illustrations", "mark-borboleta.svg"))
+    pm = marca[0].get_pixmap(matrix=pymupdf.Matrix(256 / marca[0].rect.width, 256 / marca[0].rect.width), alpha=True)
+    ic = Image.frombytes("RGBA", (pm.width, pm.height), pm.samples)
+    lado = max(ic.size); quad = Image.new("RGBA", (lado, lado), (0, 0, 0, 0)); quad.paste(ic, ((lado - ic.width) // 2, (lado - ic.height) // 2))
+    quad.save(os.path.join(RAIZ, "favicon.ico"), sizes=[(16, 16), (32, 32), (48, 48), (64, 64)])
+    print(f"raiz ok: landing/raiz ({BASE} → {SITE})")
 
 total = sum(os.path.getsize(os.path.join(p, f)) for p, _, fs in os.walk(OUT) for f in fs)
 n = sum(len(fs) for _, _, fs in os.walk(OUT))

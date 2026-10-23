@@ -88,34 +88,20 @@ A pasta `landing/dist/` é um site estático pronto: página de download com moc
 
 ### Como colocar no ar
 
-**No ar agora:** https://victorsntz.github.io/montina/ (GitHub Pages, servido da branch `gh-pages`, que contém só a pasta `landing/dist`).
+**No ar:** https://montinamedicina.com/cartilha/ (Hostinger). Quem abre só `montinamedicina.com` é levado para a cartilha. Espelho: https://victorsntz.github.io/montina/.
 
-Para atualizar o GitHub Pages depois de mudar a landing:
+O branch `gh-pages` guarda o site pronto: `landing/raiz` na raiz (redirecionamento, `.htaccess`, `robots.txt`, `sitemap.xml`, `favicon.ico`) e `landing/dist` em `cartilha/`. A Hostinger puxa esse branch pelo Git (hPanel → Avançado → GIT, repositório `https://github.com/victorsntz/montina.git`, branch `gh-pages`, diretório em branco = `public_html`).
+
+Para atualizar:
 
 ```
-SITE_URL=https://victorsntz.github.io/montina/ /usr/bin/python3 scripts/landing.py
+SITE_URL=https://montinamedicina.com/cartilha/ /usr/bin/python3 scripts/landing.py
 git add landing && git commit -m "Atualiza a landing"
-git push origin $(git commit-tree $(git rev-parse HEAD:landing/dist) -p origin/gh-pages -m "Atualiza a landing"):refs/heads/gh-pages
+bash scripts/publicar.sh "Atualiza a landing"
 ```
 
-Outras opções:
+Depois, no hPanel, **Implantar** de novo (ou ligue o webhook de implantação automática que a Hostinger mostra na tela do Git, em GitHub → Settings → Webhooks).
 
-1. **Mais rápido (sem programar):** entre em https://app.netlify.com/drop e arraste a pasta `landing/dist`. Em segundos sai um endereço público. Depois dá para ligar um domínio próprio no painel.
-2. **No site da Montina Medicina:** suba o conteúdo de `landing/dist` numa pasta do site, por exemplo `/cartilha/`. A página e os arquivos usam caminhos relativos, então funcionam em qualquer pasta.
-3. **Em qualquer endereço definitivo:** monte com `SITE_URL=https://endereco/da/pagina/` para a prévia do WhatsApp, o link canônico, os dados estruturados (schema.org Book, com o ISBN) e o botão de compartilhar saírem com o endereço completo.
+A cartilha fica em `/cartilha/` de propósito: quando o site da Montina Medicina ocupar a raiz, o link que circulou no WhatsApp continua abrindo a cartilha. Para liberar a raiz, apague a linha `RedirectMatch` do `.htaccess` (o redirecionamento é 302, temporário, então nenhum navegador guarda).
 
-### Domínio próprio no GitHub Pages
-
-1. Compre o domínio (para `.com.br`, no registro.br).
-2. No DNS do domínio:
-   - domínio raiz (ex.: `cartilhalupusdf.com.br`): quatro registros **A** para `185.199.108.153`, `185.199.109.153`, `185.199.110.153` e `185.199.111.153` (e, se o painel aceitar IPv6, quatro **AAAA** para `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153` e `2606:50c0:8003::153`);
-   - `www`: um registro **CNAME** para `victorsntz.github.io`.
-3. Monte e publique com o domínio (grava o arquivo `CNAME` na pasta publicada e usa `https://dominio/` em todos os endereços):
-
-   ```
-   DOMINIO=cartilhalupusdf.com.br /usr/bin/python3 scripts/landing.py
-   git push origin $(git commit-tree $(git rev-parse HEAD:landing/dist) -p origin/gh-pages -m "Domínio próprio"):refs/heads/gh-pages
-   ```
-4. No GitHub, em **Settings → Pages**, confira o domínio em *Custom domain* e marque **Enforce HTTPS** quando o certificado ficar pronto (pode levar algumas horas).
-
-Com domínio próprio a página fica na raiz do domínio (sem o `/montina/`); como todos os caminhos são relativos, nada mais muda.
+Outra opção, sem Git: suba o conteúdo de `landing/raiz` e uma pasta `cartilha/` com o conteúdo de `landing/dist` para a `public_html` pelo Gerenciador de Arquivos. Todos os caminhos da página são relativos.
