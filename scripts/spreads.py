@@ -8,14 +8,16 @@ out = sys.argv[2] if len(sys.argv) > 2 else "dist/cartilha-lupus-df-livreto-pagi
 d = pymupdf.open(src)
 n = len(d)
 if n % 4: print(f"ATENÇÃO: {n} páginas não é múltiplo de 4 (livreto grampeado precisa de múltiplo de 4)")
-w, h = d[0].rect.width, d[0].rect.height
+# arquivo de gráfica (com sangria e marcas): mostra só a área de refile (TrimBox), como a página fica depois do corte
+corte = d[0].trimbox if d[0].trimbox != d[0].rect else None
+w, h = (corte or d[0].rect).width, (corte or d[0].rect).height
 o = pymupdf.open()
 spreads = [(None, 0)] + [(i, i + 1) for i in range(1, n - 1, 2)] + [(n - 1, None)]
 for left, right in spreads:
     pg = o.new_page(width=2 * w, height=h)
     pg.draw_rect(pg.rect, color=None, fill=(0.85, 0.83, 0.86))
-    if left is not None: pg.show_pdf_page(pymupdf.Rect(0, 0, w, h), d, left)
-    if right is not None: pg.show_pdf_page(pymupdf.Rect(w, 0, 2 * w, h), d, right)
+    if left is not None: pg.show_pdf_page(pymupdf.Rect(0, 0, w, h), d, left, clip=corte)
+    if right is not None: pg.show_pdf_page(pymupdf.Rect(w, 0, 2 * w, h), d, right, clip=corte)
     pg.draw_line((w, 0), (w, h), color=(0.6, 0.6, 0.6), width=0.4)
 o.set_metadata({"title": "Manual para o paciente com lúpus do Distrito Federal · páginas duplas (conferência)", "author": "Dra. Paula Cristina Montina", "creator": "Fortunato Estúdio", "producer": ""})
 o.save(out, garbage=3, deflate=True)
