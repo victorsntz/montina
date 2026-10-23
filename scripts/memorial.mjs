@@ -368,12 +368,12 @@ const html = `<!DOCTYPE html>
     <li><strong>Visualização em páginas duplas</strong>, para conferir os pares como o leitor vai ver o livreto aberto.</li>
     <li><strong>Versão web</strong> responsiva, com o mesmo texto, navegação pelo sumário e botão de download do PDF.</li>
     <li><strong>Prova comentável</strong> em página HTML paginada, usada nas rodadas de revisão.</li>
-    <li><strong>Ficha catalográfica</strong> (CIP) montada com CDD 616.772 e CDU 616.5-002.52; o ISBN entra na ficha assim que sair o registro na Câmara Brasileira do Livro.</li>
+    <li><strong>Ficha catalográfica</strong> (CIP) montada com CDD 616.772 e CDU 616.5-002.52; ISBN 978-65-02-46030-6, registrado na Câmara Brasileira do Livro e impresso também na 4ª capa, com código de barras EAN-13 em vetor.</li>
     <li><strong>Marcas</strong>: Fortunato Estúdio (tipográfica, a partir da identidade do estúdio), Sociedade de Reumatologia de Brasília (vetor oficial, versões colorida e branca), ANPLúpus (apoio e rede, arquivo oficial) e AMAVI Raras (arquivo oficial).</li>
   </ul>
   <div class="why">
     <div class="lab">Por que escalável</div>
-    <p>A cartilha vai ter novas edições: telefones mudam, protocolos mudam, o ISBN chega. Todo o projeto foi construído para que a segunda edição custe uma tarde, não um novo projeto.</p>
+    <p>A cartilha vai ter novas edições: telefones mudam, protocolos mudam, e cada nova edição ganha o seu próprio ISBN. Todo o projeto foi construído para que a segunda edição custe uma tarde, não um novo projeto.</p>
   </div>
 </section>
 

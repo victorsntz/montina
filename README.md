@@ -28,7 +28,14 @@ Saídas em `dist/`:
 | `prova.html` | prova paginada estática em páginas duplas, para revisão no navegador |
 | `memorial-projeto-grafico.pdf` | memorial descritivo do projeto gráfico (`npm run memorial`) |
 
-Arquivos do livreto: `npm run build && npm run livreto` (gera o PDF com sangria, converte para CMYK com o texto em curvas, separa capa e miolo, confere que o total e o miolo são múltiplos de 4 e gera as páginas duplas; usa `gs` e o Python com `pymupdf`).
+Arquivos do livreto: `npm run build && npm run livreto` (gera o PDF com sangria, converte para CMYK com o texto em curvas, troca o preto do código de barras por 100% K, separa capa e miolo, confere que o total e o miolo são múltiplos de 4 e gera as páginas duplas; usa `gs` e o Python com `pymupdf`).
+
+### ISBN
+
+- **ISBN 978-65-02-46030-6** (registrado na CBL). Aparece na ficha catalográfica (`content/00-capa.html`) e na 4ª capa, com o código de barras EAN-13.
+- O código de barras é desenhado em vetor por `scripts/codigo-barras.py` (gera `src/illustrations/isbn-codigo-barras.svg`, 90% do tamanho nominal na contracapa). Na versão web ele fica escondido.
+- `scripts/preto100k.py` troca o preto de quatro cores que o Ghostscript gera por 100% K nos PDFs CMYK, para as barras não borrarem na impressão. O `livreto.py` e o `npm run cmyk` já chamam o script.
+- Nova edição, novo formato (impresso e PDF são formatos diferentes) ou mudança de título pedem ISBN novo: troque a constante em `scripts/codigo-barras.py`, a linha da ficha e a constante `ISBN` de `scripts/landing.py`.
 
 ### Regras do livreto
 
@@ -95,4 +102,20 @@ Outras opções:
 
 1. **Mais rápido (sem programar):** entre em https://app.netlify.com/drop e arraste a pasta `landing/dist`. Em segundos sai um endereço público. Depois dá para ligar um domínio próprio no painel.
 2. **No site da Montina Medicina:** suba o conteúdo de `landing/dist` numa pasta do site, por exemplo `/cartilha/`. A página e os arquivos usam caminhos relativos, então funcionam em qualquer pasta.
-3. **Depois de ter o endereço definitivo:** troque em `landing/src/index.html` as metatags `og:image` e `og:url` por endereços completos (por exemplo `https://montinamedicina.com.br/cartilha/og-cartilha.jpg`) e monte de novo. É isso que faz a prévia com imagem aparecer quando o link é compartilhado no WhatsApp.
+3. **Em qualquer endereço definitivo:** monte com `SITE_URL=https://endereco/da/pagina/` para a prévia do WhatsApp, o link canônico, os dados estruturados (schema.org Book, com o ISBN) e o botão de compartilhar saírem com o endereço completo.
+
+### Domínio próprio no GitHub Pages
+
+1. Compre o domínio (para `.com.br`, no registro.br).
+2. No DNS do domínio:
+   - domínio raiz (ex.: `cartilhalupusdf.com.br`): quatro registros **A** para `185.199.108.153`, `185.199.109.153`, `185.199.110.153` e `185.199.111.153` (e, se o painel aceitar IPv6, quatro **AAAA** para `2606:50c0:8000::153`, `2606:50c0:8001::153`, `2606:50c0:8002::153` e `2606:50c0:8003::153`);
+   - `www`: um registro **CNAME** para `victorsntz.github.io`.
+3. Monte e publique com o domínio (grava o arquivo `CNAME` na pasta publicada e usa `https://dominio/` em todos os endereços):
+
+   ```
+   DOMINIO=cartilhalupusdf.com.br /usr/bin/python3 scripts/landing.py
+   git push origin $(git commit-tree $(git rev-parse HEAD:landing/dist) -p origin/gh-pages -m "Domínio próprio"):refs/heads/gh-pages
+   ```
+4. No GitHub, em **Settings → Pages**, confira o domínio em *Custom domain* e marque **Enforce HTTPS** quando o certificado ficar pronto (pode levar algumas horas).
+
+Com domínio próprio a página fica na raiz do domínio (sem o `/montina/`); como todos os caminhos são relativos, nada mais muda.

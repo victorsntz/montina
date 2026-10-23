@@ -928,3 +928,8 @@ body.web .guarda { display: none; }
 /* logos de apoio da contracapa: caixa com a altura do logo mais alto, nada invade o rótulo */
 .back-cover .logos .logo { height: 20mm; }
 .back-cover .logos .logo svg { height: 11mm; }
+/* ISBN na 4ª capa (Lei 10.753/2003): selo branco centralizado no pé, a 90% do tamanho nominal do EAN-13 */
+.back-cover .inner { bottom: 52mm; }
+.back-cover .isbn { position: absolute; left: 50%; bottom: 16mm; width: 35.9mm; transform: translateX(-50%); line-height: 0; }
+.back-cover .isbn svg { width: 100%; height: auto; display: block; }
+body.web .back-cover .isbn { display: none; }

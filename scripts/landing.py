@@ -3,12 +3,13 @@
 Uso (depois de `npm run build && npm run pdf`):  /usr/bin/python3 scripts/landing.py
 Gera imagens a partir do PDF de leitura, copia fontes, logos, foto e o PDF para download,
 expande as ilustrações inline, inclui a versão para ler no celular (ler/) e a imagem de prévia (og-cartilha.jpg)."""
-import hashlib, os, re, shutil, subprocess, sys
+import hashlib, json, os, re, shutil, subprocess, sys
 from urllib.parse import quote
 import pymupdf
 from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ISBN = "978-65-02-46030-6"
 SRC, OUT = os.path.join(ROOT, "landing", "src"), os.path.join(ROOT, "landing", "dist")
 PDF = os.path.join(ROOT, "dist", "cartilha-lupus-df-a4.pdf")
 PDF_NOME = "Manual-para-o-paciente-com-lupus-DF.pdf"
@@ -67,7 +68,7 @@ for f in ("fraunces-latin-wght-normal.woff2", "fraunces-latin-wght-italic.woff2"
 # PDF para download, com autoria e assunto nos metadados (aparecem no leitor de PDF e no Google Drive)
 pdf = pymupdf.open(PDF)
 pdf.set_metadata({**pdf.metadata, "title": "Manual para o paciente com lúpus do Distrito Federal", "author": "Dra. Paula Cristina Montina",
-                  "subject": "Cartilha para pacientes com lúpus no Distrito Federal", "keywords": "lúpus, reumatologia, SUS, Distrito Federal, cartilha"})
+                  "subject": f"Cartilha para pacientes com lúpus no Distrito Federal · ISBN {ISBN}", "keywords": "lúpus, reumatologia, SUS, Distrito Federal, cartilha"})
 pdf.save(os.path.join(OUT, PDF_NOME), garbage=0, deflate=False)
 PDF_PAGINAS = len(pdf); pdf.close()
 PDF_MB = f"{os.path.getsize(os.path.join(OUT, PDF_NOME)) / 1e6:.1f} MB".replace(".", ",")  # MB decimal, como o celular mostra
@@ -85,8 +86,23 @@ def svg(nome):
 html = open(os.path.join(SRC, "index.html"), encoding="utf-8").read()
 html = re.sub(r"<!--svg:([\w-]+)-->", lambda m: svg(m.group(1)), html)
 html = html.replace("{{PDF_PAGINAS}}", str(PDF_PAGINAS)).replace("{{PDF_MB}}", PDF_MB)
-# endereço público (ex.: SITE_URL=https://victorsntz.github.io/montina/): prévia do link com imagem e endereço completos
-SITE = os.environ.get("SITE_URL", "").strip()
+# endereço público (ex.: SITE_URL=https://victorsntz.github.io/montina/): prévia do link com imagem e endereço completos.
+# Com domínio próprio (ex.: DOMINIO=cartilhalupusdf.com.br), grava o CNAME do GitHub Pages e usa https://DOMINIO/ como endereço.
+DOMINIO = os.environ.get("DOMINIO", "").strip().lower().removeprefix("https://").removeprefix("http://").strip("/")
+SITE = os.environ.get("SITE_URL", "").strip() or (f"https://{DOMINIO}/" if DOMINIO else "")
+if DOMINIO:
+    open(os.path.join(OUT, "CNAME"), "w").write(DOMINIO + "\n")
+# dados estruturados (schema.org Book): o Google entende que a página é de um livro, com ISBN, autora e formato
+livro = {"@context": "https://schema.org", "@type": "Book", "name": "Manual para o paciente com lúpus do Distrito Federal",
+         "author": {"@type": "Person", "name": "Paula Cristina Montina", "honorificPrefix": "Dra.", "jobTitle": "Médica Reumatologista"},
+         "isbn": ISBN.replace("-", ""), "bookEdition": "1", "bookFormat": "https://schema.org/EBook", "numberOfPages": PDF_PAGINAS,
+         "inLanguage": "pt-BR", "datePublished": "2026", "isAccessibleForFree": True, "locationCreated": "Brasília, DF",
+         "about": "Lúpus eritematoso sistêmico",
+         "description": "Cartilha gratuita para pacientes com lúpus, familiares e cuidadores do Distrito Federal: a doença, o tratamento, a vacinação, a gravidez, o acesso ao SUS e à Farmácia de Alto Custo, os direitos do paciente e onde buscar ajuda.",
+         "contributor": {"@type": "Organization", "name": "Fortunato Estúdio", "url": "https://fortunatoestudio.com"}}
+if SITE:
+    livro.update({"url": SITE.rstrip("/") + "/", "image": SITE.rstrip("/") + "/og-cartilha.jpg"})
+html = html.replace("<!--dados-estruturados-->", '<script type="application/ld+json">' + json.dumps(livro, ensure_ascii=False) + "</script>")
 if SITE:
     SITE = SITE.rstrip("/") + "/"
     html = html.replace('<meta property="og:image" content="og-cartilha.jpg">', f'<meta property="og:url" content="{SITE}">\n<meta property="og:image" content="{SITE}og-cartilha.jpg">\n<link rel="canonical" href="{SITE}">')
