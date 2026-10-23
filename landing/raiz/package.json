@@ -1,0 +1,8 @@
+{
+  "name": "montina-cartilha-site",
+  "private": true,
+  "description": "Site estático da cartilha (montinamedicina.com/cartilha). Sem dependências: o build só junta os arquivos prontos em dist/.",
+  "scripts": {
+    "build": "node montar.mjs"
+  }
+}

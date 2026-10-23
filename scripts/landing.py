@@ -200,6 +200,19 @@ AddDefaultCharset UTF-8
 </urlset>
 """)
     open(os.path.join(RAIZ, ".nojekyll"), "w").close()
+    # hospedagem que compila pelo Git (Hostinger Web Apps): npm install + npm run build sem dependências,
+    # o build só junta os arquivos prontos em dist/ (diretório de saída)
+    open(os.path.join(RAIZ, "package.json"), "w", encoding="utf-8").write(json.dumps({
+        "name": "montina-cartilha-site", "private": True,
+        "description": "Site estático da cartilha (montinamedicina.com/cartilha). Sem dependências: o build só junta os arquivos prontos em dist/.",
+        "scripts": {"build": "node montar.mjs"}}, ensure_ascii=False, indent=2) + "\n")
+    open(os.path.join(RAIZ, "montar.mjs"), "w", encoding="utf-8").write("""// Junta o site pronto em dist/ (não compila nada: as páginas já vêm prontas do projeto da cartilha)
+import { cpSync, rmSync, mkdirSync } from "node:fs";
+rmSync("dist", { recursive: true, force: true });
+mkdirSync("dist");
+for (const f of ["index.html", ".htaccess", "robots.txt", "sitemap.xml", "favicon.ico", "cartilha"]) cpSync(f, "dist/" + f, { recursive: true });
+console.log("site pronto em dist/");
+""")
     # favicon.ico na raiz (navegadores e o Google pedem /favicon.ico mesmo com o SVG declarado)
     marca = pymupdf.open(r("src", "illustrations", "mark-borboleta.svg"))
     pm = marca[0].get_pixmap(matrix=pymupdf.Matrix(256 / marca[0].rect.width, 256 / marca[0].rect.width), alpha=True)
