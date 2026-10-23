@@ -17,5 +17,6 @@ for left, right in spreads:
     if left is not None: pg.show_pdf_page(pymupdf.Rect(0, 0, w, h), d, left)
     if right is not None: pg.show_pdf_page(pymupdf.Rect(w, 0, 2 * w, h), d, right)
     pg.draw_line((w, 0), (w, h), color=(0.6, 0.6, 0.6), width=0.4)
+o.set_metadata({"title": "Manual para o paciente com lúpus do Distrito Federal · páginas duplas (conferência)", "author": "Dra. Paula Cristina Montina", "creator": "Fortunato Estúdio", "producer": ""})
 o.save(out, garbage=3, deflate=True)
 print(f"páginas duplas ok: {len(spreads)} lâminas → {out}")

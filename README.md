@@ -20,11 +20,11 @@ Saídas em `dist/`:
 | Arquivo | Uso |
 | --- | --- |
 | `cartilha-lupus-df-a4.pdf` | leitura em tela e impressão caseira (A4, RGB, 60 páginas, mesma paginação do livreto) |
-| `cartilha-lupus-df-livreto-curvas-cmyk.pdf` | **arquivo final de gráfica**: livreto grampeado, 60 páginas em sequência, CMYK, texto em curvas, 216 × 303 mm (sangria de 3 mm) com marcas de corte |
+| `cartilha-lupus-df-livreto-curvas-cmyk.pdf` | **arquivo final de gráfica**: livreto grampeado, 60 páginas em sequência, CMYK, texto em curvas, refile A4 com sangria de 3 mm, marcas de corte fora da sangria e TrimBox/BleedBox; texto, QR Codes e código de barras em 100% K |
 | `cartilha-lupus-df-livreto-capa-4pp-curvas.pdf` | só a capa (1ª, 2ª, 3ª e 4ª capa), para imprimir em papel mais encorpado |
 | `cartilha-lupus-df-livreto-miolo-curvas.pdf` | só o miolo (56 páginas) |
 | `cartilha-lupus-df-livreto-paginas-duplas.pdf` | visualização em páginas duplas, como o leitor vê o livreto aberto |
-| `cartilha-lupus-df-a4-grafica-sangria3mm-cmyk.pdf` | gráfica, CMYK, com as fontes embutidas (para gráficas que preferem texto vivo) |
+| `cartilha-lupus-df-a4-grafica-sangria3mm-cmyk.pdf` | gráfica, CMYK, com as fontes no arquivo (Type 3, não editáveis); prefira o arquivo em curvas |
 | `prova.html` | prova paginada estática em páginas duplas, para revisão no navegador |
 | `memorial-projeto-grafico.pdf` | memorial descritivo do projeto gráfico (`npm run memorial`) |
 
@@ -78,6 +78,9 @@ dist/             saída pronta (PDF, HTML, fontes e assets)
 | `farmacia-estoque` | https://info.saude.df.gov.br/saude-do-cidadao/painel-infosaude-farmacias-de-alto-custo/ |
 | `instagram-anplupus` | https://www.instagram.com/anplupus |
 | `instagram-amaviraras` | https://www.instagram.com/amaviraras |
+| `site-amaviraras` | https://www.amaviraras.org/ |
+
+Na versão digital (PDF de leitura e web) os QR Codes, endereços, e-mails e telefones também são clicáveis.
 
 ## Landing page para baixar a cartilha
 

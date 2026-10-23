@@ -68,7 +68,9 @@ for f in ("fraunces-latin-wght-normal.woff2", "fraunces-latin-wght-italic.woff2"
 # PDF para download, com autoria e assunto nos metadados (aparecem no leitor de PDF e no Google Drive)
 pdf = pymupdf.open(PDF)
 pdf.set_metadata({**pdf.metadata, "title": "Manual para o paciente com lúpus do Distrito Federal", "author": "Dra. Paula Cristina Montina",
-                  "subject": f"Cartilha para pacientes com lúpus no Distrito Federal · ISBN {ISBN}", "keywords": "lúpus, reumatologia, SUS, Distrito Federal, cartilha"})
+                  "subject": f"Cartilha para pacientes com lúpus no Distrito Federal · ISBN {ISBN}", "keywords": "lúpus, reumatologia, SUS, Distrito Federal, cartilha",
+                  "creator": "Fortunato Estúdio", "producer": ""})
+pdf.set_pagemode("UseOutlines")
 pdf.save(os.path.join(OUT, PDF_NOME), garbage=0, deflate=False)
 PDF_PAGINAS = len(pdf); pdf.close()
 PDF_MB = f"{os.path.getsize(os.path.join(OUT, PDF_NOME)) / 1e6:.1f} MB".replace(".", ",")  # MB decimal, como o celular mostra
@@ -91,7 +93,7 @@ SITE = os.environ.get("SITE_URL", "").strip()
 # dados estruturados (schema.org Book): o Google entende que a página é de um livro, com ISBN, autora e formato
 livro = {"@context": "https://schema.org", "@type": "Book", "name": "Manual para o paciente com lúpus do Distrito Federal",
          "author": {"@type": "Person", "name": "Paula Cristina Montina", "honorificPrefix": "Dra.", "jobTitle": "Médica Reumatologista"},
-         "isbn": ISBN.replace("-", ""), "bookEdition": "1", "bookFormat": "https://schema.org/EBook", "numberOfPages": PDF_PAGINAS,
+         "isbn": ISBN.replace("-", ""), "bookEdition": "1", "numberOfPages": PDF_PAGINAS,
          "inLanguage": "pt-BR", "datePublished": "2026", "isAccessibleForFree": True, "locationCreated": "Brasília, DF",
          "about": "Lúpus eritematoso sistêmico",
          "description": "Cartilha gratuita para pacientes com lúpus, familiares e cuidadores do Distrito Federal: a doença, o tratamento, a vacinação, a gravidez, o acesso ao SUS e à Farmácia de Alto Custo, os direitos do paciente e onde buscar ajuda.",
@@ -112,6 +114,16 @@ web = open(r("dist", "index.html"), encoding="utf-8").read()
 web = web.replace('href="cartilha-lupus-df-a4.pdf"', f'href="../{PDF_NOME}" download')
 web = web.replace('<a href="#sumario">', '<a href="../index.html">← Voltar</a><a href="#sumario">', 1)
 web = web.replace("</title>", '</title>\n<link rel="icon" href="../favicon.svg" type="image/svg+xml">', 1)
+if SITE:  # prévia e endereço canônico também para o link "Ler online" compartilhado
+    web = web.replace("</title>", f"""</title>
+<meta property="og:type" content="book">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Manual para o paciente com lúpus do Distrito Federal">
+<meta property="og:description" content="Leia online a cartilha gratuita da Dra. Paula Cristina Montina para pacientes com lúpus do DF.">
+<meta property="og:url" content="{SITE}ler/index.html">
+<meta property="og:image" content="{SITE}og-cartilha.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="{SITE}ler/index.html">""", 1)
 web = re.sub(r"<img (?![^>]*loading=)", '<img loading="lazy" decoding="async" ', web)
 open(os.path.join(ler, "index.html"), "w", encoding="utf-8").write(web)
 shutil.copy(r("dist", "styles.css"), os.path.join(ler, "styles.css"))

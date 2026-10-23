@@ -7,7 +7,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(root, "dist");
 const svgDir = join(root, "src/illustrations");
 const svg = (n) => readFileSync(join(svgDir, `${n}.svg`), "utf8").replace(/<\?xml[^>]*>\s*/, "");
-const nSvgs = readdirSync(svgDir).filter(f => f.endsWith(".svg") && !f.startsWith("logo-")).length;
+const nSvgs = readdirSync(svgDir).filter(f => f.endsWith(".svg") && !f.startsWith("logo-") && !f.startsWith("isbn-")).length;
 
 const chapters = [
   ["cap-entendendo", "1 · Entendendo o lúpus", "A borboleta geométrica, símbolo da doença e da cartilha. Abre o livro com o sinal mais conhecido do lúpus transformado em imagem de leveza."],
@@ -166,7 +166,7 @@ const html = `<!DOCTYPE html>
 <body class="print">
 
 <section class="m-cover">
-  <div class="top">${svg("logo-fortunato-dark")}<span>Brasília · setembro de 2026</span></div>
+  <div class="top">${svg("logo-fortunato-dark")}<span>Brasília · outubro de 2026</span></div>
   <div class="art">${svg("capa-verso")}</div>
   <div class="bottom">
     <div class="kicker">Documento de projeto</div>
@@ -188,7 +188,7 @@ const html = `<!DOCTYPE html>
   </div>
   <h2>Compromissos do projeto</h2>
   <ul>
-    <li><strong>Texto integral.</strong> As 517 sentenças do original foram conferidas uma a uma no arquivo final. Só foram corrigidos erros de digitação.</li>
+    <li><strong>Texto integral.</strong> Todas as sentenças do original foram conferidas uma a uma no arquivo final. Só foram corrigidos erros de digitação.</li>
     <li><strong>Formato escalável.</strong> A4 como base: reduz para A5 de bolso ou amplia para A3 sem rediagramar, porque a proporção é a mesma.</li>
     <li><strong>Ilustração autoral.</strong> Nenhuma imagem de banco. Todas as ${nSvgs} peças vetoriais foram desenhadas para este projeto, no mesmo sistema de formas e cores.</li>
     <li><strong>Duas saídas, uma fonte.</strong> O mesmo conteúdo gera a versão impressa (PDF com sangria e CMYK) e a versão web responsiva.</li>
@@ -304,7 +304,7 @@ const html = `<!DOCTYPE html>
   <div class="num">07</div>
   <h1>Ilustrações autorais</h1>
   <p class="lead">Todas as ilustrações desta cartilha são autorais, criadas pela Fortunato Estúdio para este projeto. Nenhuma vem de banco de imagens.</p>
-  <p>São ${nSvgs} peças vetoriais: a capa, onze aberturas de capítulo, vinte e quatro ícones de destaque, cinco ícones de rótulo, a marca de fim de capítulo e as versões da borboleta. Por serem vetor, imprimem nítidas em qualquer tamanho, do A5 ao cartaz, e funcionam na web sem perda.</p>
+  <p>São ${nSvgs} peças vetoriais: a capa, onze aberturas de capítulo, vinte e cinco ícones de destaque, cinco ícones de rótulo, a marca de fim de capítulo e as versões da borboleta. Por serem vetor, imprimem nítidas em qualquer tamanho, do A5 ao cartaz, e funcionam na web sem perda.</p>
   <div class="why">
     <div class="lab">O estilo</div>
     <p>Formas geométricas suaves, sem contorno, construídas só com elipses, círculos e retângulos arredondados. Paleta reduzida à da cartilha. Nenhum rosto realista, nenhuma cena de hospital: o paciente se vê nas imagens sem se ver doente.</p>
@@ -364,7 +364,7 @@ const html = `<!DOCTYPE html>
   <p class="lead">Um único conteúdo-fonte gera todas as versões. Alterações de texto entram uma vez e se propagam.</p>
   <ul class="rules">
     <li><strong>PDF de leitura</strong> (A4, RGB) para tela, e-mail e impressão caseira.</li>
-    <li><strong>PDF de gráfica do livreto</strong>: 60 páginas em sequência (15 folhas A3 dobradas e grampeadas), 216 × 303 mm com sangria de 3 mm, marcas de corte e registro, CMYK e todo o texto convertido em curvas. Também separado em capa (1ª, 2ª, 3ª e 4ª capa, para papel mais encorpado) e miolo de 56 páginas. Capa, guarda e faixas de fim de capítulo avançam na sangria.</li>
+    <li><strong>PDF de gráfica do livreto</strong>: 60 páginas em sequência (15 folhas A3 dobradas e grampeadas), refile A4 com sangria de 3 mm, marcas de corte fora da sangria e TrimBox, CMYK, todo o texto convertido em curvas, e texto corrido, QR Codes e código de barras em 100% preto (K). Também separado em capa (1ª, 2ª, 3ª e 4ª capa, para papel mais encorpado) e miolo de 56 páginas. Capa, guarda e faixas de fim de capítulo avançam na sangria.</li>
     <li><strong>Visualização em páginas duplas</strong>, para conferir os pares como o leitor vai ver o livreto aberto.</li>
     <li><strong>Versão web</strong> responsiva, com o mesmo texto, navegação pelo sumário e botão de download do PDF.</li>
     <li><strong>Prova comentável</strong> em página HTML paginada, usada nas rodadas de revisão.</li>
@@ -381,7 +381,8 @@ const html = `<!DOCTYPE html>
   <div class="num">12</div>
   <h1>Créditos e autoria</h1>
   <dl>
-    <dt>Conteúdo</dt><dd>Dra. Paula Cristina Montina, médica reumatologista, CRM-DF 26.523 · RQE 21.843</dd>
+    <dt>Conteúdo</dt><dd>Dra. Paula Cristina Montina, médica reumatologista, <span class="nw">CRM-DF 26.523</span> · <span class="nw">RQE 21.843</span></dd>
+    <dt>Colaboração</dt><dd>Ana Paula Monteiro Gomides Reis · Carlos Eduardo Lins · Jamille Nascimento Carneiro · Licia Mota · Raianni Rúbia Pacheco Silva · Regina Alice Fontes von Kirchenheim · Tainá Cândida de Almeida Gontijo Carneiro</dd>
     <dt>Projeto gráfico</dt><dd>Fortunato Estúdio · direção de design: Victor Fortunato</dd>
     <dt>Diagramação</dt><dd>Fortunato Estúdio</dd>
     <dt>Ilustrações</dt><dd>Fortunato Estúdio (${nSvgs} peças vetoriais autorais)</dd>

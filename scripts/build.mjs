@@ -38,12 +38,21 @@ function inlineSvg(name) {
   if (!existsSync(p)) return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="12" fill="#ece2f1"/><text x="50" y="54" text-anchor="middle" font-size="9" fill="#7a4e93">${name}</text></svg>`;
   return readFileSync(p, "utf8").replace(/<\?xml[^>]*>\s*/, "");
 }
+// QR Codes também clicáveis no PDF de leitura e na web (os endereços são os que os códigos leem)
+const QR_URL = { ubs: "https://info.saude.df.gov.br/busca-saude-ubs/", "ceaf-digital": "https://ceafdigital.saude.df.gov.br/",
+  "farmacia-estoque": "https://info.saude.df.gov.br/saude-do-cidadao/painel-infosaude-farmacias-de-alto-custo/",
+  "instagram-anplupus": "https://www.instagram.com/anplupus", "instagram-amaviraras": "https://www.instagram.com/amaviraras",
+  "site-amaviraras": "https://www.amaviraras.org/" };
 function inlineQr(name) {
-  return readFileSync(join(root, "assets/qr", `${name}.svg`), "utf8").replace(/<\?xml[^>]*>\s*/, "");
+  const svg = readFileSync(join(root, "assets/qr", `${name}.svg`), "utf8").replace(/<\?xml[^>]*>\s*/, "");
+  return QR_URL[name] ? `<a class="qr-link" href="${QR_URL[name]}">${svg}</a>` : svg;
 }
+// texto alternativo dos logos (leitor de tela na web e no PDF com tags)
+const LOGO_ALT = { srb: "Sociedade de Reumatologia de Brasília", "srb-branco": "Sociedade de Reumatologia de Brasília", anplupus: "ANPLúpus",
+  "anplupus-horizontal": "ANPLúpus", "anplupus-horizontal-branco": "ANPLúpus", amaviraras: "AMAVI Raras" };
 function logoTag(name) {
   for (const ext of ["svg", "png", "jpg", "jpeg"]) {
-    if (existsSync(join(root, "assets/logos", `${name}.${ext}`))) return `<img src="assets/logos/${name}.${ext}" alt="${name}">`;
+    if (existsSync(join(root, "assets/logos", `${name}.${ext}`))) return `<img src="assets/logos/${name}.${ext}" alt="${LOGO_ALT[name] || name}">`;
   }
   return `<div class="logo-placeholder">${name}</div>`;
 }
@@ -205,8 +214,20 @@ function smartQuotes(html) {
 body = smartQuotes(body);
 // tratamentos e nome próprio não se separam no fim da linha
 body = body.replace(/\b(Dra?\.) (?=[A-ZÁÉÍÓÚÂÊÔÃÕÇ])/g, "$1 ").replace(/Cristina Montina/g, "Cristina Montina");
-// URL dos QR Codes: quebra só depois de barra (nunca no meio da palavra)
-body = body.replace(/(<p class="url">)([\s\S]*?)(<\/p>)/g, (m, a, t, b) => a + t.replace(/\//g, "/<wbr>") + b);
+// expressões que não se partem no fim da linha
+body = body.replace(/QR Code/g, "QR\u00a0Code").replace(/Distrito Federal/g, "Distrito\u00a0Federal").replace(/Alto Custo/g, "Alto\u00a0Custo").replace(/São Paulo/g, "São\u00a0Paulo");
+// versão digital: endereços, e-mails, sites e telefones viram links (PDF de leitura e web; no papel não muda nada)
+body = body.replace(/<p class="url">([^<]+)<\/p>/g, (m, t) =>
+  `<p class="url"><a href="${t.startsWith("@") ? "https://www.instagram.com/" + t.slice(1) : "https://" + t}">${t}</a></p>`);
+body = body.replace(/<dd>([^<]+)<\/dd>/g, (m, t) => {
+  if (/^[\w.+-]+@[\w-]+(\.[\w-]+)+$/.test(t)) return `<dd><a href="mailto:${t}">${t}</a></dd>`;
+  if (/^[a-z0-9-]+(\.[a-z0-9-]+)+(\/\S*)?$/i.test(t)) return `<dd><a href="https://${t}">${t}</a></dd>`;
+  return m;
+});
+body = body.replace(/(<[^>]+>)|([^<]+)/g, (m, tag, txt) => tag || txt.replace(/\(61\) \d{4,5}-\d{4}/g, n => `<a href="tel:+55${n.replace(/\D/g, "")}">${n}</a>`));
+// URL dos QR Codes: quebra só depois de barra; cada trecho fica inteiro (só nos nós de texto, para não tocar no link)
+body = body.replace(/(<p class="url">)([\s\S]*?)(<\/p>)/g, (m, a, t, b) =>
+  a + t.replace(/(<[^>]+>)|([^<]+)/g, (mm, tag, txt) => tag || txt.split("/").map(s => s && `<span class="url-seg">${s}</span>`).join("/<wbr>")) + b);
 // referências: volume, página e intervalos não se separam
 body = body.replace(/(<ol class="refs-list">)([\s\S]*?)(<\/ol>)/, (m, a, t, b) =>
   a + t.replace(/\b(v|p|n|supl)\. (?=\d)/g, "$1. ").replace(/(\d+)([–-])(\d+)/g, '<span class="nw">$1$2$3</span>') + b);
@@ -272,20 +293,28 @@ const print = template
       link.setAttribute("data-pg", r);
     }
   }
-  Paged.registerHandlers(FimDeCapitulo, TopoAlinhado, SumarioRomano);
+  // Aberturas de capítulo, referências e bônus: só o fólio no rodapé, sem repetir o título que já está na página.
+  class AberturaDeCapitulo extends Paged.Handler {
+    afterPageLayout(pageEl) { if (pageEl.querySelector(".chapter-opener, section.bonus > h1")) pageEl.classList.add("chapter-first"); }
+  }
+  Paged.registerHandlers(FimDeCapitulo, TopoAlinhado, SumarioRomano, AberturaDeCapitulo);
   window.PagedPolyfill.preview().then(() => { window.__pagedDone = true; });
 </script>`);
 writeFileSync(join(dist, "print.html"), print);
 
-// ---- versão para gráfica: sangria de 3 mm + marcas de corte ----
+// ---- versão para gráfica: sangria de 3 mm (as marcas de corte entram no livreto.py, fora da sangria) ----
 const cssGrafica = readFileSync(join(root, "src/styles.css"), "utf8")
-  .replace("size: A4;\n  margin: 20mm 18mm 22mm 22mm;", "size: A4;\n  bleed: 3mm;\n  marks: crop cross;\n  margin: 20mm 18mm 22mm 22mm;");
+  .replace("size: A4;\n  margin: 20mm 18mm 22mm 22mm;", "size: A4;\n  bleed: 3mm;\n  margin: 20mm 18mm 22mm 22mm;");
 if (!cssGrafica.includes("bleed: 3mm")) throw new Error("não achei o bloco @page para inserir a sangria");
 writeFileSync(join(dist, "styles-grafica.css"), cssGrafica);
 const grafica = print.replace('href="styles.css"', 'href="styles-grafica.css"').replace("</head>", `<style>
   /* fundo das páginas de capa e da faixa de fim de capítulo avança na sangria */
   .pagedjs_page.pagedjs_cover_page { background: #2b1b33; }
-  .pagedjs_page.chapter-last { background: linear-gradient(to top, #f5f0f8 0, #f5f0f8 20mm, #ffffff 20mm); }
+  .pagedjs_page.chapter-last { background: #fff; box-shadow: inset 0 -20mm 0 #f5f0f8; } /* cor chapada em vetor (degradê virava bitmap no CMYK) */
+  /* a arte da capa avança na sangria (antes era cortada no refile) */
+  .pagedjs_cover_page .cover { overflow: visible; } .cover .art svg { overflow: visible; }
+  /* texto corrido, negrito e QR Codes em preto puro: o preto100k.py leva para 100% K (sem franja de registro no corpo de 10,5 pt) */
+  :root { --ink: #000; } strong { color: #000; } .qr .code { color: #000; }
   .pagedjs_page.chapter-last .chapter-last-band { border-top: 0; }
   .pagedjs_page.chapter-last .chapter-last-band::before { content: ""; position: absolute; left: -3mm; right: -3mm; top: 0; height: 2.5px; background: #7a4e93; }
   @media screen { .pagedjs_page { background: white; } }

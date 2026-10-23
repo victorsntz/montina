@@ -371,7 +371,7 @@ th {
   border-bottom: 2px solid var(--plum-300);
 }
 td:first-child { font-weight: 700; color: var(--plum-900); white-space: nowrap; }
-td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
+td.tel { white-space: nowrap; }
 
 /* ---------- contato / cartão ---------- */
 .card {
@@ -431,8 +431,8 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .qr .code { width: 34mm; height: 34mm; background: white; border-radius: 6px; padding: 2mm; color: var(--plum-950); }
 .qr .code svg { width: 100%; height: 100%; display: block; }
 .qr h4 { margin: 0 0 0.25rem; }
-.qr h4.with-ico { display: flex; align-items: center; gap: 0.45rem; }
-.qr h4.with-ico svg { width: 1.15rem; height: 1.15rem; color: var(--plum-500); flex: none; }
+.qr h4.with-ico { display: block; }
+.qr h4.with-ico svg { display: inline-block; width: 1.15rem; height: 1.15rem; color: var(--plum-500); vertical-align: -0.22em; margin-right: 0.35rem; }
 .qr p { margin: 0 0 0.3rem; max-width: none; }
 .qr .url { font-size: 0.8rem; color: var(--plum-500); word-break: normal; overflow-wrap: anywhere; }
 /* dois QR Codes lado a lado (site + Instagram) */
@@ -577,11 +577,12 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .imprint .catalog-body { display: grid; grid-template-columns: 14mm 1fr; gap: 3mm; }
 .imprint .catalog .cutter { font-weight: 600; }
 .imprint .catalog-foot { display: flex; justify-content: space-between; margin-top: 0.7rem; padding-top: 0.5rem; border-top: 1px solid var(--lilac-200); }
-.imprint .logos { display: flex; gap: 12mm; align-items: center; margin: 1rem 0 1.4rem; }
-.imprint .logos .logo { height: 12mm; display: flex; align-items: center; }
-.imprint .logos .logo svg { height: 100%; width: auto; }
-.imprint .logos .logo img { height: 20mm; width: auto; }
-.imprint .logos .logo img[src*="anplupus-horizontal"] { height: 8.5mm; }
+/* logos da ficha: a caixa tem a altura do logo mais alto (nada invade o texto de cima) e a linha cabe na coluna de 140 mm */
+.imprint .logos { display: flex; gap: 8mm; align-items: center; margin: 1rem 0 1.4rem; }
+.imprint .logos .logo { height: 15mm; display: flex; align-items: center; }
+.imprint .logos .logo svg { height: 9mm; width: auto; }
+.imprint .logos .logo img { height: 15mm; width: auto; }
+.imprint .logos .logo img[src*="anplupus-horizontal"] { height: 7mm; }
 
 /* sumário */
 .toc { break-after: page; page-break-after: always; }
@@ -647,6 +648,7 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 .bonus-col h4 { font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--plum-500); margin: 0 0 0.6rem; padding-bottom: 0.4rem; border-bottom: 1.5px solid var(--lilac-200); }
 .bonus-col p { max-width: none; font-size: 0.95rem; }
 .bonus-col.manifesto { background: var(--lilac-050); border-radius: 14px; padding: 6mm 6mm 5mm; }
+.bonus-col:not(.manifesto) { padding-top: 6mm; } /* rótulos e fios das duas colunas na mesma altura */
 .bonus-col.manifesto p { font-family: var(--serif); font-size: 1.02rem; line-height: 1.45; color: var(--plum-900); font-variation-settings: "opsz" 24, "SOFT" 50; }
 .bonus-col.manifesto .signature { margin-top: 1rem; font-family: var(--serif); font-size: 0.95rem; color: var(--ink-soft); }
 .bonus-col.manifesto .signature strong { display: block; font-size: 1.05rem; color: var(--plum-900); font-weight: 500; }
@@ -780,6 +782,9 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
    WEB — leitura em tela
    ===================================================================== */
 @media screen {
+  html { scroll-padding-top: 68px; } /* âncoras do sumário não somem atrás da barra fixa */
+  body.web nav.webnav a { position: relative; }
+  body.web nav.webnav a:not(.dl)::after { content: ""; position: absolute; inset: -12px -8px; }
   body.web { background: var(--cream); }
   body.web .page-wrap {
     max-width: 860px;
@@ -880,6 +885,15 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   body.web .org-header { grid-template-columns: 96px minmax(0, 1fr); gap: 16px; }
   body.web .org-header .org-logo { width: 96px; height: 96px; padding: 10px; }
   body.web .preface-side { grid-template-columns: 112px minmax(0, 1fr); }
+  body.web .preface-side .portrait { width: 100%; height: auto; aspect-ratio: 42 / 54; }
+  body.web .card dl { grid-template-columns: 1fr; row-gap: 2px; }
+  body.web .card dt { margin-top: 10px; }
+  body.web .card dt:first-child { margin-top: 0; }
+  body.web .spot h2 { font-size: 1.3rem; }
+  body.web .imprint .sep { display: block; height: 0; overflow: hidden; }
+  body.web .back-cover .collab-list li { display: block; }
+  body.web .back-cover .collab-list li::after { content: none; }
+  body.web .cover .art circle[cy="108"] { display: none; }
   body.web .preface-side > * { min-width: 0; }
   body.web nav.webnav { padding: 10px 16px; gap: 12px; }
   body.web nav.webnav a { white-space: nowrap; }
@@ -892,7 +906,13 @@ td.tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
   body.web .spot .icon { width: 56px; height: 56px; }
   body.web .qr { grid-template-columns: 1fr; }
   body.web .qr-duo { grid-template-columns: 1fr; }
-  body.web table { display: block; overflow-x: auto; }
+  /* a única tabela (unidades da Farmácia de Alto Custo) vira lista no celular, sem rolagem escondida */
+  body.web table { display: block; overflow: visible; } body.web thead { display: none; }
+  body.web tbody, body.web tr, body.web td { display: block; }
+  body.web tr { padding: 10px 0; border-bottom: 1px solid var(--lilac-200); } body.web td { padding: 1px 0; border: 0; }
+  body.web td:first-child { font-weight: 700; }
+  body.web td.tel:nth-child(3)::before { content: "Telefone: "; color: var(--plum-500); font-weight: 600; }
+  body.web td.tel:nth-child(4)::before { content: "WhatsApp: "; color: var(--plum-500); font-weight: 600; }
   body.web td:first-child { white-space: normal; }
 }
 @media screen and (max-width: 400px) {
@@ -933,3 +953,28 @@ body.web .guarda { display: none; }
 .back-cover .isbn { position: absolute; left: 50%; bottom: 16mm; width: 35.9mm; transform: translateX(-50%); line-height: 0; }
 .back-cover .isbn svg { width: 100%; height: auto; display: block; }
 body.web .back-cover .isbn { display: none; }
+
+/* ---------- auditoria pós-ISBN ---------- */
+/* sumário: número da seção na linha de base do título */
+.toc li.l2 > a { align-items: baseline; }
+/* caixa que termina em lista: mesmo respiro no pé das outras */
+.box > ul:last-child > li:last-child { margin-bottom: 0; }
+/* aberturas de capítulo, referências e bônus: só o fólio no rodapé (o título já está na página) */
+.pagedjs_right_page.chapter-first .pagedjs_margin-bottom-left,
+.pagedjs_left_page.chapter-first .pagedjs_margin-bottom-right { visibility: hidden; }
+/* livreto: a mancha de 140 mm espelha; nas páginas pares ela encosta na lombada, como nas ímpares */
+body.print .pagedjs_left_page .pagedjs_page_content :is(section.chapter, section.refs) > :not(.chapter-opener) { margin-left: 30mm; }
+/* contracapa: logos num eixo só, com o do meio sobre a linha central (a de "Apoio" e do ISBN) */
+body.print .back-cover .logos { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8mm; }
+body.print .back-cover .logos .logo:first-child { justify-self: end; margin-right: -3.6mm; }
+body.print .back-cover .logos .logo:last-child { justify-self: start; }
+body.print .back-cover .logos .logo:first-child svg { height: 10mm; }
+/* colaboradores: quebra escolhida, sem o "·" pendurado no fim da linha (só no papel; na tela a largura muda) */
+body.print .back-cover .collab-list li.fim::after { content: "\A"; white-space: pre; }
+/* versão digital: endereços, e-mails e telefones clicáveis, discretos no papel e sublinhados na tela */
+.card dd a, .qr .url a, td.tel a, a[href^="tel:"] { color: inherit; text-decoration: none; }
+body.web .card dd a, body.web .qr .url a, body.web a[href^="tel:"] { text-decoration: underline; text-decoration-color: var(--lilac-200); text-underline-offset: 2px; }
+/* URL dos QR Codes: no papel, quebra só depois da barra (nunca no hífen) */
+body.print .url-seg { white-space: nowrap; }
+.qr-link { display: block; color: inherit; line-height: 0; }
+.qr-link svg { width: 100%; height: 100%; }

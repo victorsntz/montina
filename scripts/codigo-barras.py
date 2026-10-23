@@ -27,8 +27,8 @@ mods += [("101", True)]
 PAD, QZ_E, QZ_D = 4, 11, 7                 # respiro do selo e zonas de silêncio (em módulos)
 X0 = PAD + QZ_E                            # início das barras
 W = X0 + 95 + QZ_D + PAD                   # 121 módulos
-TOPO, ALT, GUARDA = 15, 62, 5              # barras normais e prolongamento das guardas
-H = TOPO + ALT + GUARDA + 6 + PAD - 3      # 89 módulos
+TOPO, ALT, GUARDA = 15, 69, 5              # barras na altura nominal do EAN-13 (69 módulos) e prolongamento das guardas
+H = TOPO + ALT + GUARDA + 6 + PAD - 3      # 96 módulos
 
 rects, x = [], X0
 for padrao, guarda in mods:
